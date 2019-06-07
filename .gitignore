@@ -12,7 +12,6 @@ The 5zig Mod/lwjgl natives/
 out/
 /build
 /bak
-/.idea/
 /mc_out
 /lwjgl_natives
 .gradle

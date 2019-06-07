@@ -93,7 +93,11 @@ public class ConfigNew {
 		add(new DisplayScreenItem("modules", "main", GuiModules.class));
 		add(new DisplayCategoryItem("server", "main", "server"));
 		add(new DisplayScreenItem("teamspeak", "main", GuiTeamSpeak.class));
-		add(new DisplayScreenItem("friend_list", "main", GuiFriends.class));
+
+		// Disabled until we get enough funds for a server.
+		// [REBORN] Network server disabled
+		// add(new DisplayScreenItem("friend_list", "main", GuiFriends.class));
+
 		add(new PlaceholderItem("main"));
 		add(new PlaceholderItem("main"));
 		add(new DisplayScreenItem("cape_settings", "main", GuiCapeSettings.class));

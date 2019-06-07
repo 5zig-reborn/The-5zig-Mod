@@ -219,7 +219,10 @@ public class The5zigMod {
 		friendManager = new FriendManager();
 		partyManager = new PartyManager();
 		trayManager = new TrayManager();
-		newNetworkManager();
+
+		// Disabled until we get enough funds for a server.
+		// [REBORN] Network server disabled
+		// newNetworkManager();
 
 		skinManager = new SkinManager();
 
