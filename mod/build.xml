@@ -1,0 +1,65 @@
+<project default="deploy">
+    <target name="init">
+        <property name="java_version" value="1.6"/>
+        <property name="mcversion" value="unknown"/>
+        <property name="version" value="unknown"/>
+
+        <property name="sourceDir" value="src"/>
+        <property name="outputDir" value="bin"/>
+        <property name="jarname" value="the-5zig-mod.jar"/>
+
+        <path id="classpath">
+            <fileset dir="lib" />
+            <fileset dir="../libraries" />
+            <fileset file="../utils/utils.jar" />
+            <fileset file="../mod-utils/mod-utils.jar" />
+            <fileset file="../minecraft-utils/minecraft-utils.jar" />
+            <fileset file="../the-5zig-api/the-5zig-api.jar" />
+            <fileset file="../teamspeak-api/teamspeak-api.jar" />
+        </path>
+    </target>
+    <target name="clean" depends="init">
+        <delete dir="${outputDir}"/>
+    </target>
+    <target name="prepare" depends="clean">
+        <mkdir dir="${outputDir}"/>
+
+        <propertyfile file="res/the5zigmod.properties">
+            <entry key="version" value="${version}"/>
+            <entry key="mcversion" value="${mcversion}"/>
+        </propertyfile>
+    </target>
+    <target name="compile" depends="prepare">
+        <javac target="${java_version}" source="${java_version}" srcdir="${sourceDir}" destdir="${outputDir}" debug="on" debuglevel="lines,vars,source" classpathref="classpath" encoding="iso-8859-1"
+               includeantruntime="false"/>
+        <copy todir="bin">
+            <fileset dir="res" />
+            <fileset dir="licenses" />
+            <fileset dir="../docs/resources" />
+            <fileset file="../crash-hopper/crash-hopper.jar" />
+        </copy>
+        <unjar dest="${outputDir}">
+            <fileset file="lib/asm-all-5.0.3.jar" />
+            <fileset file="lib/h2-1.4.183.jar" />
+            <fileset file="lib/json-simple-1.1.1.jar" />
+            <fileset file="lib/jacob.jar" />
+            <fileset file="../utils/utils.jar" />
+            <fileset file="../mod-utils/mod-utils.jar" />
+            <fileset file="../minecraft-utils/minecraft-utils.jar" />
+            <fileset file="../the-5zig-api/the-5zig-api.jar" />
+            <fileset file="../teamspeak-api/teamspeak-api.jar" />
+        </unjar>
+    </target>
+    <target name="jar">
+        <jar destfile="${jarname}" basedir="${outputDir}">
+            <manifest>
+                <attribute name="Manifest-Version" value="1.0"/>
+                <attribute name="Main-Class" value="eu.the5zig.mod.installer.Frame"/>
+                <attribute name="TweakClass" value="eu.the5zig.mod.asm.ClassTweaker" />
+                <attribute name="TweakOrder" value="-900"/>
+            </manifest>
+        </jar>
+        <delete file="res/the5zigmod.properties"/>
+    </target>
+    <target name="deploy" depends="init,compile,jar"/>
+</project>

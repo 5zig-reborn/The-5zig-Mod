@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "eu.the5zig.mod.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "mixins.refmap.json",
+  "mixins": [
+    "MixinMinecraft",
+    "MixinGuiMainMenu",
+    "MixinGuiIngame",
+    "MixinGuiOptions",
+    "MixinRenderLivingEntity",
+    "MixinEntityRenderer"
+  ]
+}

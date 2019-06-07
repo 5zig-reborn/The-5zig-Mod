@@ -1,0 +1,3 @@
+Gcc -Wl,--add-stdcall-alias -I"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/" -shared -mwindows -w -o roccat32.dll "/Users/alex/Documents/Dev/The 5zig Mod/Repository/The 5zig Mod/native/keyboard/roccat/roccat.cpp" -L"/Users/alex/Documents/Dev/The 5zig Mod/Repository/The 5zig Mod/native/keyboard/roccat/lib/libroccat.lib"
+
+gcc -m64 -Wl,--add-stdcall-alias -I"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/jni.h" -shared -mwindows -w -o roccat32.dll roccat.cpp lib/libroccat.lib

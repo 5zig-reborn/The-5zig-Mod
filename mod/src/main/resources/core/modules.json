@@ -1,0 +1,767 @@
+{
+  "modules": [
+    {
+      "id": "stats",
+      "name": "The 5zig Mod v%version%",
+      "translation": "",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "AFK_TIME"
+        },
+        {
+          "type": "FPS",
+          "settings": [
+            {
+              "name": "preciseFPS",
+              "value": {
+                "preciseFPS": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "COORDINATES",
+          "settings": [
+            {
+              "name": "coordStyle",
+              "value": {
+                "coordStyle": "BELOW_OTHER"
+              }
+            }
+          ]
+        },
+        {
+          "type": "DIRECTION",
+          "settings": [
+            {
+              "name": "directionStyle",
+              "value": {
+                "directionStyle": "STRING"
+              }
+            },
+            {
+              "name": "showDirectionTowards",
+              "value": {
+                "showDirectionTowards": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "IP"
+        },
+        {
+          "type": "PLAYERS"
+        },
+        {
+          "type": "PING"
+        },
+        {
+          "type": "TIMER"
+        }
+      ]
+    },
+    {
+      "id": "armor",
+      "translation": "armor.title",
+      "showLabel": true,
+      "location": "TOP_RIGHT",
+      "items": [
+        {
+          "type": "MAIN_HAND",
+          "settings": [
+            {
+              "name": "attributes",
+              "value": {
+                "attributes": true
+              }
+            },
+            {
+              "name": "durability",
+              "value": {
+                "durability": "RELATIVE"
+              }
+            }
+          ]
+        },
+        {
+          "type": "OFF_HAND",
+          "settings": [
+            {
+              "name": "attributes",
+              "value": {
+                "attributes": true
+              }
+            },
+            {
+              "name": "durability",
+              "value": {
+                "durability": "RELATIVE"
+              }
+            }
+          ]
+        },
+        {
+          "type": "ARROWS"
+        },
+        {
+          "type": "HELMET",
+          "settings": [
+            {
+              "name": "attributes",
+              "value": {
+                "attributes": true
+              }
+            },
+            {
+              "name": "durability",
+              "value": {
+                "durability": "RELATIVE"
+              }
+            }
+          ]
+        },
+        {
+          "type": "CHESTPLATE",
+          "settings": [
+            {
+              "name": "attributes",
+              "value": {
+                "attributes": true
+              }
+            },
+            {
+              "name": "durability",
+              "value": {
+                "durability": "RELATIVE"
+              }
+            }
+          ]
+        },
+        {
+          "type": "LEGGINGS",
+          "settings": [
+            {
+              "name": "attributes",
+              "value": {
+                "attributes": true
+              }
+            },
+            {
+              "name": "durability",
+              "value": {
+                "durability": "RELATIVE"
+              }
+            }
+          ]
+        },
+        {
+          "type": "BOOTS",
+          "settings": [
+            {
+              "name": "attributes",
+              "value": {
+                "attributes": true
+              }
+            },
+            {
+              "name": "durability",
+              "value": {
+                "durability": "RELATIVE"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SOUPS"
+        }
+      ]
+    },
+    {
+      "id": "potions",
+      "translation": "potion_effects.title",
+      "showLabel": true,
+      "location": "CENTER_LEFT",
+      "items": [
+        {
+          "type": "POTIONS"
+        }
+      ]
+    },
+    {
+      "id": "customserver",
+      "render": "CUSTOM_SERVER",
+      "showLabel": false,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "CUSTOM_SERVER"
+        }
+      ]
+    },
+    {
+      "id": "coordinatesclipboard",
+      "showLabel": false,
+      "location": "CUSTOM",
+      "locationX": "0.5f",
+      "locationY": "0.1f",
+      "anchor": "TOP_CENTER",
+      "items": [
+        {
+          "type": "COORDINATES_CLIPBOARD"
+        }
+      ]
+    },
+    {
+      "id": "timolia",
+      "name": "%gamemode%",
+      "server": "timolia",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        },
+        {
+          "type": "NICKNAME"
+        },
+        {
+          "type": "TIMOLIA_PVP_WINSTREAK"
+        },
+        {
+          "type": "TIMOLIA_PVP_OPPONENT"
+        },
+        {
+          "type": "TIMOLIA_PVP_OPPONENT_GAMES"
+        },
+        {
+          "type": "TIMOLIA_PVP_OPPONENT_WINS"
+        },
+        {
+          "type": "TIMOLIA_PVP_OPPONENT_KDR"
+        },
+        {
+          "type": "TIMOLIA_DNA_HEIGHT"
+        },
+        {
+          "type": "TIMOLIA_ARCADE_CURRENT_MINIGAME"
+        },
+        {
+          "type": "TIMOLIA_ARCADE_NEXT_MINIGAME"
+        },
+        {
+          "type": "TIMOLIA_ARENA_ROUND"
+        },
+        {
+          "type": "TIMOLIA_BRAINBOW_TEAM"
+        },
+        {
+          "type": "TIMOLIA_BRAINBOW_SCORE"
+        },
+        {
+          "type": "TIMOLIA_ADVENT_MEDAL"
+        },
+        {
+          "type": "TIMOLIA_ADVENT_PARKOUR"
+        },
+        {
+          "type": "TIMOLIA_ADVENT_CHECKPOINT"
+        },
+        {
+          "type": "TIMOLIA_ADVENT_FAILS"
+        },
+        {
+          "type": "TIMOLIA_INTIME_INVINCIBILITY"
+        },
+        {
+          "type": "TIMOLIA_INTIME_REGENERATION"
+        },
+        {
+          "type": "TIMOLIA_INTIME_LOOT"
+        },
+        {
+          "type": "TIMOLIA_INTIME_INVINCIBILITY_MESSAGE"
+        },
+        {
+          "type": "TIMOLIA_JUMPWORLD_FAILS"
+        },
+        {
+          "type": "TIMOLIA_JUMPWORLD_CHECKPOINT"
+        },
+        {
+          "type": "TIMOLIA_JUMPWORLD_LAST_CHECKPOINT"
+        }
+      ]
+    },
+    {
+      "id": "timoliatournament",
+      "server": "timolia",
+      "render": "TIMOLIA_TOURNAMENT",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "TIMOLIA_TOURNAMENT_PARTICIPANTS"
+        },
+        {
+          "type": "TIMOLIA_TOURNAMENT_ROUND"
+        },
+        {
+          "type": "TIMOLIA_TOURNAMENT_FIRST_TO"
+        },
+        {
+          "type": "TIMOLIA_TOURNAMENT_QUALIFICATION"
+        },
+        {
+          "type": "TIMOLIA_TOURNAMENT_ROUND_SCORE"
+        }
+      ]
+    },
+    {
+      "id": "gommehd",
+      "name": "%gamemode%",
+      "server": "gommehd",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        },
+        {
+          "type": "NICKNAME"
+        },
+        {
+          "type": "GOMMEHD_SG_DEATHMATCH"
+        },
+        {
+          "type": "GOMMEHD_SG_DEATHMATCH_MESSAGE"
+        },
+        {
+          "type": "GOMMEHD_BEDWARS_TEAM"
+        },
+        {
+          "type": "GOMMEHD_BEDWARS_RESPAWN"
+        },
+        {
+          "type": "GOMMEHD_BEDWARS_BEDS"
+        },
+        {
+          "type": "GOMMEHD_BEDWARS_GOLD"
+        },
+        {
+          "type": "GOMMEHD_ENDERGAMES_KIT"
+        },
+        {
+          "type": "GOMMEHD_ENDERGAMES_COINS"
+        },
+        {
+          "type": "GOMMEHD_SKYWARS_COINS"
+        },
+        {
+          "type": "GOMMEHD_SKYWARS_TEAM"
+        },
+        {
+          "type": "GOMMEHD_SKYWARS_KIT"
+        },
+        {
+          "type": "GOMMEHD_RAGEMODE_EMERALDS"
+        }
+      ]
+    },
+    {
+      "id": "playminity",
+      "name": "%gamemode%",
+      "server": "playminity",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        },
+        {
+          "type": "PLAYMINITY_JUMPLEAGUE_CHECKPOINTS"
+        },
+        {
+          "type": "PLAYMINITY_JUMPLEAGUE_FAILS"
+        },
+        {
+          "type": "PLAYMINITY_JUMPLEAGUE_LIVES"
+        }
+      ]
+    },
+    {
+      "id": "bergwerk",
+      "name": "%gamemode%",
+      "server": "bergwerk",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        },
+        {
+          "type": "BERGWERK_DUEL_TEAM"
+        },
+        {
+          "type": "BERGWERK_DUEL_RESPAWN"
+        },
+        {
+          "type": "BERGWERK_DUEL_TELEPORT_MESSAGE"
+        }
+      ]
+    },
+    {
+      "id": "mineplex",
+      "name": "%gamemode%",
+      "server": "mineplex",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        }
+      ]
+    },
+    {
+      "id": "hypixel",
+      "name": "%gamemode%",
+      "server": "hypixel",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        },
+        {
+          "type": "HYPIXEL_PAINTBALL_TEAM"
+        },
+        {
+          "type": "HYPIXEL_BLITZ_KIT"
+        },
+        {
+          "type": "HYPIXEL_BLITZ_STAR"
+        },
+        {
+          "type": "HYPIXEL_BLITZ_DEATHMATCH"
+        },
+        {
+          "type": "HYPIXEL_BLITZ_STAR_MESSAGE"
+        },
+        {
+          "type": "HYPIXEL_BLITZ_DEATHMATCH_MESSAGE"
+        }
+      ]
+    },
+    {
+      "id": "venicraft",
+      "name": "%gamemode%",
+      "server": "venicraft",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        },
+        {
+          "type": "VENICRAFT_MINEATHLON_DISCIPLINE"
+        },
+        {
+          "type": "VENICRAFT_MINEATHLON_ROUND"
+        }
+      ]
+    },
+    {
+      "id": "cytooxien",
+      "name": "%gamemode%",
+      "server": "cytooxien",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        },
+        {
+          "type": "CYTOOXIEN_MARIOPARTY_PLACE"
+        },
+        {
+          "type": "CYTOOXIEN_MARIOPARTY_REMAINING_FIELDS"
+        },
+        {
+          "type": "CYTOOXIEN_MARIOPARTY_MINIGAMES"
+        },
+        {
+          "type": "CYTOOXIEN_MARIOPARTY_FIRST_SECOND_THIRD"
+        },
+        {
+          "type": "CYTOOXIEN_BW_TEAM"
+        },
+        {
+          "type": "CYTOOXIEN_BW_STATS_KILLS"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "DEATHS"
+        },
+        {
+          "type": "CYTOOXIEN_BW_BEDS"
+        },
+        {
+          "type": "CYTOOXIEN_BW_CAN_RESPAWN"
+        }
+      ]
+    },
+    {
+      "id": "simplehg",
+      "name": "%gamemode%",
+      "server": "simplehg",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "LOBBY"
+        },
+        {
+          "type": "COUNTDOWN"
+        },
+        {
+          "type": "SIMPLEHG_KIT"
+        },
+        {
+          "type": "SIMPLEHG_FEAST"
+        },
+        {
+          "type": "SIMPLEHG_MINIFEAST"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "NICKNAME"
+        },
+        {
+          "type": "WIN_MESSAGE"
+        }
+      ]
+    },
+    {
+      "id": "party",
+      "name": "Party",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "PARTY_MEMBERS",
+          "settings": [
+            {
+              "name": "star",
+              "value": {
+                "star": true
+              }
+            },
+            {
+              "name": "length",
+              "value": {
+                "length": 7.0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teamspeak",
+      "name": "TeamSpeak",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "TEAMSPEAK"
+        }
+      ]
+    },
+    {
+      "id": "spotify",
+      "showLabel": false,
+      "location": "BOTTOM_RIGHT",
+      "items": [
+        {
+          "type": "SPOTIFY",
+          "settings": [
+            {
+              "name": "showSpotifyAlways",
+              "value": {
+                "showSpotifyAlways": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "itunes",
+      "showLabel": false,
+      "location": "BOTTOM_RIGHT",
+      "items": [
+        {
+          "type": "ITUNES",
+          "settings": [
+            {
+              "name": "showITunesAlways",
+              "value": {
+                "showITunesAlways": false
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "defaultModules": [
+    "stats",
+    "armor",
+    "potions",
+    "customserver",
+    "coordinatesclipboard",
+    "timolia",
+    "timoliatournament",
+    "gommehd",
+    "playminity",
+    "bergwerk",
+    "mineplex",
+    "hypixel",
+    "venicraft",
+    "cytooxien",
+    "simplehg",
+    "party",
+    "teamspeak",
+    "spotify",
+    "itunes"
+  ]
+}

@@ -1,0 +1,60 @@
+/*
+task v1_7_10 {
+    sourceSets.main.java {
+        srcDirs '../version-specific/1.7.10/src/main/java'
+    }
+
+    minecraft {
+        version = "1.7.10-10.13.4.1614-1.7.10"
+        runDir = "mc_out"
+        mappings = 'snapshot_20140925'
+        makeObfSourceJar = false
+    }
+}
+*/
+
+
+task v1_12_2 {
+
+    sourceSets.main.java {
+        srcDirs '../version-specific/1.12.2/src/main/java'
+    }
+
+    minecraft {
+        version = "1.12.2-14.23.5.2838"
+        runDir = "mc_out"
+        mappings = "snapshot_20171003"
+        makeObfSourceJar = false
+    }
+}
+/*
+task v1_13_2 {
+
+    sourceSets.main.java {
+        srcDirs '../version-specific/1.13.2/src/main/java'
+    }
+
+    minecraft {
+        version = "1.12.2-14.23.5.2838"
+        runDir = "mc_out"
+        mappings = "stable_47"
+        makeObfSourceJar = false
+    }
+}
+*/
+
+/*
+task v1_8_9 {
+
+    sourceSets.main.java {
+        srcDirs '../version-specific/1.8.9/src/main/java'
+    }
+
+    minecraft {
+        version = "1.8.9-11.15.1.1722"
+        runDir = "mc_out"
+        mappings = "stable_22"
+        makeObfSourceJar = false
+    }
+}
+*/

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.hynnet:jacob:1.18">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hynnet/jacob/1.18/5955c5e5d26b8ccfaa983fb6c57f40ccf8ac103/jacob-1.18.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hynnet/jacob/1.18/deb12c2b10067f360d3613cd9e30930c3f01897b/jacob-1.18-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hynnet/jacob/1.18/6c89b4c97e071596bdd695fc0acc8303925e0b57/jacob-1.18-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

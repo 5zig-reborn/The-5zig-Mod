@@ -1,0 +1,1 @@
+"C:\Program Files\Java\jdk1.6.0_45\bin\javah" -o roccat.h -classpath "D:\Dev\The 5zig Mod\Repository\out\production\The 5zig Mod" eu.the5zig.eu.the5zig.mod.manager.keyboard.RoccatController

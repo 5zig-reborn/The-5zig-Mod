@@ -1,0 +1,8 @@
+/.gradle
+/bin
+/build
+/log
+/mc_out
+/res
+/out
+*.iml

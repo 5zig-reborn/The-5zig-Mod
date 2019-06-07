@@ -1,0 +1,20 @@
+*.class
+The 5zig Mod/lwjgl natives/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.opendb
+*.sln
+*.sdf
+*.lib
+**Release/
+**.vs
+out/
+/build
+/bak
+/.idea/
+/mc_out
+/lwjgl_natives
+.gradle
+.idea
+**/*.iml

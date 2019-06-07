@@ -1,0 +1,25 @@
+This product is developed by
+5zig (http://www.5zig.net).
+
+This product contains software developed by
+H2-Database (http://h2database.com)
+See H2.txt
+
+This product contains software developed by
+OW2 (http://asm.ow2.org/)
+See ASM.txt
+
+This file contains:
+- The 5zig Modification for Minecraft
+- An Installer and Assets for it
+- The H2-Database Library (~2 MB)
+- ASM for easy bytecode manipulation (~200 KB)
+
+Please note that this modification to the game will transmit your minecraft 
+version, your mod version, your os name and your java version to 5zig.net. If
+you don't agree to that, change it in the profile-menu of the modification!
+
+
+Minecraft is a trademark registered by Markus (Notch) Persson
+
+5zig/The 5zig Mod is not affiliated with Mojang AB or Minecraft.net
