@@ -93,6 +93,8 @@ dependencies {
     compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
     compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
 
+    embed 'com.github.5zig-reborn:DiscordIPC:master-SNAPSHOT'
+
 }
 
 jar {
@@ -104,6 +106,11 @@ jar {
     )
 
     from {
-        configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
+        duplicatesStrategy DuplicatesStrategy.EXCLUDE
+        configurations.embed.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
     }
+
+    exclude 'LICENSE.txt'
 }

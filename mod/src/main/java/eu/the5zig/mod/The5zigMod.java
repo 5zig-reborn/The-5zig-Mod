@@ -21,6 +21,7 @@ package eu.the5zig.mod;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import eu.the5zig.mod.api.ServerAPIBackend;
 import eu.the5zig.mod.asm.ReflectionNames;
 import eu.the5zig.mod.asm.Transformer;
@@ -32,6 +33,7 @@ import eu.the5zig.mod.chat.party.PartyManager;
 import eu.the5zig.mod.config.*;
 import eu.the5zig.mod.config.items.IntItem;
 import eu.the5zig.mod.crashreport.CrashHopper;
+import eu.the5zig.mod.discord.DiscordRPCManager;
 import eu.the5zig.mod.gui.IOverlay;
 import eu.the5zig.mod.listener.EventListener;
 import eu.the5zig.mod.manager.*;
@@ -148,6 +150,8 @@ public class The5zigMod {
 	private static HypixelAPIManager hypixelAPIManager;
 	private static MojangAPIManager mojangAPIManager;
 
+	private static DiscordRPCManager discordRPCManager;
+
 	private static boolean initialized = false;
 
 	private The5zigMod() {
@@ -234,6 +238,13 @@ public class The5zigMod {
 		moduleMaster.loadInitial();
 
 		Updater.check();
+
+		discordRPCManager = new DiscordRPCManager();
+		try {
+			discordRPCManager.init();
+		} catch (NoDiscordClientException e) {
+			logger.warn("No Discord Client found: disabling Rich Presence.");
+		}
 
 		logger.info("Loaded The 5zig Mod v" + Version.VERSION + "! (took {} ms)", System.currentTimeMillis() - start);
 	}
