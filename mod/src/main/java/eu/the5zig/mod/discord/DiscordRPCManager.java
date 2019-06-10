@@ -32,6 +32,9 @@ public class DiscordRPCManager {
     private IPCClient client;
 
     public void init() throws NoDiscordClientException {
+        if(!The5zigMod.getConfig().getBool("discord"))
+            return;
+
         client = new IPCClient(CLIENT_ID);
 
         client.setListener(new IPCListener() {
