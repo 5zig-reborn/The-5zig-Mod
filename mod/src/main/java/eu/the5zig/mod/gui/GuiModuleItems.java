@@ -319,7 +319,7 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 	}
 
 	private boolean isHovered(IButton button, int lastMouseX, int lastMouseY) {
-		return lastMouseX >= button.getX() && lastMouseX <= button.getX() + button.getWidth() && lastMouseY >= button.getY() && lastMouseY <= button.getY() + button.getHeight();
+		return lastMouseX >= button.getX() && lastMouseX <= button.getX() + button.callGetWidth() && lastMouseY >= button.getY() && lastMouseY <= button.getY() + button.callGetHeight();
 	}
 
 	private void renderItemPreviewBox(int x, int y, int width, int height) {

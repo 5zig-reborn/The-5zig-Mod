@@ -144,7 +144,7 @@ public class GuiSettingsSearch extends Gui {
 	}
 
 	private boolean isHovered(IButton button, int lastMouseX, int lastMouseY) {
-		return lastMouseX >= button.getX() && lastMouseX <= button.getX() + button.getWidth() && lastMouseY >= button.getY() && lastMouseY <= button.getY() + button.getHeight();
+		return lastMouseX >= button.getX() && lastMouseX <= button.getX() + button.callGetWidth() && lastMouseY >= button.getY() && lastMouseY <= button.getY() + button.callGetHeight();
 	}
 
 	@Override

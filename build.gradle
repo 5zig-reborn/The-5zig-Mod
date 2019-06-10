@@ -12,3 +12,8 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 }
+
+wrapper {
+    gradleVersion = '4.9'
+    distributionType = Wrapper.DistributionType.ALL
+}

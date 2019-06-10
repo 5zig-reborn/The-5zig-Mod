@@ -549,10 +549,10 @@ public class GuiTeamSpeak extends Gui {
 //			if (Mouse.isButtonDown(0) && openedContextMenu == null) {
 //				if (scrolling || channelScrollBox.contains(mouseX, mouseY)) {
 //					scrolling = true;
-//					float scrollHeight = Math.min(1, (float) entriesPerPage / (float) (entries.size())) * (float) channelScrollBox.getHeight();
+//					float scrollHeight = Math.min(1, (float) entriesPerPage / (float) (entries.size())) * (float) channelScrollBox.callGetHeight();
 //					scrollHeight = Math.max(10, scrollHeight);
-//					float scrollY = Math.max(channelScrollBox.getY(), Math.min(mouseY - 4, channelScrollBox.getY() + channelScrollBox.getHeight() - scrollHeight));
-//					float scroll = (scrollY - channelScrollBox.getY()) / ((float) channelScrollBox.getHeight() - scrollHeight);
+//					float scrollY = Math.max(channelScrollBox.getY(), Math.min(mouseY - 4, channelScrollBox.getY() + channelScrollBox.callGetHeight() - scrollHeight));
+//					float scroll = (scrollY - channelScrollBox.getY()) / ((float) channelScrollBox.callGetHeight() - scrollHeight);
 //					topIndex = Math.max(0, Math.min((int) (scroll * (entries.size() - entriesPerPage)), entries.size() - entriesPerPage));
 //					topEntry = entries.get(topIndex);
 //				}
@@ -612,10 +612,10 @@ public class GuiTeamSpeak extends Gui {
 //									if (entryClass.isAssignableFrom(entry.getClass())) {
 //										openedContextMenu = contextMenus.get(entryClass);
 //										contextMenuBox = new Rectangle(mouseX, mouseY, 150, openedContextMenu.entries.size() * 12 + 2);
-//										while (contextMenuBox.getX() + contextMenuBox.getWidth() > getWidth()) {
+//										while (contextMenuBox.getX() + contextMenuBox.callGetWidth() > callGetWidth()) {
 //											contextMenuBox.setX(contextMenuBox.getX() - 1);
 //										}
-//										while (contextMenuBox.getY() + contextMenuBox.getHeight() > getHeight()) {
+//										while (contextMenuBox.getY() + contextMenuBox.callGetHeight() > callGetHeight()) {
 //											contextMenuBox.setY(contextMenuBox.getY() - 1);
 //										}
 //										break;

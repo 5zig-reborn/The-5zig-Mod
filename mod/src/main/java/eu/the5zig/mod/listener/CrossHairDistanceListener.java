@@ -46,20 +46,6 @@ public class CrossHairDistanceListener {
 			pointedEntity = null;
 			lastPointedEntity = 0;
 		}
-		if (maxDistance > 0 || showEntityHealth) {
-			IVariables.MouseOverObject mouseOverObject = The5zigMod.getVars().calculateMouseOverDistance(Math.max(maxDistance, 10));
-			if (mouseOverObject != null) {
-				distance = maxDistance > 0 ? mouseOverObject.getDistance() : -1;
-				if (showEntityHealth && mouseOverObject.getType() == IVariables.ObjectType.ENTITY) {
-					pointedEntity = mouseOverObject.getObject();
-					lastPointedEntity = System.currentTimeMillis();
-				}
-			} else {
-				distance = -1;
-			}
-		} else {
-			distance = -1;
-		}
 	}
 
 	public void render() {

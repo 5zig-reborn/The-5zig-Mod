@@ -1,0 +1,28 @@
+modLoader="javafml" #mandatory
+loaderVersion="[24,)" #mandatory (24 is current forge version)
+credits="Thanks to Harry Talks for his amazing tutorials." #optional
+authors="Harry" #optional
+
+[[mods]] #mandatory
+modId="the5zigMod" #mandatory
+version="0.1" #mandatory
+displayName="Harry's Tutorial Mod" #mandatory
+description='''
+This is my mod.
+It's great.
+Sub 2 pewdiepie
+'''
+
+[[dependencies.the5zigMod]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[25,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+# Here's another dependency
+[[dependencies.the5zigMod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.13.2]"
+    ordering="NONE"
+side="CLIENT"

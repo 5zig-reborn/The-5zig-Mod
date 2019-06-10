@@ -167,7 +167,7 @@ public class GuiFriends extends Gui {
 	}
 
 	private void drawHover(int mouseX, int mouseY, IButton button, List<String> text) {
-		if (mouseX >= button.getX() && mouseX <= button.getX() + button.getWidth() && mouseY >= button.getY() && mouseY <= button.getY() + button.getHeight()) {
+		if (mouseX >= button.getX() && mouseX <= button.getX() + button.callGetWidth() && mouseY >= button.getY() && mouseY <= button.getY() + button.callGetHeight()) {
 			drawHoveringText(text, mouseX, Math.max(15, mouseY));
 		}
 	}

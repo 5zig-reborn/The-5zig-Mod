@@ -27,11 +27,11 @@ public interface IButton {
 
 	void setLabel(String label);
 
-	int getWidth();
+	int callGetWidth();
 
 	void setWidth(int width);
 
-	int getHeight();
+	int callGetHeight();
 
 	void setHeight(int height);
 

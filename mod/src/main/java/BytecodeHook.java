@@ -456,28 +456,6 @@ public class BytecodeHook {
 	}
 
 	@BytecodeAccess
-	public static boolean isConfirmDisconnect(Object lastScreen) {
-		if (The5zigMod.getConfig().getBool("confirmDisconnect")) {
-			The5zigMod.getVars().displayScreen(new GuiYesNo(The5zigMod.getVars().createWrappedGui(lastScreen), new YesNoCallback() {
-				@Override
-				public void onDone(boolean yes) {
-					if (yes) {
-						The5zigMod.getVars().disconnectFromWorld();
-					}
-				}
-
-				@Override
-				public String title() {
-					return I18n.translate("confirm_disconnect.title");
-				}
-			}));
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@BytecodeAccess
 	public static boolean shouldRenderOwnName() {
 		return The5zigMod.getConfig().getBool("showOwnNameTag");
 	}

@@ -146,10 +146,8 @@ public class EventListener {
 	}
 
 	public void onRenderOverlay() {
-		Minecraft.getMinecraft().mcProfiler.startSection("5zig_render");
 		The5zigMod.getVars().renderOverlay();
 		easterListener.getEasterRenderer().render();
-		Minecraft.getMinecraft().mcProfiler.endSection();
 	}
 
 	private boolean hadNetworkManager = false;

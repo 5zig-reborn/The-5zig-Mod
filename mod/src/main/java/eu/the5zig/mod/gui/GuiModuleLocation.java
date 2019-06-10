@@ -194,8 +194,8 @@ public class GuiModuleLocation extends Gui {
 
 				Rectangle vertical = new Rectangle(windowWidth / 2 - 5, 0, 10, windowHeight);
 				Rectangle horizontal = new Rectangle(0, windowHeight / 2 - 5, windowWidth, 10);
-//				drawRectOutline(vertical.getX(), vertical.getY(), vertical.getX() + vertical.getWidth(), vertical.getY() + vertical.getHeight(), 0x66ffffff);
-//				drawRectOutline(horizontal.getX(), horizontal.getY(), horizontal.getX() + horizontal.getWidth(), horizontal.getY() + horizontal.getHeight(), 0x66ffffff);
+//				drawRectOutline(vertical.getX(), vertical.getY(), vertical.getX() + vertical.callGetWidth(), vertical.getY() + vertical.callGetHeight(), 0x66ffffff);
+//				drawRectOutline(horizontal.getX(), horizontal.getY(), horizontal.getX() + horizontal.callGetWidth(), horizontal.getY() + horizontal.callGetHeight(), 0x66ffffff);
 				drawRect(windowWidth / 2 - 1, 0, windowWidth / 2 + 1, windowHeight, 0x44ffffff);
 				drawRect(0, windowHeight / 2 - 1, windowWidth, windowHeight / 2 + 1, 0x44ffffff);
 

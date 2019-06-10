@@ -70,6 +70,7 @@ public class InstallerNew {
 			throw new MinecraftNotFoundException();
 
 		minecraftJarDirectory = new File(versionsDirectory, minecraftVersion);
+		System.out.println(minecraftJarDirectory.getAbsolutePath());
 		minecraftJarFile = new File(minecraftJarDirectory, minecraftVersion + ".jar");
 		minecraftJsonFile = new File(minecraftJarDirectory, minecraftVersion + ".json");
 		if (!minecraftJarFile.exists() || !minecraftJsonFile.exists())

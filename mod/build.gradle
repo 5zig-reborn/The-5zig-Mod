@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2019 5zig Reborn
+ *
+ * This file is part of The 5zig Mod
+ * The 5zig Mod is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The 5zig Mod is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with The 5zig Mod.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 apply plugin: 'java'
 
 buildscript {
@@ -12,10 +30,11 @@ buildscript {
             name = 'sponge'
             url = 'https://repo.spongepowered.org/maven'
         }
+        maven { url = 'https://jitpack.io'}
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+        classpath 'com.github.5zig-reborn:ForgeGradle:FG_3.0-SNAPSHOT'
+        classpath 'com.github.5zig-reborn:MixinGradle:025b06f417'
     }
 }
 
@@ -25,92 +44,23 @@ repositories {
         url = "http://files.minecraftforge.net/maven"
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-
-apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: org.spongepowered.asm.gradle.plugins.MixinGradlePlugin
 
 mixin {
+    defaultObfuscationEnv notch
     add sourceSets.main, "mixins.refmap.json"
 }
 
-apply from: 'versions.gradle'
-
-sourceSets.main {
-    java {
-        srcDirs 'src/main/java'
-        srcDirs '../version-specific/common/src/main/java'
-        srcDirs '../api/src/main/java'
-    }
-    resources {
-        srcDirs 'src/main/resources'
-        srcDirs '../i18n/resources'
-    }
+minecraft {
+    mappings channel: 'snapshot', version: '20190530-1.13.2'
+    reobfMappings 'notch'
 }
-
-configurations {
-    embed
-    compile.extendsFrom embed
-}
-
-compileJava {
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
-    options.encoding = 'UTF-8'
-}
-
-reobf {
-    jar {
-        mappingType = 'NOTCH'
-    }
-}
-
 
 dependencies {
-    // compile fileTree(dir: '../version-specific/mc-versions', include: ['*.jar'])
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-
-    embed('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-        exclude module: 'launchwrapper'
-        exclude module: 'guava'
-        exclude module: 'gson'
-        exclude module: 'commons-io'
-    }
-
-    compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
-    compile group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
-    compile group: 'com.sun.jna', name: 'jna', version: '3.0.9'
-    compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
-    compile group: 'org.ow2.asm', name: 'asm-all', version: '5.0.3'
-    compile group: 'com.hynnet', name: 'jacob', version: '1.18'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.199'
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.36.Final'
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
-    compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
-
-    embed 'com.github.5zig-reborn:DiscordIPC:master-SNAPSHOT'
-
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.219'
 }
 
-jar {
-    manifest.attributes (
-            'Main-Class': 'eu.the5zig.mod.installer.Frame',
-            'MixinConfigs': 'mixins.json',
-            'TweakClass': 'eu.the5zig.mod.asm.ClassTweaker',
-            'TweakOrder': '-900'
-    )
-
-    from {
-        duplicatesStrategy DuplicatesStrategy.EXCLUDE
-        configurations.embed.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-
-    exclude 'LICENSE.txt'
+sourceSets.main.java {
+    srcDirs '../version-specific/1.13.2/src/main/java'
 }
