@@ -416,4 +416,9 @@ public class ModAPIImpl implements ModAPI {
 	public void playSound(String domain, String sound, float pitch) {
 		The5zigMod.getVars().playSound(domain, sound, pitch);
 	}
+
+	@Override
+	public void disableDiscordPresence() {
+		The5zigMod.getDiscordRPCManager().disable();
+	}
 }

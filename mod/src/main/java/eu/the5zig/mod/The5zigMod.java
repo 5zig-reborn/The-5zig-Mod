@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import eu.the5zig.mod.api.ServerAPIBackend;
-import eu.the5zig.mod.asm.ReflectionNames;
 import eu.the5zig.mod.asm.Transformer;
 import eu.the5zig.mod.chat.ConversationManager;
 import eu.the5zig.mod.chat.FriendManager;
@@ -609,6 +608,10 @@ public class The5zigMod {
 
 	public static MojangAPIManager getMojangAPIManager() {
 		return mojangAPIManager;
+	}
+
+	public static DiscordRPCManager getDiscordRPCManager() {
+		return discordRPCManager;
 	}
 
 	/**
