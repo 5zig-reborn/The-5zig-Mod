@@ -9,6 +9,9 @@
     "MixinGuiOptions",
     "MixinRenderLivingEntity",
     "MixinGuiMainMenu",
-    "MixinEntityRenderer"
+    "MixinEntityRenderer",
+    "MixinNetHandlerPlayClient",
+    "MixinAbstractClientPlayer",
+    "MixinEntityPlayerSP"
   ]
 }

@@ -81,11 +81,6 @@ public class BytecodeHook {
 	}
 
 	@BytecodeAccess
-	public static float getCustomFOVModifier(Object playerInstance) {
-		return ClassProxy.getCustomFOVModifier(playerInstance);
-	}
-
-	@BytecodeAccess
 	public static void onLeftClickMouse() {
 		The5zigMod.getDataManager().getCpsManager().getLeftClickCounter().incrementCount();
 	}

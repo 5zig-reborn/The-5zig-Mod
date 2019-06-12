@@ -26,6 +26,7 @@ import eu.the5zig.mod.api.SettingListener;
 import eu.the5zig.mod.chat.ChatTypingListener;
 import eu.the5zig.mod.chat.NetworkTickListener;
 import eu.the5zig.mod.chat.network.packets.PacketFriendStatus;
+import eu.the5zig.mod.discord.The5zigRichPresence;
 import eu.the5zig.mod.event.*;
 import eu.the5zig.mod.gui.ingame.ItemStack;
 import eu.the5zig.mod.manager.ChatFilterManager;
@@ -143,6 +144,11 @@ public class EventListener {
 		if (The5zigMod.getDataManager().tabList != null) {
 			onPlayerListHeaderFooter(The5zigMod.getDataManager().tabList);
 		}
+
+		The5zigRichPresence presence = new The5zigRichPresence();
+		presence.setText("Playing on");
+		presence.setState(host + (port == 25565 ? "" : ":" + port));
+		The5zigMod.getDiscordRPCManager().setPresence(presence);
 	}
 
 	public void onRenderOverlay() {
@@ -203,7 +209,7 @@ public class EventListener {
 	}
 
 	public void handlePluginMessage(String channel, ByteBuf packetData) {
-		if ("MC|Brand".equals(channel)) {
+		if ("MC|Brand".equals(channel) || "minecraft:brand".equals(channel)) {
 			if (The5zigMod.getDataManager().getServer() == null) {
 				if (The5zigMod.getVars().getServer() != null) {
 					String ip = The5zigMod.getVars().getServer();

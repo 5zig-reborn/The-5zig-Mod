@@ -70,7 +70,9 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	private HeartbeatManager heartbeatManager;
 
 	private NetworkManager() {
-		initConnection();
+		// Disabled until we get enough funds for a server.
+		// [REBORN] Network server disabled
+		//initConnection();
 	}
 
 	public static NetworkManager connect() {
