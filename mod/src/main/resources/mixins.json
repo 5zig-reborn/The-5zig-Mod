@@ -12,6 +12,8 @@
     "MixinEntityRenderer",
     "MixinNetHandlerPlayClient",
     "MixinAbstractClientPlayer",
-    "MixinEntityPlayerSP"
+    "MixinEntityPlayerSP",
+    "MixinRenderPlayer",
+    "MixinGuiAchievement"
   ]
 }

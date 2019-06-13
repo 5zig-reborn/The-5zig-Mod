@@ -19,6 +19,9 @@
 
 package eu.the5zig.util;
 
+import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.Version;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -74,6 +77,7 @@ public class Utils {
 			StringBuilder buffer = new StringBuilder();
 			URL url = new URL(path);
 			connection = (HttpURLConnection) (url).openConnection();
+			connection.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
 			connection.setConnectTimeout(timeout);
 			connection.setReadTimeout(timeout);
 			connection.connect();
