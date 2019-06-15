@@ -42,7 +42,7 @@ public interface IGuiList<E extends Row> {
 	 * @param v2
 	 * @param v3
 	 */
-	boolean mouseDragged(double v, double v1, int i, double v2, double v3);
+	boolean callMouseDragged(double v, double v1, int i, double v2, double v3);
 
 	/**
 	 * Currently only called from 1.13+
@@ -50,7 +50,7 @@ public interface IGuiList<E extends Row> {
 	 * @param v
 	 * @return
 	 */
-	boolean mouseScrolled(double v);
+	boolean callMouseScrolled(double v);
 
 	void scrollToBottom();
 

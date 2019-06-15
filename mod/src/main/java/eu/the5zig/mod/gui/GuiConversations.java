@@ -242,15 +242,15 @@ public class GuiConversations extends Gui implements Clickable<Conversation> {
 	@Override
 	public void mouseDragged0(double v, double v1, int i, double v2, double v3) {
 		super.mouseDragged0(v, v1, i, v2, v3);
-		conversationList.mouseDragged(v, v1, i, v2, v3);
-		chatList.mouseDragged(v, v1, i, v2, v3);
+		conversationList.callMouseDragged(v, v1, i, v2, v3);
+		chatList.callMouseDragged(v, v1, i, v2, v3);
 	}
 
 	@Override
 	public void mouseScrolled0(double v) {
 		super.mouseScrolled0(v);
-		conversationList.mouseScrolled(v);
-		chatList.mouseScrolled(v);
+		conversationList.callMouseScrolled(v);
+		chatList.callMouseScrolled(v);
 	}
 
 	@Override

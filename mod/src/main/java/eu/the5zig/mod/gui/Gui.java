@@ -339,13 +339,13 @@ public abstract class Gui {
 
 	public void mouseDragged0(double v, double v1, int i, double v2, double v3) {
 		for (IGuiList guiList : guiLists) {
-			guiList.mouseDragged(v, v1, i, v2, v3);
+			guiList.callMouseDragged(v, v1, i, v2, v3);
 		}
 	}
 
 	public void mouseScrolled0(double v) {
 		for (IGuiList guiList : guiLists) {
-			guiList.mouseScrolled(v);
+			guiList.callMouseScrolled(v);
 		}
 	}
 
