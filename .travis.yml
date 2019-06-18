@@ -4,4 +4,4 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./gradlew build
+  - ./gradlew :1.13.2:build
