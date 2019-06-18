@@ -74,4 +74,6 @@ jar {
     }
 
     exclude 'LICENSE.txt'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/*.SF'
 }
