@@ -5,3 +5,14 @@ jdk:
 
 script:
   - sh .travis/build.sh
+after_success:
+  - sh .travis/git.sh
+deploy:
+  # We only use the normal method for tagged commits.
+- provider: releases
+  api_key: $GITHUB_TOKEN
+  file: version-specific/artifacts/*.jar
+  file_glob: true
+  skip_cleanup: true
+  on:
+    tags: true
