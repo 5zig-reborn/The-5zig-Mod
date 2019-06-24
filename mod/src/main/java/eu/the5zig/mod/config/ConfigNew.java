@@ -585,6 +585,7 @@ public class ConfigNew {
 				The5zigMod.getFriendManager().sortFriends();
 			}
 		});
+		add(new BoolItem("plugin_update", null, true));
 	}
 
 	/**

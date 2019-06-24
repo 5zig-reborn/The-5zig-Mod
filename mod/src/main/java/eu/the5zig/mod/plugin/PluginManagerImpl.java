@@ -24,17 +24,21 @@ import com.google.common.collect.Maps;
 import com.google.gson.*;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.Version;
 import eu.the5zig.mod.event.Event;
 import eu.the5zig.mod.event.LoadEvent;
 import eu.the5zig.mod.event.UnloadEvent;
 import eu.the5zig.mod.modules.AbstractModuleItem;
 import eu.the5zig.mod.server.ServerInstance;
 import eu.the5zig.mod.util.PluginException;
+import eu.the5zig.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
 import java.util.jar.JarEntry;
@@ -85,7 +89,7 @@ public class PluginManagerImpl implements PluginManager {
 				continue;
 			}
 			try {
-				loadPlugin0(file);
+				loadPlugin0(file, false);
 			} catch (Throwable throwable) {
 				The5zigMod.logger.error("Could not load plugin " + file.getName(), throwable);
 			}
@@ -154,7 +158,14 @@ public class PluginManagerImpl implements PluginManager {
 	}
 
 	public LoadedPlugin loadPlugin(File file) throws Throwable {
-		LoadedPlugin loadedPlugin = loadPlugin0(file);
+		return loadPlugin(file, false);
+	}
+
+	private LoadedPlugin loadPlugin(File file, boolean skipUpdateCheck) throws Throwable {
+		LoadedPlugin loadedPlugin = loadPlugin0(file, skipUpdateCheck);
+
+		if(loadedPlugin == null) return null;
+
 		LoadEvent event = new LoadEvent();
 		for (Method method : loadedPlugin.getLoadMethods()) {
 			method.invoke(loadedPlugin.getInstance(), event);
@@ -163,7 +174,7 @@ public class PluginManagerImpl implements PluginManager {
 		return loadedPlugin;
 	}
 
-	private LoadedPlugin loadPlugin0(File file) throws Exception {
+	private LoadedPlugin loadPlugin0(File file, boolean skipUpdateCheck) throws Exception {
 		JsonElement modModulesElement = new JsonParser().parse(FileUtils.readFileToString(The5zigMod.getModuleMaster().getFile()));
 		JarFile jarFile = new JarFile(file);
 		ZipEntry pluginEntry = jarFile.getEntry("plugin.json");
@@ -175,6 +186,23 @@ public class PluginManagerImpl implements PluginManager {
 			throw new PluginException("Invalid plugin.json in file " + jarFile.getName());
 		}
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+		if(!skipUpdateCheck && The5zigMod.getConfig().getBool("plugin_update")
+			&& jsonObject.has("updateUrl")) {
+			The5zigMod.logger.debug("Checking for updates.");
+			LoadedPlugin newerPlugin =
+					null;
+			try {
+				newerPlugin = checkOutdated(file, jsonObject.get("updateUrl").getAsString(),
+						jsonObject.get("version").getAsString(), jsonObject.get("name").getAsString());
+			} catch (Throwable throwable) {
+				throwable.printStackTrace();
+			}
+
+			if (newerPlugin != null)
+				return null;
+		}
+
 		if (!jsonObject.has("main") || !jsonObject.get("main").isJsonPrimitive()) {
 			throw new PluginException("main not found in plugin.json in file " + jarFile.getName());
 		}
@@ -207,6 +235,20 @@ public class PluginManagerImpl implements PluginManager {
 		List<Method> loadMethods = findMethods(mainClass, LoadEvent.class);
 		List<Method> unloadMethods = findMethods(mainClass, UnloadEvent.class);
 		LoadedPlugin loadedPlugin = new LoadedPlugin(annotation.name(), annotation.version(), instance, classLoader, locales, loadMethods, unloadMethods, file);
+
+		if(jsonObject.has("icon")) {
+			loadedPlugin.setImageUrl(jsonObject.get("icon").getAsString());
+		}
+		if(jsonObject.has("desc")) {
+			loadedPlugin.setShortDescription(jsonObject.get("desc").getAsString());
+		}
+		if(jsonObject.has("license")) {
+			loadedPlugin.setLicense(jsonObject.get("license").getAsString());
+		}
+		if(jsonObject.has("author")) {
+			loadedPlugin.setAuthor(jsonObject.get("author").getAsString());
+		}
+
 		plugins.add(loadedPlugin);
 
 		registerListener(instance, instance);
@@ -445,6 +487,39 @@ public class PluginManagerImpl implements PluginManager {
 	@Override
 	public <T extends Event> T fireEvent(T event) {
 		return The5zigMod.getListener().fireEvent(event);
+	}
+
+	private LoadedPlugin checkOutdated(File plugin, String updateUrl, String currentVer, String name) throws Throwable {
+		if(updateUrl == null) return null;
+		String file = Utils.downloadFile(updateUrl, 2000);
+		if(file == null) {
+			The5zigMod.logger.error("Could not download update info for this plugin.");
+			return null;
+		}
+
+		JsonObject json = new JsonParser().parse(file).getAsJsonObject();
+		ComparableVersion latest = new ComparableVersion(json.get("latest").getAsString());
+		ComparableVersion local = new ComparableVersion(currentVer);
+
+		if(latest.compareTo(local) > 0) {
+			The5zigMod.logger.info("Found update. Downloading.");
+			long start = System.currentTimeMillis();
+
+			URL url = new URL(json.get("download").getAsString());
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
+
+			FileUtils.copyInputStreamToFile(connection.getInputStream(), plugin);
+			connection.disconnect();
+
+			The5zigMod.logger.info("Download complete, took {} ms.", System.currentTimeMillis() - start);
+
+			The5zigMod.getOverlayMessage().displayMessage("Plugin " + name + " updated to version " + latest.getCanonical());
+
+			return loadPlugin(plugin, true);
+		}
+
+		return null;
 	}
 
 }

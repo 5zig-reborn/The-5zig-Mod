@@ -40,6 +40,10 @@ public class LoadedPlugin {
 	private final List<Method> loadMethods;
 	private final List<Method> unloadMethods;
 	private final File file;
+	private String imageUrl;
+	private String author;
+	private String license;
+	private String shortDesc;
 
 	private final List<Object> registeredListeners = Lists.newArrayList();
 	private final List<Class<? extends AbstractModuleItem>> registeredModuleItems = Lists.newArrayList();
@@ -54,6 +58,38 @@ public class LoadedPlugin {
 		this.loadMethods = loadMethods;
 		this.unloadMethods = unloadMethods;
 		this.file = file;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getLicense() {
+		return license;
+	}
+
+	public void setLicense(String license) {
+		this.license = license;
+	}
+
+	public String getShortDescription() {
+		return shortDesc;
+	}
+
+	public void setShortDescription(String shortDesc) {
+		this.shortDesc = shortDesc;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public String getName() {

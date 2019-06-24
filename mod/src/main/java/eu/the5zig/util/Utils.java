@@ -19,7 +19,6 @@
 
 package eu.the5zig.util;
 
-import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.Version;
 
 import javax.swing.*;

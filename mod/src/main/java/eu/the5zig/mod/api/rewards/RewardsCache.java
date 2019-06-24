@@ -40,6 +40,8 @@ public class RewardsCache {
     private static final String PERM_REWARDS_URL = "https://rocco.dev/5zig/rewards.json";
     private static final String PATREON_URL = "https://api.5zigreborn.eu/patreon/fetch?uuid=";
 
+    private static boolean operate = false;
+
     static {
         cachedRewards = CacheBuilder.newBuilder()
                 .maximumSize(2000)
@@ -52,6 +54,8 @@ public class RewardsCache {
     }
 
     public static String getRewardString(String uuid) {
+        if(!operate) return null;
+
         Reward reward = cachedRewards.getIfPresent(uuid);
         if(reward == null) {
             Reward permanent = permanentRewards.get(uuid);
@@ -66,6 +70,8 @@ public class RewardsCache {
     }
 
     private static void downloadReward(String uuid) {
+        if(!operate) return;
+
         Reward reward = new Reward((String) null);
         loadPlayerIntoCache(uuid, reward);
         new Thread(() -> {
@@ -86,7 +92,11 @@ public class RewardsCache {
         try {
             String result = Utils.downloadFile(PERM_REWARDS_URL);
 
-            JSONObject json = (JSONObject) new JSONParser().parse(result);
+            JSONObject obj = (JSONObject) new JSONParser().parse(result);
+
+            operate = (boolean) obj.get("operate");
+
+            JSONObject json = (JSONObject) obj.get("players");
             HashMap<String, Reward> map = new HashMap<>();
 
             json.keySet().forEach(k -> {
@@ -99,7 +109,6 @@ public class RewardsCache {
 
         } catch (Exception e) {
             The5zigMod.logger.error("Couldn't fetch rewards. Offline?");
-            e.printStackTrace();
         }
     }
 }

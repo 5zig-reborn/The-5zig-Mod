@@ -22,19 +22,25 @@ package eu.the5zig.mod.gui;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
+import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.config.items.BoolItem;
 import eu.the5zig.mod.config.items.StringListItem;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
-import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.elements.RowExtended;
 import eu.the5zig.mod.plugin.LoadedPlugin;
 import eu.the5zig.mod.plugin.PluginManagerImpl;
+import eu.the5zig.mod.render.Base64Renderer;
+import eu.the5zig.mod.render.PNGUtils;
 import eu.the5zig.util.minecraft.ChatColor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class GuiPlugins extends Gui {
@@ -44,6 +50,10 @@ public class GuiPlugins extends Gui {
 
 	private IGuiList<PluginRow> guiList;
 	private List<PluginRow> pluginRows = Lists.newArrayList();
+	private Base64Renderer base64Renderer = new Base64Renderer(
+			MinecraftFactory.getVars().createResourceLocation("the5zigmod", "textures/plugindummy.png"));
+
+	private HashMap<LoadedPlugin, String> cachedIcons = new HashMap<>();
 
 	public GuiPlugins(Gui lastScreen) {
 		super(lastScreen);
@@ -56,6 +66,9 @@ public class GuiPlugins extends Gui {
 		addButton(The5zigMod.getVars().createButton(2, getWidth() / 2 - 95, getHeight() - 38, 90, 20, I18n.translate("plugin_manager.reload")));
 		addButton(The5zigMod.getVars().createButton(3, getWidth() / 2, getHeight() - 38, 90, 20, I18n.translate("plugin_manager.plugin_folder")));
 		addButton(The5zigMod.getVars().createButton(200, getWidth() / 2 + 95, getHeight() - 38, 95, 20, The5zigMod.getVars().translate("gui.back")));
+
+		addButton(The5zigMod.getVars().createButton(4, getWidth() - 100, 6, 90, 20, I18n.translate("plugin_manager.update") + ": " +
+				The5zigMod.getConfig().get("plugin_update").translateValue()));
 
 		guiList = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 64, getHeight() - 50, 0, getWidth(),
 				pluginRows);
@@ -125,6 +138,13 @@ public class GuiPlugins extends Gui {
 				The5zigMod.logger.error("Failed to open plugin directory!", e);
 			}
 		}
+		else if(button.getId() == 4) {
+			BoolItem item = (BoolItem) The5zigMod.getConfig().get("plugin_update");
+			item.set(!item.get());
+			The5zigMod.getConfig().save();
+
+			button.setLabel(I18n.translate("plugin_manager.update") + ": " + item.translateValue());
+		}
 	}
 
 	@Override
@@ -176,7 +196,7 @@ public class GuiPlugins extends Gui {
 		return "plugin_manager.title";
 	}
 
-	private class PluginRow implements Row, Comparable<PluginRow> {
+	private class PluginRow implements RowExtended, Comparable<PluginRow> {
 
 		public File file;
 		public LoadedPlugin loadedPlugin;
@@ -188,18 +208,53 @@ public class GuiPlugins extends Gui {
 
 		@Override
 		public void draw(int x, int y) {
-			String name = loadedPlugin != null ? loadedPlugin.getName() + " (v" + loadedPlugin.getVersion() + ") " : "";
-			The5zigMod.getVars().drawString(name + ChatColor.GRAY + file.getName(), x + 2, y + 2);
 		}
 
 		@Override
 		public int getLineHeight() {
-			return 18;
+			return 40;
 		}
 
 		@Override
 		public int compareTo(PluginRow o) {
 			return ComparisonChain.start().compareTrueFirst(loadedPlugin != null, o.loadedPlugin != null).compare(file.getName(), o.file.getName()).result();
+		}
+
+		@Override
+		public void draw(int x, int y, int slotHeight, int mouseX, int mouseY) {
+			if(loadedPlugin.getImageUrl() != null && !cachedIcons.containsKey(loadedPlugin)) {
+				cachedIcons.put(loadedPlugin, null);
+				new Thread(() ->
+						cachedIcons.put(loadedPlugin, PNGUtils.downloadBase64PNG(loadedPlugin.getImageUrl()))).start();
+			}
+
+			String cached = cachedIcons.get(loadedPlugin);
+			System.out.println(cached);
+
+			if(base64Renderer.getBase64String() != null && cached == null)
+				base64Renderer.reset();
+
+			if(cached != null) {
+				base64Renderer.setBase64String(cached, "plugin_icons/" + loadedPlugin.getName().toLowerCase());
+			}
+
+			base64Renderer.renderImage(x, y, 32, 32);
+
+			String name = loadedPlugin != null ? loadedPlugin.getName() + " (v" + loadedPlugin.getVersion() + ") " : "";
+			if(loadedPlugin.getLicense() != null)
+				name += ChatColor.GRAY + "  ⚖ " + loadedPlugin.getLicense();
+			The5zigMod.getVars().drawString(name, x + 40, y + 2);
+			The5zigMod.getVars().drawString(ChatColor.GRAY + "by " + (loadedPlugin.getAuthor() == null ? "Unknown"
+					: loadedPlugin.getAuthor()), x + 40, y + 12);
+			if(loadedPlugin.getShortDescription() != null)
+				The5zigMod.getVars().drawString(ChatColor.GRAY + "" + ChatColor.ITALIC +
+						StringUtils.abbreviate(loadedPlugin.getShortDescription(), getWidth()), x + 40, y + 22);
+
+		}
+
+		@Override
+		public IButton mousePressed(int mouseX, int mouseY) {
+			return null;
 		}
 	}
 }
