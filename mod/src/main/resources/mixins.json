@@ -3,6 +3,7 @@
   "package": "eu.the5zig.mod.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.refmap.json",
+
   "mixins": [
     "MixinMinecraft",
     "MixinGuiIngame",
@@ -14,6 +15,8 @@
     "MixinAbstractClientPlayer",
     "MixinEntityPlayerSP",
     "MixinRenderPlayer",
-    "MixinGuiAchievement"
+    "MixinGuiAchievement",
+    "MixinGuiChat",
+    "MixinGuiChatNew"
   ]
 }
