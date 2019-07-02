@@ -5,6 +5,8 @@
   "refmap": "mixins.refmap.json",
 
   "mixins": [
+    "MixinCommonMinecraft",
+
     "MixinMinecraft",
     "MixinGuiIngame",
     "MixinGuiOptions",

@@ -15,5 +15,4 @@ allprojects {
 
 wrapper {
     gradleVersion = '4.9'
-    distributionType = Wrapper.DistributionType.ALL
 }
