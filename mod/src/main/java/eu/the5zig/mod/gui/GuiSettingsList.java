@@ -52,7 +52,7 @@ public class GuiSettingsList extends Gui {
 		addButton(The5zigMod.getVars().createButton(2, getWidth() / 2 + 2, getHeight() - 58, 98, 20, I18n.translate("config.list.remove_entry")));
 
 		guiList = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 64, getHeight() - 64, 0, getWidth(), rows);
-		guiList.setRowWidth(200);
+		guiList.setRowWidth(220);
 		addGuiList(guiList);
 	}
 

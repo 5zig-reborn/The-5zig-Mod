@@ -79,6 +79,20 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 		return new NetworkManager();
 	}
 
+	public void initLoop() {
+		if (CLIENT_NIO_EVENTLOOP == null) {
+			try {
+				CLIENT_NIO_EVENTLOOP = new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("5zig Netty Client").setDaemon(true).build());
+			} catch (Throwable throwable) {
+				The5zigMod.logger.error("Could not initialize Nio Event Loop Group! Possible Firewall or Antivirus-Software might be blocking outgoing connections!", throwable);
+				if (The5zigMod.getConfig().getBool("showConnecting")) {
+					The5zigMod.getOverlayMessage().displayMessage("The 5zig Mod", I18n.translate("connection.error"));
+				}
+				return;
+			}
+		}
+	}
+
 	private void initConnection() {
 		new Thread(new Runnable() {
 			@Override
@@ -86,17 +100,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 				if (protocol == null) {
 					protocol = new Protocol();
 				}
-				if (CLIENT_NIO_EVENTLOOP == null) {
-					try {
-						CLIENT_NIO_EVENTLOOP = new NioEventLoopGroup(0, (new ThreadFactoryBuilder()).setNameFormat("5zig Netty Client").setDaemon(true).build());
-					} catch (Throwable throwable) {
-						The5zigMod.logger.error("Could not initialize Nio Event Loop Group! Possible Firewall or Antivirus-Software might be blocking outgoing connections!", throwable);
-						if (The5zigMod.getConfig().getBool("showConnecting")) {
-							The5zigMod.getOverlayMessage().displayMessage("The 5zig Mod", I18n.translate("connection.error"));
-						}
-						return;
-					}
-				}
+				initLoop();
 				if (The5zigMod.getConversationDatabase() == null) {
 					The5zigMod.newConversationDatabase();
 				}

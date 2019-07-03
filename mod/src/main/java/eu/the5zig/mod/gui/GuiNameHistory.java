@@ -54,7 +54,7 @@ public class GuiNameHistory extends Gui implements Clickable<GuiNameHistory.Name
 		addButton(The5zigMod.getVars().createButton(1, getWidth() / 2 + 25, 40, 75, 20, I18n.translate("name_history.search")));
 
 		IGuiList<NameRow> guiList = The5zigMod.getVars().createGuiList(this, getWidth(), getHeight(), 70, getHeight() - 48, 0, getWidth(), rows);
-		guiList.setRowWidth(120);
+		guiList.setRowWidth(220);
 		guiList.setHeader(I18n.translate("name_history.suggestions"));
 		guiList.callSetHeaderPadding(10);
 		addGuiList(guiList);

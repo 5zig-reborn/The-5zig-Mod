@@ -183,6 +183,7 @@ public class MojangAPIManager extends APIManager {
 				}
 			});
 		} catch (Exception e) {
+			e.printStackTrace();
 			callback.call(null, e);
 		}
 	}
