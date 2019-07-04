@@ -83,6 +83,9 @@ public class The5zigMod {
 	public static final IResourceLocation TRACK_LOCATION = MinecraftFactory.getVars().createResourceLocation("the5zigmod", "textures/track.png");
 	public static final IResourceLocation EINSLIVE_LOCATION = MinecraftFactory.getVars().createResourceLocation("the5zigmod", "textures/1live.png");
 	public static final IResourceLocation TEAMSPEAK_ICONS = MinecraftFactory.getVars().createResourceLocation("the5zigmod", "textures/teamspeak.png");
+	public static final IResourceLocation SOCIAL_ICONS = MinecraftFactory.getVars().createResourceLocation("the5zigmod", "textures/social.png");
+
+
 
 	/**
 	 * Allows tasks to be executed asynchronously.

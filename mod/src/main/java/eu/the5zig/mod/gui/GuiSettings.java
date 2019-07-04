@@ -22,6 +22,7 @@ package eu.the5zig.mod.gui;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import eu.the5zig.mod.I18n;
+import eu.the5zig.mod.SocialUrls;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.Version;
 import eu.the5zig.mod.config.items.*;
@@ -89,6 +90,13 @@ public class GuiSettings extends Gui {
 			addButton(The5zigMod.getVars().createButton(999, getWidth() - 52, 6, 50, 20, I18n.translate("config.main.credits")));
 			addButton(The5zigMod.getVars().createButton(0xcafe, getWidth() - 104, 6, 50, 20, I18n.translate("gui.search")));
 		}
+
+		// Social buttons
+		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 64, 0, 2019_0, 2, getHeight() - 27)); // Discord
+		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 16, 0, 2019_1, 2 + 20, getHeight() - 27)); // Twitter
+		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 0, 0, 2019_2, 2 + 40, getHeight() - 27)); // Reddit
+		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 32, 0, 2019_3, 2 + 60, getHeight() - 27)); // Patreon
+		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 48, 0, 2019_4, 2 + 80, getHeight() - 27)); // GitHub
 	}
 
 	private IButton getButton(ConfigItem item, int id) {
@@ -290,6 +298,26 @@ public class GuiSettings extends Gui {
 					The5zigMod.getConfig().save();
 			}
 		}
+		String url = null;
+		switch(button.getId()) {
+			case 2019_0:
+				url = SocialUrls.DISCORD;
+				break;
+			case 2019_1:
+				url = SocialUrls.TWITTER;
+				break;
+			case 2019_2:
+				url = SocialUrls.REDDIT;
+				break;
+			case 2019_3:
+				url = SocialUrls.PATREON;
+				break;
+			case 2019_4:
+				url = SocialUrls.GITHUB;
+				break;
+		}
+		if(url != null)
+			SocialUrls.open(url);
 	}
 
 	@Override
