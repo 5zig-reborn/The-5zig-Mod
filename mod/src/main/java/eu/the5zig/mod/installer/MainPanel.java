@@ -62,7 +62,7 @@ public class MainPanel extends JPanel implements ActionListener {
 		text.setBounds(40, 50, 420, 170);
 		text.setFont(new Font("Helvetica", Font.BOLD, 18));
 		text.setText("<html>Welcome to the 5zig Mod installer!<br><br>Click on \"Install\" to install the mod! Select optionally other mods to install them together" +
-				".<br>More information on <u>https://www.5zig.net</u></html>");
+				".<br>More information on <u>https://www.5zigreborn.eu</u></html>");
 		add(text);
 
 		changeDir = new JButton(Images.installBox);
