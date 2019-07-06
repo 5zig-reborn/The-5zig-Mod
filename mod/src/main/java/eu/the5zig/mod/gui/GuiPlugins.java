@@ -229,7 +229,6 @@ public class GuiPlugins extends Gui {
 			}
 
 			String cached = cachedIcons.get(loadedPlugin);
-			System.out.println(cached);
 
 			if(base64Renderer.getBase64String() != null && cached == null)
 				base64Renderer.reset();
