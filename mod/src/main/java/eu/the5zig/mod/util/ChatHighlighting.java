@@ -27,7 +27,6 @@ import java.util.Locale;
 
 public class ChatHighlighting {
     public static boolean shouldHighlight(String text) {
-        System.out.println(text);
         List<String> highlightWords;
 
         String chatSearchText = MinecraftFactory.getClassProxyCallback().getChatSearchText();
