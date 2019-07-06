@@ -50,6 +50,7 @@ public class GuiIngame {
 		}
 //		The5zigMod.getDataManager().getCrossHairDistanceListener().render();
 		renderTextAboveHotbar();
+		GLUtil.enableBlend();
 	}
 
 	public void onRenderHotbar() {
