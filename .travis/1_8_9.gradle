@@ -1,2 +1,0 @@
-include '1.8.9'
-project(':1.8.9').projectDir = file('../version-specific/1.8.9')
