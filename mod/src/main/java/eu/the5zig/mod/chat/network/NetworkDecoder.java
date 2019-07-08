@@ -36,6 +36,7 @@ import java.util.List;
 public class NetworkDecoder extends ByteToMessageDecoder {
 
 	private NetworkManager networkManager;
+	private NettyEncryptionTranslator enc;
 
 	public NetworkDecoder(NetworkManager networkManager) {
 		this.networkManager = networkManager;
@@ -43,6 +44,9 @@ public class NetworkDecoder extends ByteToMessageDecoder {
 
 	@Override
 	protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> objects) throws Exception {
+		if(enc != null) {
+			byteBuf = enc.decipher(channelHandlerContext, byteBuf);
+		}
 		if (byteBuf.readableBytes() < 1) {
 			return;
 		}
@@ -59,5 +63,9 @@ public class NetworkDecoder extends ByteToMessageDecoder {
 		} else {
 			objects.add(packet);
 		}
+	}
+
+	public void setEnc(NettyEncryptionTranslator enc) {
+		this.enc = enc;
 	}
 }

@@ -23,6 +23,7 @@ import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.network.packets.Packet;
 import eu.the5zig.mod.chat.network.packets.PacketBuffer;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
@@ -33,6 +34,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 public class NetworkEncoder extends MessageToByteEncoder<Packet> {
 
 	private NetworkManager networkManager;
+	private NettyEncryptionTranslator enc;
 
 	public NetworkEncoder(NetworkManager networkManager) {
 		this.networkManager = networkManager;
@@ -40,9 +42,29 @@ public class NetworkEncoder extends MessageToByteEncoder<Packet> {
 
 	@Override
 	protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, ByteBuf byteBuf) throws Exception {
-		PacketBuffer.writeVarIntToBuffer(byteBuf, networkManager.getProtocol().getPacketId(packet));
-		packet.write(byteBuf);
-		The5zigMod.logger.debug(The5zigMod.networkMarker, "OUT| {} ({} bytes)", packet.toString(), byteBuf.readableBytes());
+		if(enc != null) {
+			ByteBuf beforeEncryption = null;
+			try {
+				beforeEncryption = Unpooled.buffer();
+				PacketBuffer.writeVarIntToBuffer(beforeEncryption, networkManager.getProtocol().getPacketId(packet));
+				packet.write(beforeEncryption);
+
+				enc.cipher(beforeEncryption, byteBuf);
+			}
+			finally {
+				if(beforeEncryption != null)
+					beforeEncryption.release();
+			}
+		}
+		else {
+			PacketBuffer.writeVarIntToBuffer(byteBuf, networkManager.getProtocol().getPacketId(packet));
+			packet.write(byteBuf);
+		}
 		The5zigMod.getDataManager().getNetworkStats().onPacketSend(byteBuf);
+		The5zigMod.logger.debug(The5zigMod.networkMarker, "OUT| {} ({} bytes)", packet.toString(), byteBuf.readableBytes());
+	}
+
+	public void setEnc(NettyEncryptionTranslator enc) {
+		this.enc = enc;
 	}
 }

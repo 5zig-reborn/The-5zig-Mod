@@ -69,10 +69,13 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	private ConnectionState connectionState;
 	private HeartbeatManager heartbeatManager;
 
+	private NetworkEncoder enc;
+	private NetworkDecoder dec;
+
 	private NetworkManager() {
 		// Disabled until we get enough funds for a server.
 		// [REBORN] Network server disabled
-		//initConnection();
+		initConnection();
 	}
 
 	public static NetworkManager connect() {
@@ -109,9 +112,13 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 
 				Bootstrap bootstrap = new Bootstrap().group(CLIENT_NIO_EVENTLOOP).handler(new ChannelInitializer() {
 					protected void initChannel(Channel channel) {
-						channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new NetworkPrepender()).addLast("decoder",
-								new NetworkDecoder(NetworkManager.this)).addLast("prepender", new NetworkSplitter()).addLast("encoder", new NetworkEncoder(NetworkManager.this)).addLast(
-								NetworkManager.this);
+						channel.pipeline()
+								.addLast("timeout", new ReadTimeoutHandler(30))
+								.addLast("splitter", new NetworkPrepender())
+								.addLast("decoder", dec = new NetworkDecoder(NetworkManager.this))
+								.addLast("prepender", new NetworkSplitter())
+								.addLast("encoder", enc = new NetworkEncoder(NetworkManager.this))
+								.addLast(NetworkManager.this);
 					}
 				}).channel(NioSocketChannel.class);
 				try {
@@ -313,8 +320,8 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	}
 
 	public void enableEncryption(SecretKey secretKey) {
-		this.channel.pipeline().addBefore("splitter", "decrypt", new NettyEncryptingDecoder(CryptManager.createNetCipherInstance(Cipher.DECRYPT_MODE, secretKey)));
-		this.channel.pipeline().addBefore("prepender", "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(Cipher.ENCRYPT_MODE, secretKey)));
+		enc.setEnc(new NettyEncryptionTranslator(CryptManager.createNetCipherInstance(Cipher.ENCRYPT_MODE, secretKey)));
+		dec.setEnc(new NettyEncryptionTranslator(CryptManager.createNetCipherInstance(Cipher.DECRYPT_MODE, secretKey)));
 		The5zigMod.logger.info("Enabled Encryption!");
 	}
 
