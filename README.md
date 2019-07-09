@@ -12,3 +12,12 @@ Version-exclusive code should be stored inside the [version-specific](https://gi
 # License
 This new version of the mod is licensed under **GPLv3**.  
 See the [license](LICENSE) for more details.
+
+## Supporters
+![YourKit](https://www.yourkit.com/images/yklogo.png)
+
+YourKit supports open source projects with innovative and intelligent tools
+for monitoring and profiling Java and .NET applications.  
+YourKit is the creator of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/),
+[YourKit .NET Profiler](https://www.yourkit.com/.net/profiler/),
+and [YourKit YouMonitor](https://www.yourkit.com/youmonitor/).  
