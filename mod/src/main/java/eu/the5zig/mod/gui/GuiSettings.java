@@ -29,7 +29,9 @@ import eu.the5zig.mod.config.items.*;
 import eu.the5zig.mod.gui.elements.ButtonRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.util.ColorSelectorCallback;
+import eu.the5zig.mod.util.GLUtil;
 import eu.the5zig.mod.util.Keyboard;
 import eu.the5zig.mod.util.SliderCallback;
 import eu.the5zig.util.minecraft.ChatColor;
@@ -48,6 +50,9 @@ public class GuiSettings extends Gui {
 
 	private long lastMouseMoved;
 	private int lastMouseX, lastMouseY;
+
+	private static final Base64Renderer base64Renderer = new Base64Renderer();
+	private boolean hoverChatBtn;
 
 	public GuiSettings(Gui lastScreen, String category) {
 		super(lastScreen);
@@ -216,11 +221,17 @@ public class GuiSettings extends Gui {
 				}
 			}
 		}
+
+		drawSkinButton(mouseX, mouseY);
 	}
 
 	@Override
 	protected void mouseClicked(int x, int y, int button) {
 		super.mouseClicked(x, y, button);
+		if (hoverChatBtn && The5zigMod.DEBUG) {
+			The5zigMod.getVars().displayScreen(new GuiFriends(this));
+			The5zigMod.getVars().playSound("ui.button.click", 1);
+		}
 		tryReset();
 	}
 
@@ -342,5 +353,35 @@ public class GuiSettings extends Gui {
 	@Override
 	public String getTitleKey() {
 		return "config." + category + ".title";
+	}
+
+	private void drawSkinButton(int mouseX, int mouseY) {
+		String base64EncodedSkin = The5zigMod.getSkinManager().getBase64EncodedSkin(The5zigMod.getDataManager().getUniqueId());
+		if (base64Renderer.getBase64String() != null && base64EncodedSkin == null) {
+			base64Renderer.reset();
+		} else if (base64EncodedSkin != null && !base64EncodedSkin.equals(base64Renderer.getBase64String())) {
+			base64Renderer.setBase64String(base64EncodedSkin, "player_skin/" + The5zigMod.getDataManager().getUniqueId());
+		}
+		int width = 16, height = 16;
+		int x1 = (int) (getWidth() - width - 14 - 96 * 0.7f);
+		int x2 = x1 + width;
+		int y1 = getHeight() - 27;
+		int y2 = y1 + height;
+
+		int boxX2 = getWidth() - 8;
+		hoverChatBtn = mouseX >= x1 && mouseX <= boxX2 && mouseY >= y1 && mouseY < y2;
+
+		int c = hoverChatBtn ? 0xff333333 : 0xff000000;
+		Gui.drawRect(x1 - 1, y1 - 1, boxX2 + 1, y2 + 1, 0xffaaaaaa);
+		Gui.drawRect(x2, y1, boxX2, y2, c);
+
+		if (hoverChatBtn)
+			base64Renderer.renderImage(x1, y1, width, height, .5f, .5f, .5f, 1);
+		else
+			base64Renderer.renderImage(x1, y1, width, height);
+		GLUtil.pushMatrix();
+		GLUtil.translate(x2 + 4, y1 + 2, 0);
+		The5zigMod.getVars().drawString("Chat...", 5, 5);
+		GLUtil.popMatrix();
 	}
 }

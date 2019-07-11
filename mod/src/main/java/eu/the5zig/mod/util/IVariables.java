@@ -20,17 +20,17 @@
 package eu.the5zig.mod.util;
 
 import com.mojang.authlib.GameProfile;
-import eu.the5zig.mod.gui.IOverlay;
-import eu.the5zig.mod.gui.ingame.ItemStack;
-import eu.the5zig.mod.gui.ingame.PotionEffect;
-import eu.the5zig.mod.gui.ingame.Scoreboard;
-import eu.the5zig.util.Callback;
-import io.netty.buffer.ByteBuf;
 import eu.the5zig.mod.gui.Gui;
+import eu.the5zig.mod.gui.IOverlay;
 import eu.the5zig.mod.gui.IWrappedGui;
 import eu.the5zig.mod.gui.elements.*;
 import eu.the5zig.mod.gui.ingame.IGui2ndChat;
+import eu.the5zig.mod.gui.ingame.ItemStack;
+import eu.the5zig.mod.gui.ingame.PotionEffect;
+import eu.the5zig.mod.gui.ingame.Scoreboard;
 import eu.the5zig.mod.gui.ingame.resource.IResourceManager;
+import eu.the5zig.util.Callback;
+import io.netty.buffer.ByteBuf;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -234,6 +234,20 @@ public interface IVariables {
 	 * @return an instance of a button.
 	 */
 	IButton createIconButton(IResourceLocation resourceLocation, int u, int v, int id, int x, int y);
+
+	/**
+	 * Creates an instance of a button. This button has a label and an icon texture.
+	 *
+	 * @param resourceLocation the texture that should be rendered instead of the texture.
+	 * @param u                the u-coordinate of the texture.
+	 * @param v                the v-coordinate of the texture.
+	 * @param id               the id of the button.
+	 * @param x                the x-coordinate of the button.
+	 * @param y                the y-coordinate of the button.
+	 * @param display		   the displayed string.
+	 * @return an instance of a button.
+	 */
+	IButton createIconTextButton(IResourceLocation resourceLocation, int u, int v, int id, int x, int y, String display);
 
 	/**
 	 * Creates an instance of a textfield.

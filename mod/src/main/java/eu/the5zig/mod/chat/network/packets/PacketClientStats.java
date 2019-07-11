@@ -43,7 +43,7 @@ public class PacketClientStats implements Packet {
 		PacketBuffer.writeString(buffer, Version.MCVERSION);
 		PacketBuffer.writeString(buffer, Utils.getOSName());
 		PacketBuffer.writeString(buffer, Utils.getJava());
-		PacketBuffer.writeString(buffer, Locale.getDefault().toString());
+		PacketBuffer.writeString(buffer, Locale.getDefault().toLanguageTag());
 	}
 
 	@Override
