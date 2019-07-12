@@ -21,33 +21,39 @@ package eu.the5zig.mod.chat.entity;
 
 import eu.the5zig.util.minecraft.ChatColor;
 
+import java.util.ArrayList;
+
 /**
  * Created by 5zig.
  * All rights reserved © 2015
  */
 public enum Rank {
 
-	/**
-	 * No color :C
-	 */
-	NONE('r'),
-	/**
-	 * Light green color
-	 */
-	DEFAULT('a'),
-	/**
-	 * Gold color
-	 */
-	CUSTOM('6'),
-	/**
-	 * Red color
-	 */
-	SPECIAL('5');
+	DEVELOPER(3, '6'),
+	TRANSLATOR(2, 'e'),
+	PATRON(1, 'c'),
+	USER(0, 'r');
 
+	private int index;
 	private final char colorCode;
 
-	Rank(char colorCode) {
-		this.colorCode = colorCode;
+	Rank(int fixedOrdinal, char code) {
+		this.index = fixedOrdinal;
+		this.colorCode = code;
+	}
+
+	long getBit() {
+		return 1 << index;
+	}
+
+	boolean isSet(long bits) {
+		long bit = getBit();
+		return (bits & bit) == bit;
+	}
+
+	public void addIfSet(long bits, ArrayList<Rank> roles) {
+		if(isSet(bits))
+			roles.add(this);
 	}
 
 	public String getColorCode() {

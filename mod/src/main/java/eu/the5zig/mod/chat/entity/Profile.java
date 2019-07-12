@@ -24,6 +24,8 @@ import eu.the5zig.mod.chat.network.packets.PacketCapeSettings;
 import eu.the5zig.mod.chat.network.packets.PacketProfile;
 import eu.the5zig.util.minecraft.ChatColor;
 
+import java.util.ArrayList;
+
 /**
  * Created by 5zig.
  * All rights reserved © 2015
@@ -31,7 +33,7 @@ import eu.the5zig.util.minecraft.ChatColor;
 public class Profile {
 
 	private final int id;
-	private final Rank rank;
+	private final ArrayList<Rank> rank;
 	private final long firstTime;
 	private String profileMessage;
 	private Friend.OnlineStatus onlineStatus;
@@ -42,7 +44,7 @@ public class Profile {
 	private boolean showCountry;
 	private ChatColor displayColor;
 
-	public Profile(int id, Rank rank, long firstTime, String profileMessage, Friend.OnlineStatus onlineStatus, boolean showServer, boolean showMessageRead, boolean showFriendRequests,
+	public Profile(int id, ArrayList<Rank> rank, long firstTime, String profileMessage, Friend.OnlineStatus onlineStatus, boolean showServer, boolean showMessageRead, boolean showFriendRequests,
 			boolean showCape, boolean showCountry, ChatColor displayColor) {
 		this.id = id;
 		this.rank = rank;
@@ -61,7 +63,7 @@ public class Profile {
 		return id;
 	}
 
-	public Rank getRank() {
+	public ArrayList<Rank> getRank() {
 		return rank;
 	}
 
@@ -123,7 +125,7 @@ public class Profile {
 	}
 
 	public boolean isCapeEnabled() {
-		return getRank() != Rank.NONE && showCape;
+		return !(getRank().size() == 1 && getRank().get(0) == Rank.USER) && showCape;
 	}
 
 	public void setCapeEnabled(boolean capeEnabled) {

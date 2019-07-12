@@ -27,6 +27,7 @@ import eu.the5zig.util.minecraft.ChatColor;
 import io.netty.buffer.ByteBuf;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by 5zig.
@@ -35,7 +36,7 @@ import java.io.IOException;
 public class PacketProfile implements Packet {
 
 	private int id;
-	private Rank rank;
+	private ArrayList<Rank> rank;
 	private long firstConnectTime;
 	private String profileMessage;
 	private Friend.OnlineStatus onlineStatus;
@@ -87,7 +88,7 @@ public class PacketProfile implements Packet {
 		this.showFriendRequests = buffer.readBoolean();
 		this.showCape = buffer.readBoolean();
 		this.showCountry = buffer.readBoolean();
-		this.displayColor = ChatColor.getByChar(buffer.readChar());
+		this.displayColor = ChatColor.RESET;
 	}
 
 	@Override

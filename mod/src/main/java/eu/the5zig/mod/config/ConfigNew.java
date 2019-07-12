@@ -482,7 +482,7 @@ public class ConfigNew {
 			public ChatColor get() {
 				Profile profile = The5zigMod.getDataManager().getProfile();
 				ChatColor displayColor = profile.getDisplayColor();
-				return displayColor == null || displayColor == ChatColor.RESET ? ChatColor.getByChar(profile.getRank().getColorCode().charAt(1)) : displayColor;
+				return displayColor == null || displayColor == ChatColor.RESET ? ChatColor.getByChar(profile.getRank().get(0).getColorCode().charAt(1)) : displayColor;
 			}
 
 			@Override

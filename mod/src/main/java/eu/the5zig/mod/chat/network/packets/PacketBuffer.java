@@ -113,8 +113,13 @@ public class PacketBuffer {
 		return new User(readString(byteBuf), readUUID(byteBuf));
 	}
 
-	public static Rank readRank(ByteBuf byteBuf) {
-		return Rank.values()[readVarIntFromBuffer(byteBuf)];
+	public static ArrayList<Rank> readRank(ByteBuf byteBuf) {
+		long bits = byteBuf.readLong();
+		ArrayList<Rank> ranks = new ArrayList<>();
+		for(Rank r : Rank.values()) {
+			r.addIfSet(bits, ranks);
+		}
+		return ranks;
 	}
 
 	public static Friend readFriend(ByteBuf byteBuf) {
@@ -129,7 +134,7 @@ public class PacketBuffer {
 		if (online == Friend.OnlineStatus.OFFLINE) {
 			lastOnline = byteBuf.readLong();
 		}
-		Rank rank = readRank(byteBuf);
+		ArrayList<Rank> rank = readRank(byteBuf);
 		long firstOnline = byteBuf.readLong();
 		boolean favorite = byteBuf.readBoolean();
 		String modVersion = readString(byteBuf);

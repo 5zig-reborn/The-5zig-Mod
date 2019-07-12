@@ -19,6 +19,7 @@
 
 package eu.the5zig.mod.manager;
 
+import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.ChatBackgroundManager;
@@ -113,7 +114,7 @@ public class DataManager {
 		gameProfile = The5zigMod.getVars().getGameProfile();
 		UUID id = gameProfile.getId();
 		uuid = id == null ? UUID.randomUUID() : id;
-		profile = new Profile(0, Rank.NONE, System.currentTimeMillis(), "Hey there, I'm using The 5zig Mod!", Friend.OnlineStatus.ONLINE, true, true, true, false, true, ChatColor.RESET);
+		profile = new Profile(0, Lists.newArrayList(Rank.USER), System.currentTimeMillis(), "Hey there, I'm using The 5zig Mod!", Friend.OnlineStatus.ONLINE, true, true, true, false, true, ChatColor.RESET);
 
 		registerServerInstance(new ServerInstanceTimolia());
 		registerServerInstance(new ServerInstanceGommeHD());
@@ -138,7 +139,7 @@ public class DataManager {
 	}
 
 	public String getColoredName() {
-		return profile.getRank().getColorCode() + username;
+		return profile.getRank().get(0).getColorCode() + username;
 	}
 
 	public Server getServer() {

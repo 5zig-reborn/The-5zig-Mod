@@ -39,10 +39,7 @@ import eu.the5zig.mod.util.IResourceLocation;
 import eu.the5zig.util.Utils;
 import eu.the5zig.util.minecraft.ChatColor;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by 5zig.
@@ -58,7 +55,7 @@ public class Friend extends User implements RowExtended, Comparable<Friend> {
 	private String server;
 	private String lobby;
 	private long lastOnline;
-	private Rank rank;
+	private ArrayList<Rank> rank;
 	private boolean favorite;
 	private String modVersion;
 	private Locale locale;
@@ -71,7 +68,7 @@ public class Friend extends User implements RowExtended, Comparable<Friend> {
 	}
 
 	public String getDisplayName() {
-		return getRank().getColorCode() + getUsername();
+		return getRank().get(0).getColorCode() + getUsername();
 	}
 
 	public UUID getUniqueId() {
@@ -132,11 +129,11 @@ public class Friend extends User implements RowExtended, Comparable<Friend> {
 		this.firstOnline = firstOnline;
 	}
 
-	public Rank getRank() {
+	public ArrayList<Rank> getRank() {
 		return rank;
 	}
 
-	public void setRank(Rank rank) {
+	public void setRank(ArrayList<Rank> rank) {
 		this.rank = rank;
 	}
 
@@ -189,7 +186,7 @@ public class Friend extends User implements RowExtended, Comparable<Friend> {
 		}
 		base64Renderer.renderImage(x, y, 32, 32);
 
-		String displayName = getRank().getColorCode() + ChatColor.BOLD + getUsername();
+		String displayName = getRank().get(0).getColorCode() + ChatColor.BOLD + getUsername();
 		int stringWidth = The5zigMod.getVars().getStringWidth(displayName);
 
 		The5zigMod.getVars().drawString(displayName, x + 38, y + 2);

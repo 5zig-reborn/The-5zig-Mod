@@ -391,7 +391,7 @@ public class ConversationManager {
 
 	public void sendConversationMessage(UUID uuid, String string) {
 		String coloredMessage = string;
-		if (The5zigMod.getDataManager().getProfile().getRank() != Rank.NONE) {
+		if (The5zigMod.getDataManager().getProfile().getRank().get(0) != Rank.USER) {
 			coloredMessage = ChatColor.translateAlternateColorCodes('&', string);
 		}
 		final String message = coloredMessage;
@@ -460,7 +460,7 @@ public class ConversationManager {
 
 	public void sendGroupMessage(Group group, String string) {
 		String coloredMessage = string;
-		if (The5zigMod.getDataManager().getProfile().getRank() != Rank.NONE) {
+		if (The5zigMod.getDataManager().getProfile().getRank().get(0) != Rank.USER) {
 			coloredMessage = ChatColor.translateAlternateColorCodes('&', string);
 		}
 		final String message = coloredMessage;
