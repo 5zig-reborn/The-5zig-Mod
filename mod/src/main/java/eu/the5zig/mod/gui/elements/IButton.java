@@ -29,11 +29,11 @@ public interface IButton {
 
 	int callGetWidth();
 
-	void setWidth(int width);
+	void callSetWidth(int width);
 
 	int callGetHeight();
 
-	void setHeight(int height);
+	void callSetHeight(int height);
 
 	boolean isEnabled();
 

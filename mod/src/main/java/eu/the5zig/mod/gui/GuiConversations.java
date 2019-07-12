@@ -415,14 +415,14 @@ public class GuiConversations extends Gui implements Clickable<Conversation> {
 			if (image == null && audio == null) {
 				addButton(The5zigMod.getVars().createButton(70, getWidth() - 80 - 10, getHeight() - 26, 20, 20, "+"));
 				addButton(The5zigMod.getVars().createAudioButton(71, getWidth() - 80 - 10 + 22, getHeight() - 26, audioCallback));
-				getButtonById(1).setWidth(36);
+				getButtonById(1).callSetWidth(36);
 				getButtonById(1).setX(getWidth() - 80 - 10 + 44);
 			}
 		} else {
 			if (image != null && audio != null) {
 				removeButton(image);
 				removeButton(audio);
-				getButtonById(1).setWidth(80);
+				getButtonById(1).callSetWidth(80);
 				getButtonById(1).setX(getWidth() - 80 - 10);
 			}
 		}

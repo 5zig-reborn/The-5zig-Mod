@@ -26,10 +26,10 @@ import eu.the5zig.mod.chat.entity.Rank;
 import eu.the5zig.mod.chat.entity.User;
 import io.netty.buffer.ByteBuf;
 import org.apache.commons.codec.Charsets;
-import org.apache.commons.lang3.LocaleUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class PacketBuffer {
@@ -137,7 +137,7 @@ public class PacketBuffer {
 		ArrayList<Rank> rank = readRank(byteBuf);
 		long firstOnline = byteBuf.readLong();
 		boolean favorite = byteBuf.readBoolean();
-		String modVersion = readString(byteBuf);
+		String modVersion = "Unknown";
 		String locale = readString(byteBuf);
 
 		Friend friend = new Friend(username, uuid);
@@ -149,7 +149,7 @@ public class PacketBuffer {
 		friend.setRank(rank);
 		friend.setFirstOnline(firstOnline);
 		friend.setModVersion(modVersion);
-		friend.setLocale(locale.isEmpty() ? null : LocaleUtils.toLocale(locale));
+		friend.setLocale(locale.isEmpty() ? null : Locale.forLanguageTag(locale));
 		friend.setFavorite(favorite);
 		return friend;
 	}
