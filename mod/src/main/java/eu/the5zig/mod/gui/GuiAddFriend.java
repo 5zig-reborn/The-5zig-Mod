@@ -60,7 +60,7 @@ public class GuiAddFriend extends Gui implements Clickable<GuiAddFriend.ProfileR
 			textfield.callSetText(keyword);
 		addTextField(textfield);
 		guiList = The5zigMod.getVars().createGuiList(this, getWidth(), getHeight(), 50, getHeight() - 48, 0, getWidth(), rows);
-		guiList.setRowWidth(140);
+		guiList.setRowWidth(220);
 		guiList.setSelectedId(lastSelected);
 		guiList.onSelect(guiList.getSelectedId(), guiList.getSelectedRow(), false);
 		addGuiList(guiList);
