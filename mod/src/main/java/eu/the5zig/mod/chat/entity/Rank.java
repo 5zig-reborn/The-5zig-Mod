@@ -29,17 +29,22 @@ import java.util.ArrayList;
  */
 public enum Rank {
 
-	DEVELOPER(3, '6'),
-	TRANSLATOR(2, 'e'),
-	PATRON(1, 'c'),
-	USER(0, 'r');
+	DEVELOPER(3, '6', "Developer"),
+	TRANSLATOR(2, 'e', "Translator"),
+	PATRON2(4, 'a', "Tier II Patron"),
+	CAPE_CUSTOM(6, 'r', "Custom Cape"),
+	PATRON(1, '2', "Tier I Patron"),
+	CAPE_DEFAULT(5, 'r', "Default Cape"),
+	USER(0, 'r', "User");
 
 	private int index;
 	private final char colorCode;
+	private String display;
 
-	Rank(int fixedOrdinal, char code) {
+	Rank(int fixedOrdinal, char code, String display) {
 		this.index = fixedOrdinal;
 		this.colorCode = code;
+		this.display = display;
 	}
 
 	long getBit() {
@@ -56,8 +61,25 @@ public enum Rank {
 			roles.add(this);
 	}
 
+	public String getDisplay() {
+		return display;
+	}
+
 	public String getColorCode() {
 		return new String(new char[]{ChatColor.COLOR_CHAR, colorCode});
+	}
+
+	public String getColoredDisplay() {
+		return getColorCode() + getDisplay();
+	}
+
+	public static String buildList(ArrayList<Rank> ranks) {
+		StringBuilder builder = new StringBuilder();
+		for(Rank rank : ranks) {
+			builder.append(rank.getColoredDisplay()).append("§r, ");
+		}
+		builder.deleteCharAt(builder.length() - 2);
+		return builder.toString().trim();
 	}
 
 }

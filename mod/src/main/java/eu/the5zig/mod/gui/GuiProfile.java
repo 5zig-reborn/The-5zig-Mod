@@ -23,14 +23,13 @@ import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.chat.entity.Rank;
 import eu.the5zig.mod.gui.elements.*;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.util.Utils;
 import eu.the5zig.util.minecraft.ChatColor;
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by 5zig.
@@ -73,8 +72,8 @@ public class GuiProfile extends GuiOptions implements CenteredTextfieldCallback 
 		rows.add(new BasicRow(String.format("%s%s: %s", ChatColor.YELLOW, I18n.translate("profile.first_login_time"), ChatColor.RESET + Utils.convertToDate(
 				The5zigMod.getDataManager().getProfile().getFirstTime()).replace("Today", I18n.translate("profile.today")).replace("Yesterday", I18n.translate("profile.yesterday"))),
 				maxWidth));
-		rows.add(new BasicRow(String.format("%s%s: %s", ChatColor.YELLOW, I18n.translate("profile.cape"),
-				ChatColor.RESET + WordUtils.capitalize(The5zigMod.getDataManager().getProfile().getRank().toString().toLowerCase(Locale.ROOT))), maxWidth));
+		rows.add(new BasicRow(String.format("%s%s: %s", ChatColor.YELLOW, I18n.translate("profile.rank"),
+				Rank.buildList(The5zigMod.getDataManager().getProfile().getRank())), maxWidth));
 		int x = getWidth() / 2 - 155 + 16 + 88 + The5zigMod.getVars().getStringWidth(ChatColor.YELLOW + I18n.translate("profile.message") + ":") + 10;
 		rows.add(new ButtonRow(
 				The5zigMod.getVars().createStringButton(9, x, 88 + 40, The5zigMod.getVars().getStringWidth(I18n.translate("profile.edit")) + 2, 9, I18n.translate("profile.edit")), null) {

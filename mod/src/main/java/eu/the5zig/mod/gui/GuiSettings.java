@@ -228,7 +228,7 @@ public class GuiSettings extends Gui {
 	@Override
 	protected void mouseClicked(int x, int y, int button) {
 		super.mouseClicked(x, y, button);
-		if (hoverChatBtn && The5zigMod.DEBUG) {
+		if (hoverChatBtn) {
 			The5zigMod.getVars().displayScreen(new GuiFriends(this));
 			The5zigMod.getVars().playSound("ui.button.click", 1);
 		}

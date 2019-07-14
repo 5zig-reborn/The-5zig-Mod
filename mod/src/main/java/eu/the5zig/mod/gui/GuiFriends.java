@@ -28,6 +28,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.entity.Friend;
+import eu.the5zig.mod.chat.network.packets.PacketAuthToken;
 import eu.the5zig.mod.config.items.EnumItem;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
@@ -81,6 +82,8 @@ public class GuiFriends extends Gui {
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.ITEMS, 112, 0, 4, getWidth() - 168, 6));
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.ITEMS, 48, 16, 2, getWidth() - 148, 6));
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.ITEMS, 32, 16, 3, getWidth() - 128, 6));
+
+		addButton(The5zigMod.getVars().createButton(726, 8, getHeight() - 27, 100, 20, "Site Login..."));
 	}
 
 	@Override
@@ -101,6 +104,9 @@ public class GuiFriends extends Gui {
 			The5zigMod.getVars().displayScreen(new GuiConversations(this));
 		} else if (button.getId() == 5) {
 			The5zigMod.getVars().displayScreen(new GuiParty(this));
+		}
+		else if(button.getId() == 726) {
+			The5zigMod.getNetworkManager().sendPacket(new PacketAuthToken(false));
 		}
 	}
 
