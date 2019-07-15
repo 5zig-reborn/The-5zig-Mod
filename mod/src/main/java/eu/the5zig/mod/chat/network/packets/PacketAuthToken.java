@@ -18,6 +18,7 @@
 
 package eu.the5zig.mod.chat.network.packets;
 
+import eu.the5zig.mod.The5zigMod;
 import io.netty.buffer.ByteBuf;
 
 import java.awt.*;
@@ -50,7 +51,8 @@ public class PacketAuthToken implements Packet {
     public void handle() {
         if(Desktop.isDesktopSupported()) {
             try {
-                Desktop.getDesktop().browse(new URI("https://secure.5zigreborn.eu/login?token=" + token + "&remember=" + remember));
+                String baseUrl = The5zigMod.DEBUG ? "http://localhost:8080" : "https://secure.5zigreborn.eu";
+                Desktop.getDesktop().browse(new URI(baseUrl + "/login?token=" + token + "&remember=" + remember));
             } catch (Exception e) {
                 e.printStackTrace();
             }
