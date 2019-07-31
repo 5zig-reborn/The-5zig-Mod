@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import eu.the5zig.mod.api.ServerAPIBackend;
-import eu.the5zig.mod.api.rewards.RewardsCache;
 import eu.the5zig.mod.asm.Transformer;
 import eu.the5zig.mod.chat.ConversationManager;
 import eu.the5zig.mod.chat.FriendManager;
@@ -228,7 +227,6 @@ public class The5zigMod {
 		trayManager = new TrayManager();
 
 		newNetworkManager();
-		RewardsCache.downloadPermanentRewards();
 
 		skinManager = new SkinManager();
 

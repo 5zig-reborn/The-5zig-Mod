@@ -21,26 +21,21 @@ package eu.the5zig.mod.api.rewards;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.util.Utils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import eu.the5zig.mod.Version;
+import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 public class RewardsCache {
     private static Cache<String, Reward> cachedRewards;
 
-    // Currently used for staff rewards
-    private static HashMap<String, Reward> permanentRewards = new HashMap<>();
+    private static final String PATREON_URL = "https://secure.5zigreborn.eu/rewards/";
 
-    private static final String PERM_REWARDS_URL = "https://rocco.dev/5zig/rewards.json";
-    private static final String PATREON_URL = "https://api.5zigreborn.eu/patreon/fetch?uuid=";
-
-    private static boolean operate = false;
+    private static boolean operate = true;
 
     static {
         cachedRewards = CacheBuilder.newBuilder()
@@ -58,13 +53,7 @@ public class RewardsCache {
 
         Reward reward = cachedRewards.getIfPresent(uuid);
         if(reward == null) {
-            Reward permanent = permanentRewards.get(uuid);
-            if(permanent == null) {
-                downloadReward(uuid);
-            }
-            else {
-                loadPlayerIntoCache(uuid, permanent);
-            }
+            downloadReward(uuid);
         }
         return reward == null ? null : reward.getDisplayString();
     }
@@ -76,39 +65,16 @@ public class RewardsCache {
         loadPlayerIntoCache(uuid, reward);
         new Thread(() -> {
             try {
-                URL url = new URL(PATREON_URL);
+                URL url = new URL(PATREON_URL + uuid);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                if(conn.getResponseCode() == 302) {
-                    reward.setType(RewardType.PATREON);
+                conn.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
+                if(conn.getResponseCode() != 404) {
+                    reward.setDisplayString(IOUtils.toString(conn.getInputStream(), StandardCharsets.UTF_8));
                 }
             }
             catch (IOException ex) {
                 The5zigMod.logger.error("Couldn't fetch patreon info.");
             }
         }).start();
-    }
-
-    public static void downloadPermanentRewards() {
-        try {
-            String result = Utils.downloadFile(PERM_REWARDS_URL);
-
-            JSONObject obj = (JSONObject) new JSONParser().parse(result);
-
-            operate = (boolean) obj.get("operate");
-
-            JSONObject json = (JSONObject) obj.get("players");
-            HashMap<String, Reward> map = new HashMap<>();
-
-            json.keySet().forEach(k -> {
-                String value = (String) json.get(k);
-                Reward reward = new Reward(value);
-                map.put((String)k, reward);
-            });
-
-            permanentRewards = map;
-
-        } catch (Exception e) {
-            The5zigMod.logger.error("Couldn't fetch rewards. Offline?");
-        }
     }
 }
