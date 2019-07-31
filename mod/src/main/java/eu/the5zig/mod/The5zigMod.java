@@ -91,7 +91,7 @@ public class The5zigMod {
 	 * Allows tasks to be executed asynchronously.
 	 */
 	private static final AsyncExecutor asyncExecutor = new AsyncExecutor();
-	public static boolean DEBUG = false;
+	public static boolean DEBUG = true;
 
 	// Configurations
 

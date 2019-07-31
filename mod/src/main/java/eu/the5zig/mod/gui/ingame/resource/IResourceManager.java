@@ -19,6 +19,8 @@
 
 package eu.the5zig.mod.gui.ingame.resource;
 
+import com.mojang.authlib.GameProfile;
+
 public interface IResourceManager {
 
 	void updateOwnPlayerTextures();
@@ -29,4 +31,5 @@ public interface IResourceManager {
 
 	Object getCapeLocation(Object player);
 
+	void loadPlayerTextures(final GameProfile profile);
 }

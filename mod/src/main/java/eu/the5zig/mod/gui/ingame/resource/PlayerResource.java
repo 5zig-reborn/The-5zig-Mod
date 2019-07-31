@@ -36,12 +36,4 @@ public class PlayerResource {
 	public void setCapeResource(CapeResource capeResource) {
 		this.capeResource = capeResource;
 	}
-
-	public List<ItemModelResource> getItemModelResources() {
-		return itemModelResources;
-	}
-
-	public void setItemModelResources(List<ItemModelResource> itemModelResources) {
-		this.itemModelResources = itemModelResources;
-	}
 }
