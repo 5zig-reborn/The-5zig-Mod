@@ -47,6 +47,14 @@ public enum Rank {
 		this.display = display;
 	}
 
+	public boolean isDefaultCape() {
+		return ordinal() <= CAPE_DEFAULT.ordinal();
+	}
+
+	public boolean isCustomCape() {
+		return ordinal() <= CAPE_CUSTOM.ordinal();
+	}
+
 	long getBit() {
 		return 1 << index;
 	}

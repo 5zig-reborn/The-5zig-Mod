@@ -67,6 +67,7 @@ public class GuiFileSelector extends Gui {
 						selectFile(callback);
 					}
 				});
+		fileSelector.setAllowedExtensions(allowedExtensions);
 		ITextfield textfield = The5zigMod.getVars().createTextfield(1, getWidth() / 2 - 150, 38, 250, 18, 200);
 		textfield.setSelected(false);
 		textfield.callSetText(fileSelector.getCurrentDir() == null ? "" : fileSelector.getCurrentDir().getAbsolutePath() + "\\");

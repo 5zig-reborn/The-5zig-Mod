@@ -21,7 +21,6 @@ package eu.the5zig.mod.gui;
 
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.mod.chat.entity.Rank;
 import eu.the5zig.mod.chat.network.packets.PacketCapeSettings;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.util.FileSelectorCallback;
@@ -57,13 +56,14 @@ public class GuiCapeSettings extends Gui {
 		if (!The5zigMod.getNetworkManager().isConnected()) {
 			status = ChatColor.RED + I18n.translate("cape.not_connected");
 			enableCapeButtons(false);
-		} else if (The5zigMod.getDataManager().getProfile().getRank().get(0) == Rank.USER) {
-			status = ChatColor.RED + I18n.translate("cape.not_donator");
-			enableCapeButtons(false);
-		} else if (The5zigMod.getDataManager().getProfile().getRank().get(0) == Rank.PATRON) {
+
+		} else if (!The5zigMod.getDataManager().getProfile().getRank().get(0).isCustomCape()) {
 			status = ChatColor.GOLD + I18n.translate("cape.not_custom");
 			getButtonById(2).setEnabled(false);
-		} else {
+		} else if (!The5zigMod.getDataManager().getProfile().getRank().get(0).isDefaultCape()) {
+			status = ChatColor.RED + I18n.translate("cape.not_donator");
+			enableCapeButtons(false);
+		} else if(The5zigMod.getDataManager().getProfile().getRank().get(0).isCustomCape()) {
 			status = null;
 			if (!The5zigMod.getDataManager().getProfile().isCapeEnabled()) {
 				getButtonById(2).setEnabled(false);

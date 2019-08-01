@@ -63,7 +63,7 @@ public class GuiUploadDefaultCape extends Gui {
 
 	@Override
 	protected void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		drawCenteredString(I18n.translate("cape.upload.default.help") + (selectedCape >= 0 && selectedCape < PacketCapeSettings.Cape.values().length ? " >" + StringUtils.capitalize(
+		drawCenteredString(I18n.translate("cape.upload.default.help") + (selectedCape >= 0 && selectedCape < PacketCapeSettings.Cape.values().length ? " > " + StringUtils.capitalize(
 				PacketCapeSettings.Cape.values()[selectedCape].toString().toLowerCase(Locale.ROOT).replace("_", " "))  : ""), getWidth() / 2, getHeight() / 6 - 10);
 
 		The5zigMod.getVars().bindTexture(capesTexture);

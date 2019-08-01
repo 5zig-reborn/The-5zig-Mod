@@ -35,4 +35,5 @@ public interface IFileSelector {
 
 	void handleMouseInput();
 
+	void setAllowedExtensions(String... extensions);
 }
