@@ -94,9 +94,6 @@ public class ConfigNew {
 		add(new DisplayCategoryItem("server", "main", "server"));
 		add(new DisplayScreenItem("teamspeak", "main", GuiTeamSpeak.class));
 
-		// Disabled until we get enough funds for a server.
-		// [REBORN] Network server disabled
-		// add(new DisplayScreenItem("friend_list", "main", GuiFriends.class));
 		add(new BoolItem("discord", "main", true));
 
 		add(new PlaceholderItem("main"));

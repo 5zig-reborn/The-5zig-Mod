@@ -73,8 +73,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	private NetworkDecoder dec;
 
 	private NetworkManager() {
-		// Disabled until we get enough funds for a server.
-		// [REBORN] Network server disabled
 		initConnection();
 	}
 

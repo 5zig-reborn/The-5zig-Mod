@@ -54,7 +54,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
     compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
-    embed group: 'com.h2database', name: 'h2', version: '1.4.199'
+    embed group: 'org.hsqldb', name: 'hsqldb', version: '2.5.0'
 
     embed 'com.github.5zig-reborn:DiscordIPC:master-SNAPSHOT'
 }
