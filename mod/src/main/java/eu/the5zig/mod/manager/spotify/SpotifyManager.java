@@ -39,8 +39,8 @@ public class SpotifyManager {
 	public static final int SPOTIFY_COLOR_SECOND = 0xFF404040;
 	public static final int SPOTIFY_COLOR_BACKGROUND = 0xFF282828;
 
-	private static final int PORT_START = 4380;
-	private static final int PORT_END = 4389;
+	private static final int PORT_START = 6463;
+	private static final int PORT_END = 6463;
 	private static final int DEFAULT_TIMEOUT_MILLIS = 10000;
 	private static final int POLL_TIME = 60;
 
@@ -306,7 +306,8 @@ public class SpotifyManager {
 		for (int i = 0; i < buffer.capacity(); i++) {
 			buffer.append(characters.charAt(The5zigMod.random.nextInt(characters.length())));
 		}
-		return buffer.toString() + ".spotilocal.com";
+		//return buffer.toString() + ".spotilocal.com";
+		return "127.0.0.1";
 	}
 
 	private Map<String, String> createAuthParams() {
