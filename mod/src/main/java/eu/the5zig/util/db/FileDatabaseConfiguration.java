@@ -35,7 +35,7 @@ public class FileDatabaseConfiguration implements IDatabaseConfiguration {
 	private final String properties;
 
 	public FileDatabaseConfiguration(File file, String... properties) {
-		this.driver = "org.hsqldb.jdbcDriver";
+		this.driver = "org.hsqldb.jdbc.JDBCDriver";
 		this.file = file;
 		StringBuilder stringBuilder = new StringBuilder();
 		for (String property : properties) {
@@ -63,7 +63,7 @@ public class FileDatabaseConfiguration implements IDatabaseConfiguration {
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:hsqldb:" + getFile().getAbsolutePath() + getProperties());
+		return DriverManager.getConnection("jdbc:hsqldb:file:" + getFile().getAbsolutePath() + getProperties(), "SA", "");
 	}
 
 	@Override

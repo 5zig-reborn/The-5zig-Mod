@@ -104,6 +104,7 @@ public class Protocol {
 		register(0x63, PacketPartyStatus.class, ConnectionState.PLAY);
 
 		register(0x90, PacketAuthToken.class, ConnectionState.PLAY);
+		register(0x91, PacketNewMessages.class, ConnectionState.PLAY);
 	}
 
 	private void register(int id, Class packet, ConnectionState state) {

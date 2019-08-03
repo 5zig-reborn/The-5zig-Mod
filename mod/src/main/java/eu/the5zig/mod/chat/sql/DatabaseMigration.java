@@ -82,9 +82,9 @@ public class DatabaseMigration {
 			database.update("ALTER TABLE " + ConversationManager.TABLE_ANNOUNCEMENTS + " ADD behaviour INT");
 			database.update("UPDATE " + ConversationManager.TABLE_ANNOUNCEMENTS + " SET behaviour=?", Conversation.Behaviour.DEFAULT.ordinal());
 		} else if (dbVersion == 1) {
-			database.update("ALTER TABLE " + ConversationManager.TABLE_CHAT_MESSAGES + " MODIFY message VARCHAR(512)");
-			database.update("ALTER TABLE " + ConversationManager.TABLE_GROUP_CHAT_MESSAGES + " MODIFY message VARCHAR(512)");
-			database.update("ALTER TABLE " + ConversationManager.TABLE_ANNOUNCEMENTS_MESSAGES + " MODIFY message VARCHAR(512)");
+			database.update("ALTER TABLE " + ConversationManager.TABLE_CHAT_MESSAGES + " ALTER COLUMN message VARCHAR(512)");
+			database.update("ALTER TABLE " + ConversationManager.TABLE_GROUP_CHAT_MESSAGES + " ALTER COLUMN message VARCHAR(512)");
+			database.update("ALTER TABLE " + ConversationManager.TABLE_ANNOUNCEMENTS_MESSAGES + " ALTER COLUMN message VARCHAR(512)");
 		} else if (dbVersion == 2) {
 		}
 

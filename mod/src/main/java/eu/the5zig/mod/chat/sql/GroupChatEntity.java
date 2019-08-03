@@ -26,7 +26,7 @@ package eu.the5zig.mod.chat.sql;
 public class GroupChatEntity {
 
 	private int id;
-	private int groupId;
+	private int groupid;
 	private String name;
 	private long lastused;
 	private boolean read;
@@ -38,7 +38,7 @@ public class GroupChatEntity {
 	}
 
 	public int getGroupId() {
-		return groupId;
+		return groupid;
 	}
 
 	public String getName() {

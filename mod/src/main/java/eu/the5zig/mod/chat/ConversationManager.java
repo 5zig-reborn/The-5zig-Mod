@@ -128,17 +128,17 @@ public class ConversationManager {
 
 	private void loadConversations(Database sql) {
 		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_CHAT +
-				" (id INT AUTO_INCREMENT PRIMARY KEY, uuid VARCHAR(36), friend VARCHAR(16), lastused BIGINT, read BOOLEAN, status INT, behaviour INT)");
-		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_CHAT_MESSAGES + " (id INT AUTO_INCREMENT PRIMARY KEY, conversationid INT, player VARCHAR(20), message VARCHAR(512), time " +
+				" (id INT IDENTITY PRIMARY KEY, uuid VARCHAR(36), friend VARCHAR(16), lastused BIGINT, read BOOLEAN, status INT, behaviour INT)");
+		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_CHAT_MESSAGES + " (id INT IDENTITY PRIMARY KEY, conversationid INT, player VARCHAR(20), message VARCHAR(512), time " +
 				"BIGINT, type INT)");
 
-		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_ANNOUNCEMENTS + " (id INT AUTO_INCREMENT PRIMARY KEY, lastused BIGINT, read BOOLEAN, behaviour INT)");
-		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_ANNOUNCEMENTS_MESSAGES + " (id INT AUTO_INCREMENT PRIMARY KEY, message VARCHAR(512), type INT, time BIGINT)");
+		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_ANNOUNCEMENTS + " (id INT IDENTITY PRIMARY KEY, lastused BIGINT, read BOOLEAN, behaviour INT)");
+		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_ANNOUNCEMENTS_MESSAGES + " (id INT IDENTITY PRIMARY KEY, message VARCHAR(512), type INT, time BIGINT)");
 
 		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_GROUP_CHAT +
-				" (id INT AUTO_INCREMENT PRIMARY KEY, groupId INT, name VARCHAR(50), lastused BIGINT, read BOOLEAN, status INT, behaviour INT)");
+				" (id INT IDENTITY PRIMARY KEY, groupId INT, name VARCHAR(50), lastused BIGINT, read BOOLEAN, status INT, behaviour INT)");
 		sql.update("CREATE TABLE IF NOT EXISTS " + TABLE_GROUP_CHAT_MESSAGES +
-				" (id INT AUTO_INCREMENT PRIMARY KEY, conversationid INT, player VARCHAR(20), message VARCHAR(512), time BIGINT, type INT)");
+				" (id INT IDENTITY PRIMARY KEY, conversationid INT, player VARCHAR(20), message VARCHAR(512), time BIGINT, type INT)");
 
 		loadChatConversations(sql);
 		loadGroupChatConversations(sql);
@@ -424,6 +424,14 @@ public class ConversationManager {
 	 * @param time     The Send-Time of the message.
 	 */
 	public void handleFriendMessageReceive(UUID uuid, final String username, final String message, final long time) {
+		handleFriendMessageReceive(uuid, username, message, time, true);
+	}
+
+	public void handleBulkMessage(UUID uuid, final String username, final String message, final long time) {
+		handleFriendMessageReceive(uuid, username, message, time, false);
+	}
+
+	private void handleFriendMessageReceive(UUID uuid, final String username, final String message, final long time, boolean notify) {
 		final Friend friend = The5zigMod.getFriendManager().getFriend(uuid);
 		The5zigMod.getNetworkManager().sendPacket(new PacketMessageFriendStatus(friend.getUniqueId(), Message.MessageStatus.DELIVERED));
 		final Conversation conversation = getConversation(friend);
@@ -434,14 +442,14 @@ public class ConversationManager {
 		if (!(The5zigMod.getVars().getCurrentScreen() instanceof GuiConversations) ||
 				!(((GuiConversations) The5zigMod.getVars().getCurrentScreen()).getSelectedConversation() instanceof ConversationChat) ||
 				!((ConversationChat) ((GuiConversations) The5zigMod.getVars().getCurrentScreen()).getSelectedConversation()).getFriendUUID().equals(friend.getUniqueId())) {
-			if ((conversation.getBehaviour() == Conversation.Behaviour.DEFAULT && The5zigMod.getConfig().getBool("showMessages")) ||
+			if (notify && (conversation.getBehaviour() == Conversation.Behaviour.DEFAULT && The5zigMod.getConfig().getBool("showMessages")) ||
 					conversation.getBehaviour() == Conversation.Behaviour.SHOW) {
 				The5zigMod.getOverlayMessage().displayMessage(title, message);
 				if (The5zigMod.getDataManager().getAfkManager().isAfk())
 					The5zigMod.getDataManager().getAfkManager().addNewMessage();
 			}
 		}
-		if (!Display.isActive())
+		if (notify && !Display.isActive())
 			The5zigMod.getTrayManager().displayMessage(ChatColor.stripColor(title), ChatColor.stripColor(message));
 
 		final Message msg = new Message(conversation, -1, username, message, time, Message.MessageType.LEFT);
@@ -450,11 +458,11 @@ public class ConversationManager {
 		addChatLineToGui(conversation, msg);
 		setConversationLastUsed(conversation);
 		queueStatement(new Callback<Integer>() {
-			               @Override
-			               public void call(Integer callback) {
-				               msg.setId(callback);
-			               }
-		               }, true, "INSERT INTO " + TABLE_CHAT_MESSAGES + " (conversationid, player, message, time, type) VALUES (?, ?, ?, ?, ?)", conversation.getId(), username, message, time,
+						   @Override
+						   public void call(Integer callback) {
+							   msg.setId(callback);
+						   }
+					   }, true, "INSERT INTO " + TABLE_CHAT_MESSAGES + " (conversationid, player, message, time, type) VALUES (?, ?, ?, ?, ?)", conversation.getId(), username, message, time,
 				Message.MessageType.LEFT.ordinal());
 	}
 

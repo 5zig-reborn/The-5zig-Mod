@@ -47,7 +47,6 @@ import eu.the5zig.teamspeak.TeamSpeak;
 import eu.the5zig.teamspeak.util.Utils;
 import eu.the5zig.util.AsyncExecutor;
 import eu.the5zig.util.db.Database;
-import eu.the5zig.util.db.DummyDatabase;
 import eu.the5zig.util.db.FileDatabaseConfiguration;
 import eu.the5zig.util.db.exceptions.NoConnectionException;
 import eu.the5zig.util.io.FileUtils;
@@ -467,6 +466,12 @@ public class The5zigMod {
 		File backupFile = new File(file.getAbsolutePath() + "_backup.mv.db");
 		FileDatabaseConfiguration configuration = new FileDatabaseConfiguration(file, "DATABASE_TO_UPPER=FALSE");
 		try {
+			database = new Database(configuration);
+		} catch (NoConnectionException e) {
+			e.printStackTrace();
+		}
+		/*
+		try {
 			// check lock
 			if (dbFile.exists() && isFileLocked(configuration.getFile().getAbsolutePath() + ".mv.db")) {
 				logger.info("Found locked database! Using dummy database!");
@@ -504,7 +509,7 @@ public class The5zigMod {
 					}
 				}
 			}
-		}
+		}*/
 		conversationDatabase = database;
 		conversationManager.init(database);
 	}

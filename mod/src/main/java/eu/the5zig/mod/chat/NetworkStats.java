@@ -78,15 +78,15 @@ public class NetworkStats {
 				String key = entity.getKey();
 				String value = entity.getValue();
 
-				if (key.equals("packetsSent"))
+				if ("packetsSent".equals(key))
 					totalPacketsSent = Integer.parseInt(value);
-				if (key.equals("packetsReceived"))
+				if ("packetsReceived".equals(key))
 					totalPacketsReceived = Integer.parseInt(value);
-				if (key.equals("bytesSent"))
+				if ("bytesSent".equals(key))
 					totalBytesSent = Long.parseLong(value);
-				if (key.equals("bytesReceived"))
+				if ("bytesReceived".equals(key))
 					totalBytesReceived = Long.parseLong(value);
-				if (key.equals("since"))
+				if ("since".equals(key))
 					since = Long.parseLong(value);
 			}
 		}

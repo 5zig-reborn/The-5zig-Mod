@@ -175,7 +175,7 @@ public class FriendManager {
 	}
 
 	public void loadSuggestions(Database sql) {
-		sql.update("CREATE TABLE IF NOT EXISTS friend_suggestions (id INT AUTO_INCREMENT PRIMARY KEY, uuid VARCHAR(36) UNIQUE, name VARCHAR(16), hide BOOLEAN)");
+		sql.update("CREATE TABLE IF NOT EXISTS friend_suggestions (id INT IDENTITY PRIMARY KEY, uuid VARCHAR(36) UNIQUE, name VARCHAR(16), hide BOOLEAN)");
 		List<FriendSuggestionEntity> all = sql.get(FriendSuggestionEntity.class).query("SELECT * FROM friend_suggestions").getAll();
 		for (FriendSuggestionEntity entity : all) {
 			suggestions.add(new FriendSuggestion(entity.getName(), UUID.fromString(entity.getUuid()), entity.isHide()));

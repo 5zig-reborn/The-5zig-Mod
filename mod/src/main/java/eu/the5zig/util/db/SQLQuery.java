@@ -19,11 +19,12 @@
 
 package eu.the5zig.util.db;
 
-import eu.the5zig.util.db.exceptions.NoConnectionException;
 import eu.the5zig.util.Callback;
+import eu.the5zig.util.db.exceptions.NoConnectionException;
 
 import java.lang.reflect.Field;
 import java.sql.*;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -83,7 +84,6 @@ public class SQLQuery<T> {
 			}
 			rs = st.executeQuery();
 			SQLResult<T> result = new SQLResult<T>();
-
 			while (rs.next()) {
 				ResultSetMetaData metaData = rs.getMetaData();
 
@@ -93,7 +93,7 @@ public class SQLQuery<T> {
 					for (int i = 1; i <= columns; i++) {
 						Field field;
 						try {
-							field = entity.getClass().getDeclaredField(metaData.getColumnName(i));
+							field = entity.getClass().getDeclaredField(metaData.getColumnName(i).toLowerCase(Locale.ROOT));
 						} catch (NoSuchFieldException e) {
 							continue;
 						}
