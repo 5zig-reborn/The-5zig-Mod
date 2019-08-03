@@ -60,7 +60,7 @@ public class PacketNewMessages implements Packet {
         if(The5zigMod.getConfig().getBool("playMessageSounds"))
             The5zigMod.getVars().playSound("the5zigmod", "chat.message.receive", 1);
         if(The5zigMod.getConfig().getBool("showMessages"))
-            The5zigMod.getOverlayMessage().displayMessage(I18n.translate("chat.new_messages"), messages.size());
+            The5zigMod.getOverlayMessage().displayMessage(I18n.translate("chat.new_messages", messages.size()));
     }
 
     private static class Message {
