@@ -57,12 +57,13 @@ public class GuiCapeSettings extends Gui {
 			status = ChatColor.RED + I18n.translate("cape.not_connected");
 			enableCapeButtons(false);
 
-		} else if (!The5zigMod.getDataManager().getProfile().getRank().get(0).isCustomCape()) {
-			status = ChatColor.GOLD + I18n.translate("cape.not_custom");
-			getButtonById(2).setEnabled(false);
 		} else if (!The5zigMod.getDataManager().getProfile().getRank().get(0).isDefaultCape()) {
 			status = ChatColor.RED + I18n.translate("cape.not_donator");
 			enableCapeButtons(false);
+		}
+		else if (!The5zigMod.getDataManager().getProfile().getRank().get(0).isCustomCape()) {
+			status = ChatColor.GOLD + I18n.translate("cape.not_custom");
+			getButtonById(2).setEnabled(false);
 		} else if(The5zigMod.getDataManager().getProfile().getRank().get(0).isCustomCape()) {
 			status = null;
 			if (!The5zigMod.getDataManager().getProfile().isCapeEnabled()) {

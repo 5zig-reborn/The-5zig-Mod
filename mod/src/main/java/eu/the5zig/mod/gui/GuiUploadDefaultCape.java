@@ -21,10 +21,12 @@ package eu.the5zig.mod.gui;
 
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.chat.entity.Rank;
 import eu.the5zig.mod.chat.network.packets.PacketCapeSettings;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.util.GLUtil;
 import eu.the5zig.mod.util.IResourceLocation;
+import eu.the5zig.util.minecraft.ChatColor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
@@ -38,6 +40,9 @@ public class GuiUploadDefaultCape extends Gui {
 	private static final IResourceLocation capesTexture = The5zigMod.getVars().createResourceLocation("the5zigmod", "textures/capes.png");
 	private int selectedCape = -1;
 
+	private Rank required;
+	private IButton closeRequirement;
+
 	public GuiUploadDefaultCape(Gui lastScreen) {
 		super(lastScreen);
 	}
@@ -45,6 +50,7 @@ public class GuiUploadDefaultCape extends Gui {
 	@Override
 	public void initGui() {
 		addCancelButton();
+		closeRequirement = The5zigMod.getVars().createButton(50, getWidth() / 2 - 75, (getHeight() - 200) / 2 + 135, 150, 20, The5zigMod.getVars().translate("gui.done"));
 	}
 
 	@Override
@@ -56,7 +62,13 @@ public class GuiUploadDefaultCape extends Gui {
 	protected void mouseClicked(int mouseX, int mouseY, int button) {
 		if (button != 0 || selectedCape < 0 || selectedCape >= PacketCapeSettings.Cape.values().length)
 			return;
-		The5zigMod.getNetworkManager().sendPacket(new PacketCapeSettings(PacketCapeSettings.Action.UPLOAD_DEFAULT, PacketCapeSettings.Cape.values()[selectedCape]));
+
+		PacketCapeSettings.Cape cape = PacketCapeSettings.Cape.values()[selectedCape];
+		if(!cape.canApply(The5zigMod.getDataManager().getProfile().getRank().get(0))) {
+			required = cape.getMinimum();
+			return;
+		}
+		The5zigMod.getNetworkManager().sendPacket(new PacketCapeSettings(PacketCapeSettings.Action.UPLOAD_DEFAULT, cape));
 		The5zigMod.getVars().displayScreen(lastScreen);
 		The5zigMod.getOverlayMessage().displayMessage(I18n.translate("cape.upload.uploading"));
 	}
@@ -72,7 +84,7 @@ public class GuiUploadDefaultCape extends Gui {
 		int xOffset = (getWidth() - (capeWidth + 8) * 8) / 2 + 4;
 		int yOffset = getHeight() / 6 + 4;
 		selectedCape = -1;
-		for (int y = 0; y < 3; y++) {
+		for (int y = 0; y < 4; y++) {
 			for (int x = 0; x < 8; x++) {
 				GLUtil.color(.7f, .7f, .7f, 1.0f);
 				if (mouseX > xOffset && mouseX < xOffset + capeWidth && mouseY > yOffset && mouseY < yOffset + capeHeight) {
@@ -90,6 +102,48 @@ public class GuiUploadDefaultCape extends Gui {
 			yOffset += capeHeight + 6;
 		}
 		GLUtil.color(1, 1, 1, 1);
+	}
+
+	@Override
+	public void drawScreen0(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen0(mouseX, mouseY, partialTicks);
+		if(required != null) {
+			String rankName = required.getColoredDisplay() + "§r";
+			GLUtil.color(1, 1, 1, 1);
+			The5zigMod.getVars().bindTexture(The5zigMod.DEMO_BACKGROUND);
+			drawTexturedModalRect((getWidth() - 247) / 2, (getHeight() - 200) / 2, 0, 0, 256, 256);
+			The5zigMod.getVars().drawCenteredString(ChatColor.BOLD + I18n.translate("error"), getWidth() / 2, (getHeight() - 200) / 2 + 10);
+			int y = 0;
+			for (String line : The5zigMod.getVars().splitStringToWidth(I18n.translate("cape.forbidden", rankName), 236)) {
+				drawCenteredString(ChatColor.WHITE + line, getWidth() / 2, (getHeight() - 200) / 2 + 30 + y);
+				y += 10;
+			}
+			closeRequirement.draw(mouseX, mouseY);
+		}
+	}
+
+	@Override
+	protected void mouseReleased(int x, int y, int state) {
+		if(required != null)
+			closeRequirement.callMouseReleased(x, y);
+	}
+
+	@Override
+	protected void tick() {
+		if(required != null)
+			closeRequirement.tick();
+	}
+
+	@Override
+	public void mouseClicked0(int x, int y, int button) {
+		if (required != null) {
+			if (closeRequirement.mouseClicked(x, y)) {
+				closeRequirement.playClickSound();
+				required = null;
+			}
+			return;
+		}
+		super.mouseClicked0(x, y, button);
 	}
 
 	@Override

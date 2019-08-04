@@ -20,6 +20,7 @@
 package eu.the5zig.mod.chat.network.packets;
 
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.chat.entity.Rank;
 import io.netty.buffer.ByteBuf;
 
 import java.io.IOException;
@@ -88,7 +89,25 @@ public class PacketCapeSettings implements Packet {
 
 	public enum Cape {
 		GREEN, RED, BLUE, YELLOW, XMAS, NEW_YEAR, SNOWMAN, STAR, MINECON_2011, MINECON_2012, MINECON_2013, MINECON_2015, SCROLLS, COBALT, MOJANG, MOJANG_2016, BACON, PRISMARINE,
-		MRMESSIAH, MAPMAKER, BUG_TRACKER, CROWDIN, ANIMATED_FIRE, MINECON_2016, MOD_DEVELOPER, MOD_TRANSLATOR, MOD_MODERATOR, TIER_1_PATRON, TIER_2_PATRON
-	}
+		MRMESSIAH, MAPMAKER, BUG_TRACKER, CROWDIN, ANIMATED_FIRE, MINECON_2016,
 
+		MOD_DEVELOPER(Rank.DEVELOPER), MOD_TRANSLATOR(Rank.TRANSLATOR), MOD_MODERATOR(Rank.DEVELOPER),
+		TIER_1_PATRON(Rank.PATRON), TIER_2_PATRON(Rank.PATRON2);
+
+
+		private Rank minimum = Rank.CAPE_DEFAULT;
+
+		Cape(Rank... minimum) {
+			if(minimum.length > 0)
+				this.minimum = minimum[0];
+		}
+
+		public boolean canApply(Rank role) {
+			return role.ordinal() <= minimum.ordinal();
+		}
+
+		public Rank getMinimum() {
+			return minimum;
+		}
+	}
 }
