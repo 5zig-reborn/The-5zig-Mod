@@ -126,10 +126,10 @@ public class GuiParty extends Gui {
 			});
 			addGuiList(chatList);
 
-			IGuiList<GroupMember> memberList = The5zigMod.getVars().createGuiList(null, 100, getHeight(), 32, getHeight() - 4, getWidth() - 100, getWidth() - 2, party.getMembers());
+			IGuiList<GroupMember> memberList = The5zigMod.getVars().createGuiList(null, 220, getHeight(), 32, getHeight() - 4, getWidth() - 100, getWidth() - 2, party.getMembers());
 			memberList.setHeader(I18n.translate("party.members"));
 			memberList.callSetHeaderPadding(8);
-			memberList.setRowWidth(100);
+			memberList.setRowWidth(220);
 			memberList.setDrawSelection(false);
 			memberList.setScrollX(getWidth() - 7);
 			addGuiList(memberList);
