@@ -31,6 +31,7 @@ public enum Rank {
 
 	DEVELOPER(3, '6', "Developer"),
 	TRANSLATOR(2, 'e', "Translator"),
+	MODERATOR(7, '3', "Moderator"),
 	PATRON2(4, 'a', "Tier II Patron"),
 	CAPE_CUSTOM(6, 'r', "Custom Cape"),
 	PATRON(1, '2', "Tier I Patron"),
