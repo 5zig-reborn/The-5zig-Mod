@@ -31,10 +31,10 @@ import io.netty.handler.codec.DecoderException;
  */
 public class PayloadUtils {
 
-	public static final String API_CHANNEL = "5zig";
-	public static final String API_CHANNEL_REGISTER = "5zig:reg";
+	public static final String API_CHANNEL = "the5zigmod:5zig";
+	public static final String API_CHANNEL_REGISTER = "the5zigmod:5zig_reg";
 
-	public static final String SETTING_CHANNEL = "5zig:set";
+	public static final String SETTING_CHANNEL = "the5zigmod:5zig_set";
 
 	public static void sendPayload(String message) {
 		sendPayload(API_CHANNEL, message);
