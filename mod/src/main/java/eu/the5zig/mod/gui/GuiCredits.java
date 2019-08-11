@@ -21,6 +21,8 @@ package eu.the5zig.mod.gui;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.BasicRow;
@@ -28,6 +30,7 @@ import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.Row;
 import eu.the5zig.util.LinkedProperties;
+import eu.the5zig.util.Utils;
 
 import java.io.IOException;
 import java.util.*;
@@ -101,21 +104,40 @@ public class GuiCredits extends Gui {
 			}
 		}
 
-		List<?> thankYouList = The5zigMod.getVars().splitStringToWidth(I18n.translate("credits.thank_you"), 220);
-		for (Object object : thankYouList) {
-			final String line = String.valueOf(object);
-			rows.add(new Row() {
-				@Override
-				public int getLineHeight() {
-					return 12;
-				}
+		The5zigMod.getAsyncExecutor().execute(() -> {
+			String in = Utils.downloadFile("https://secure.5zigreborn.eu/credits");
+			JsonArray array = new JsonParser().parse(in).getAsJsonArray();
+			for(int i = 0; i < array.size(); i++) {
+				String user = array.get(i).getAsString();
+				if(i == 0) {
+					rows.add(new Row() {
+						@Override
+						public int getLineHeight() {
+							return 12;
+						}
 
-				@Override
-				public void draw(int x, int y) {
-					drawCenteredString(line, getWidth() / 2, y + 2);
+						@Override
+						public void draw(int x, int y) {
+							The5zigMod.getVars().drawString(I18n.translate("credits.patrons") + ": ", getWidth() / 2 - 100, y + 2);
+							The5zigMod.getVars().drawString(user, getWidth() / 2, y + 2);
+						}
+					});
 				}
-			});
-		}
+				else {
+					rows.add(new Row() {
+						@Override
+						public int getLineHeight() {
+							return 12;
+						}
+
+						@Override
+						public void draw(int x, int y) {
+							The5zigMod.getVars().drawString(user, getWidth() / 2, y + 2);
+						}
+					});
+				}
+			}
+		});
 
 		IGuiList guiList = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 50, getHeight() - 50, 0, getWidth(), rows);
 		guiList.setLeftbound(true);
