@@ -582,7 +582,13 @@ public class ConfigNew {
 				The5zigMod.getFriendManager().sortFriends();
 			}
 		});
+
+		// [REBORN] New config start
+
 		add(new BoolItem("plugin_update", null, true));
+		add(new BoolItem("pingOnTab", "display", false));
+
+		// [REBORN] New config end
 	}
 
 	/**
