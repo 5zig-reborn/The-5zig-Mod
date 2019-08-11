@@ -1,5 +1,5 @@
 subprojects {
-    version = '3.12.6'
+    version = '3.13.0'
 }
 
 allprojects {
