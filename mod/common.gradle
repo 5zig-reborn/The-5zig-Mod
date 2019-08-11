@@ -64,7 +64,9 @@ jar {
             'Main-Class': 'eu.the5zig.mod.installer.Frame',
             'MixinConfigs': 'mixins.json',
             'TweakClass': 'eu.the5zig.mod.asm.ClassTweaker',
-            'TweakOrder': '-900'
+            'TweakOrder': '-900',
+            '5zig-Version': project.version,
+            'Minecraft-Version': project.name
     )
 
     from {

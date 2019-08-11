@@ -10,6 +10,7 @@ fi
 git config --local user.name "Travis CI"
 git config --local user.email "travis@5zigreborn.eu"
 
+rm *
 rsync -av ../version-specific/artifacts/ .
 git add --all
 git commit -m "${TRAVIS_COMMIT_MESSAGE} (${TRAVIS_COMMIT})"

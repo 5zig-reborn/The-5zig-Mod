@@ -3,6 +3,10 @@ subprojects {
 }
 
 allprojects {
+    apply plugin: 'java'
+
+    jar.baseName = "5zig-Reborn-" + project.name
+
     repositories {
         jcenter()
         maven {
