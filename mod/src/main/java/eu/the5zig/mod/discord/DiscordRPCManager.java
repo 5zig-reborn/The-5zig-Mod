@@ -23,6 +23,8 @@ import com.jagrosh.discordipc.IPCListener;
 import com.jagrosh.discordipc.entities.User;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.event.EventHandler;
+import eu.the5zig.mod.event.ServerQuitEvent;
 
 public class DiscordRPCManager {
 
@@ -47,6 +49,8 @@ public class DiscordRPCManager {
 
         client.connect();
         setDefault();
+
+        The5zigMod.getListener().registerListener(this);
     }
 
     public void clearPresence() {
@@ -72,6 +76,11 @@ public class DiscordRPCManager {
     public void setPresence(The5zigRichPresence presence) {
         if(client != null)
             client.sendRichPresence(presence.build());
+    }
+
+    @EventHandler
+    public void onDisconnect(ServerQuitEvent event) {
+        setDefault();
     }
 
 }
