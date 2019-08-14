@@ -34,6 +34,7 @@ import eu.the5zig.mod.config.items.IntItem;
 import eu.the5zig.mod.crashreport.CrashHopper;
 import eu.the5zig.mod.discord.DiscordRPCManager;
 import eu.the5zig.mod.gui.IOverlay;
+import eu.the5zig.mod.gui.ts.GuiTeamSpeak;
 import eu.the5zig.mod.listener.EventListener;
 import eu.the5zig.mod.manager.*;
 import eu.the5zig.mod.manager.itunes.ITunesWindowsDelegate;
@@ -647,4 +648,7 @@ public class The5zigMod {
 		return eu.the5zig.util.Utils.versionCompare(Version.MCVERSION, version) >= 0;
 	}
 
+	public static boolean shouldDrawWorldBackground() {
+		return The5zigMod.getVars().isPlayerNull() || !The5zigMod.getConfig().getBool("transparentPauseMenu") || The5zigMod.getVars().getCurrentScreen() instanceof GuiTeamSpeak;
+	}
 }

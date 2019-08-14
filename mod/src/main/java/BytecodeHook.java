@@ -17,15 +17,11 @@
  */
 
 import com.mojang.authlib.GameProfile;
-import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.Version;
-import eu.the5zig.mod.gui.GuiYesNo;
-import eu.the5zig.mod.gui.YesNoCallback;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.ingame.ItemStack;
-import eu.the5zig.mod.gui.ts.GuiTeamSpeak;
 import eu.the5zig.mod.manager.DeathLocation;
 import eu.the5zig.mod.manager.WorldType;
 import eu.the5zig.mod.util.BytecodeAccess;
@@ -109,11 +105,6 @@ public class BytecodeHook {
 			return;
 		}
 		The5zigMod.getKeybindingManager().flushTextfields();
-	}
-
-	@BytecodeAccess
-	public static boolean shouldDrawWorldBackground() {
-		return The5zigMod.getVars().isPlayerNull() || !The5zigMod.getConfig().getBool("transparentPauseMenu") || The5zigMod.getVars().getCurrentScreen() instanceof GuiTeamSpeak;
 	}
 
 	@BytecodeAccess

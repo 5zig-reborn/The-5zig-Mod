@@ -77,7 +77,6 @@ public class GuiConversations extends Gui implements Clickable<Conversation> {
 	@Override
 	public void initGui() {
 		addButton(The5zigMod.getVars().createButton(1, getWidth() - 80 - 10, getHeight() - 26, 80, 20, I18n.translate("chat.send")));
-		addButton(The5zigMod.getVars().createButton(20, 2, getHeight() - 16 - 20 - 10 - 2, 98, 20, I18n.translate("group.new")));
 		addButton(The5zigMod.getVars().createButton(21, 2, getHeight() - 16 - 10, 98, 20, I18n.translate("chat.conversation_settings")));
 		addTextField(The5zigMod.getVars().createTextfield(300, 100 + 10, getHeight() - 26, getWidth() - (100 + 10) - 80 - 10 - 5, 20, 256));
 
@@ -408,24 +407,6 @@ public class GuiConversations extends Gui implements Clickable<Conversation> {
 			else
 				getButtonById(50).setX(110 + strWidth + 4);
 		}
-
-		IButton image = getButtonById(70);
-		IButton audio = getButtonById(71);
-		if (conversation != null && conversation instanceof ConversationChat && getTextfieldById(300).callGetText().isEmpty()) {
-			if (image == null && audio == null) {
-				addButton(The5zigMod.getVars().createButton(70, getWidth() - 80 - 10, getHeight() - 26, 20, 20, "+"));
-				addButton(The5zigMod.getVars().createAudioButton(71, getWidth() - 80 - 10 + 22, getHeight() - 26, audioCallback));
-				getButtonById(1).callSetWidth(36);
-				getButtonById(1).setX(getWidth() - 80 - 10 + 44);
-			}
-		} else {
-			if (image != null && audio != null) {
-				removeButton(image);
-				removeButton(audio);
-				getButtonById(1).callSetWidth(80);
-				getButtonById(1).setX(getWidth() - 80 - 10);
-			}
-		}
 	}
 
 	private void enableDisableButtons() {
@@ -485,9 +466,6 @@ public class GuiConversations extends Gui implements Clickable<Conversation> {
 				if (The5zigMod.getConfig().getBool("playMessageSounds"))
 					The5zigMod.getVars().playSound("the5zigmod", "chat.message.send", 1);
 			}
-		}
-		if (button.getId() == 20) {
-			The5zigMod.getVars().displayScreen(new GuiCreateGroupChat(this));
 		}
 		if (button.getId() == 21) {
 			Conversation selected = getSelectedConversation();
