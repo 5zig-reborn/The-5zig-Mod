@@ -34,6 +34,7 @@ import eu.the5zig.mod.render.FormattingImpl;
 import eu.the5zig.mod.render.RenderHelperImpl;
 import eu.the5zig.mod.server.RegisteredServerInstance;
 import eu.the5zig.mod.server.ServerInstance;
+import eu.the5zig.mod.util.CoordinateClipboard;
 import eu.the5zig.mod.util.IKeybinding;
 import eu.the5zig.mod.util.NetworkPlayerInfo;
 import eu.the5zig.mod.util.PlayerGameMode;
@@ -420,5 +421,10 @@ public class ModAPIImpl implements ModAPI {
 	@Override
 	public void disableDiscordPresence() {
 		The5zigMod.getDiscordRPCManager().disable();
+	}
+
+	@Override
+	public CoordinateClipboard getCoordinateClipboard() {
+		return The5zigMod.getDataManager().getCoordinatesClipboard();
 	}
 }

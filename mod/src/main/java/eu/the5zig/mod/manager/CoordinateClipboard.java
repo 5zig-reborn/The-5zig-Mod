@@ -21,7 +21,7 @@ package eu.the5zig.mod.manager;
 
 import eu.the5zig.mod.util.Vector2i;
 
-public class CoordinateClipboard {
+public class CoordinateClipboard implements eu.the5zig.mod.util.CoordinateClipboard {
 
 	private Vector2i location;
 	private CoordinateClipboard previous;
@@ -39,6 +39,21 @@ public class CoordinateClipboard {
 		this.location = location;
 	}
 
+	@Override
+	public int getLocationX() {
+		return location.getX();
+	}
+
+	@Override
+	public int getLocationZ() {
+		return location.getY();
+	}
+
+	@Override
+	public void setLocation(int x, int z) {
+		setLocation(new Vector2i(x, z));
+	}
+
 	public CoordinateClipboard getPrevious() {
 		return previous;
 	}
@@ -49,6 +64,11 @@ public class CoordinateClipboard {
 
 	public CoordinateClipboard getNext() {
 		return next;
+	}
+
+	@Override
+	public CoordinateClipboard makeNext() {
+		return new CoordinateClipboard(this);
 	}
 
 	public void setNext(CoordinateClipboard next) {
