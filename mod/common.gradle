@@ -5,6 +5,10 @@ repositories {
         name = "forge"
         url = "http://files.minecraftforge.net/maven"
     }
+    maven {
+        name = "5zig"
+        url = "https://repo.5zigreborn.eu/repository/maven-releases"
+    }
 }
 
 sourceSets.main {
@@ -33,7 +37,7 @@ compileJava {
 dependencies {
     compile fileTree(dir: '../../mod/libs', include: ['*.jar'])
 
-    embed('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+    embed('org.spongepowered:mixin:0.7.11-LANGFIX') {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
         exclude module: 'gson'
