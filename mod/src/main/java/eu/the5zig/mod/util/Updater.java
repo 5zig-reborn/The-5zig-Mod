@@ -33,6 +33,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -55,9 +56,11 @@ public class Updater implements Runnable {
 		try {
 //			String latestVersion = IOUtils.toString(
 //					new URL("http://5zig.net/api/update?mc=" + Version.MCVERSION + "&same-version=" + (updateType == UpdateType.SAME_VERSION ? 1 : 0)).toURI());
-			String latestVersion = IOUtils.toString(
-					new URL("http://5zig.net/api/update?mc=" + Version.MCVERSION + "&same-version=0").toURI());
-			Download download = The5zigMod.gson.fromJson(latestVersion, Download.class);
+			URL url = new URL("https://secure.5zigreborn.eu/version?mc=" + Version.MCVERSION);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
+			Download download = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), Download.class);
+			connection.disconnect();
 			if (!"DEV".equals(Version.VERSION) && !Version.VERSION.contains("_b") && Utils.versionCompare(Version.VERSION, download.name) < 0 && Utils.versionCompare(Version.MCVERSION, download.mc) <= 0) {
 				The5zigMod.logger.info("Found new update of The 5zig Mod (v" + download.name + ")!");
 				The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.1"));
