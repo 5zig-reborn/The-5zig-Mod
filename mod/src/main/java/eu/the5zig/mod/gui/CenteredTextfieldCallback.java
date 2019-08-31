@@ -19,6 +19,8 @@
 
 package eu.the5zig.mod.gui;
 
+import eu.the5zig.mod.The5zigMod;
+
 /**
  * Created by 5zig.
  * All rights reserved © 2015
@@ -28,5 +30,9 @@ public interface CenteredTextfieldCallback {
 	void onDone(String text);
 
 	String title();
+
+	default void onCancel(Gui lastScreen) {
+		The5zigMod.getVars().displayScreen(lastScreen);
+	}
 
 }

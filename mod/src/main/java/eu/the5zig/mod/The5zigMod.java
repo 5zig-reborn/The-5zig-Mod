@@ -22,6 +22,7 @@ package eu.the5zig.mod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
+import eu.the5zig.mod.account.AccountManager;
 import eu.the5zig.mod.api.ServerAPIBackend;
 import eu.the5zig.mod.asm.Transformer;
 import eu.the5zig.mod.chat.ConversationManager;
@@ -154,6 +155,8 @@ public class The5zigMod {
 
 	private static DiscordRPCManager discordRPCManager;
 
+	private static AccountManager accountManager;
+
 	private static boolean initialized = false;
 
 	private The5zigMod() {
@@ -245,6 +248,8 @@ public class The5zigMod {
 		} catch (NoDiscordClientException e) {
 			logger.warn("No Discord Client found: disabling Rich Presence.");
 		}
+
+		accountManager = new AccountManager();
 
 		logger.info("Loaded The 5zig Mod v" + Version.VERSION + "! (took {} ms)", System.currentTimeMillis() - start);
 	}
@@ -622,6 +627,10 @@ public class The5zigMod {
 		return discordRPCManager;
 	}
 
+	public static AccountManager getAccountManager() {
+		return accountManager;
+	}
+
 	/**
 	 * Translates a boolean value to either "On" or "Off".
 	 *
@@ -650,5 +659,9 @@ public class The5zigMod {
 
 	public static boolean shouldDrawWorldBackground() {
 		return The5zigMod.getVars().isPlayerNull() || !The5zigMod.getConfig().getBool("transparentPauseMenu") || The5zigMod.getVars().getCurrentScreen() instanceof GuiTeamSpeak;
+	}
+
+	public static void reloadDataManager() {
+		datamanager = new DataManager();
 	}
 }

@@ -162,4 +162,8 @@ public interface ITextfield {
 	 */
 	void callDraw();
 
+	/**
+	 * Set if the textfield is a password box.
+	 */
+	void setIsPassword(boolean b);
 }

@@ -1137,6 +1137,11 @@ public interface IVariables {
 	 */
 	void shutdown();
 
+	/**
+	 * Sets the current Session to a new one.
+	 */
+	void setSession(String name, String uuid, String token, String userType);
+
 	abstract class CapeCallback {
 
 		public BufferedImage parseImage(BufferedImage image) {

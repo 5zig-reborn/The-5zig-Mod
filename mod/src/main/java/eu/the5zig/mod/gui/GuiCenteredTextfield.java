@@ -34,6 +34,7 @@ public class GuiCenteredTextfield extends Gui {
 	private ITextfield textfield;
 	private int minLength;
 	private int maxStringLength;
+	private boolean password;
 
 	public GuiCenteredTextfield(Gui lastScreen, CenteredTextfieldCallback callback) {
 		this(lastScreen, callback, 0, 100);
@@ -67,6 +68,7 @@ public class GuiCenteredTextfield extends Gui {
 	public void initGui() {
 		addTextField(textfield = The5zigMod.getVars().createTextfield(1, getWidth() / 2 - 150, getHeight() / 6 + 80, 300, 20, maxStringLength));
 		textfield.callSetText(defaultText);
+		textfield.setIsPassword(password);
 
 		addButton(The5zigMod.getVars().createButton(1, getWidth() / 2 - 152, getHeight() / 6 + 140, 150, 20, The5zigMod.getVars().translate("gui.done"),
 				textfield.callGetText().length() > minLength && (defaultText.isEmpty() || !defaultText.equals(textfield.callGetText()))));
@@ -90,8 +92,14 @@ public class GuiCenteredTextfield extends Gui {
 			The5zigMod.getVars().displayScreen(lastScreen);
 		}
 		if (button.getId() == 2) {
-			The5zigMod.getVars().displayScreen(lastScreen);
+			callback.onCancel(lastScreen);
 		}
+	}
+
+	public void setIsPassword(boolean b) {
+		password = b;
+		if(textfield != null)
+			textfield.setIsPassword(b);
 	}
 
 	@Override

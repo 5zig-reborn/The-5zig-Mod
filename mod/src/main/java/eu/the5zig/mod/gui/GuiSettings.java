@@ -102,6 +102,8 @@ public class GuiSettings extends Gui {
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 0, 0, 2019_2, 2 + 40, getHeight() - 27)); // Reddit
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 32, 0, 2019_3, 2 + 60, getHeight() - 27)); // Patreon
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.SOCIAL_ICONS, 48, 0, 2019_4, 2 + 80, getHeight() - 27)); // GitHub
+
+		addButton(The5zigMod.getVars().createIconButton(The5zigMod.ITEMS, 32,32, 726_1, getWidth() - 22, getHeight() - 27));
 	}
 
 	private IButton getButton(ConfigItem item, int id) {
@@ -271,7 +273,9 @@ public class GuiSettings extends Gui {
 
 	@Override
 	protected void actionPerformed(final IButton button) {
-		if (button.getId() == 0xacdc) {
+		if(button.getId() == 726_1) {
+			The5zigMod.getVars().displayScreen(new GuiAccountManager(this));
+		} else if (button.getId() == 0xacdc) {
 			The5zigMod.getVars().displayScreen(new GuiPlugins(this));
 		} else if (button.getId() == 999) {
 			The5zigMod.getVars().displayScreen(new GuiCredits(this));
@@ -365,10 +369,10 @@ public class GuiSettings extends Gui {
 		int width = 16, height = 16;
 		int x1 = (int) (getWidth() - width - 14 - 96 * 0.7f);
 		int x2 = x1 + width;
-		int y1 = getHeight() - 27;
+		int y1 = getHeight() - 25;
 		int y2 = y1 + height;
 
-		int boxX2 = getWidth() - 8;
+		int boxX2 = getWidth() - 30;
 		hoverChatBtn = mouseX >= x1 && mouseX <= boxX2 && mouseY >= y1 && mouseY < y2;
 
 		int c = hoverChatBtn ? 0xff333333 : 0xff000000;
@@ -381,7 +385,7 @@ public class GuiSettings extends Gui {
 			base64Renderer.renderImage(x1, y1, width, height);
 		GLUtil.pushMatrix();
 		GLUtil.translate(x2 + 4, y1 + 2, 0);
-		The5zigMod.getVars().drawString("Chat...", 5, 5);
+		The5zigMod.getVars().drawString("Chat...", 5, 3);
 		GLUtil.popMatrix();
 	}
 }

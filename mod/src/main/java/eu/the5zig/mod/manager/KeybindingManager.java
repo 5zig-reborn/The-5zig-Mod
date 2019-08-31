@@ -52,6 +52,7 @@ public class KeybindingManager {
 	public final IKeybinding teamspeak;
 	public final IKeybinding nameHistory;
 	public final IKeybinding toggleChatFilter;
+	public final IKeybinding changeAccount;
 
 	private final Map<RegisteredKeybinding, Class[]> globalKeybindings = Maps.newHashMap();
 	private final List<IWrappedTextfield> initializedTextfields = Lists.newArrayList();
@@ -71,6 +72,7 @@ public class KeybindingManager {
 		teamspeak = registerKeybinding("the5zigmod.key.teamspeak", Keyboard.KEY_F9, GuiTeamSpeak.class);
 		nameHistory = registerKeybinding("the5zigmod.key.username_history", Keyboard.KEY_NONE, GuiNameHistory.class);
 		toggleChatFilter = registerKeybinding("the5zigmod.key.toggle_chat_filter", Keyboard.KEY_NONE);
+		changeAccount = registerKeybinding("the5zigmod.key.change_account", Keyboard.KEY_NONE, GuiAccountManager.class);
 	}
 
 	private IKeybinding registerKeybinding(String description, int keyCode, Class... guiToOpen) {
@@ -133,7 +135,8 @@ public class KeybindingManager {
 				} catch (Throwable throwable) {
 					throw new RuntimeException(throwable);
 				}
-				The5zigMod.getVars().displayScreen(gui);
+				if(The5zigMod.getVars().getMinecraftScreen() == null)
+					The5zigMod.getVars().displayScreen(gui);
 			}
 		}
 	}

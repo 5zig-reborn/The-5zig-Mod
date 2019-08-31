@@ -83,7 +83,7 @@ public class GuiFriends extends Gui {
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.ITEMS, 48, 16, 2, getWidth() - 148, 6));
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.ITEMS, 32, 16, 3, getWidth() - 128, 6));
 
-		addButton(The5zigMod.getVars().createButton(726, 8, getHeight() - 27, 100, 20, "Site Login..."));
+		addButton(The5zigMod.getVars().createButton(726, 8, getHeight() - 27, 80, 20, "Site Login..."));
 	}
 
 	@Override

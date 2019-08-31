@@ -22,7 +22,6 @@ package eu.the5zig.mod.manager;
 import com.google.common.base.Charsets;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.util.Utils;
 import eu.the5zig.util.io.FileUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
@@ -92,8 +91,7 @@ public class SkinManager {
 		base64EncodedSkins.get(uuid).setUpToDate();
 	}
 
-	public String getBase64EncodedSkin(UUID uniqueId) {
-		String uuid = Utils.getUUIDWithoutDashes(uniqueId);
+	public String getBase64EncodedSkin(String uuid) {
 		if (base64EncodedSkins.containsKey(uuid)) {
 			if (!base64EncodedSkins.get(uuid).isUpToDate()) {
 				base64EncodedSkins.get(uuid).setUpToDate();
@@ -104,6 +102,10 @@ public class SkinManager {
 		base64EncodedSkins.put(uuid, new Base64Skin(null));
 		downloadBase64Skin(uuid);
 		return null;
+	}
+
+	public String getBase64EncodedSkin(UUID uuid) {
+		return getBase64EncodedSkin(uuid.toString());
 	}
 
 	private void downloadBase64Skin(final String uuid) {

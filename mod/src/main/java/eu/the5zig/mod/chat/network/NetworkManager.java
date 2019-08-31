@@ -95,6 +95,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	}
 
 	private void initConnection() {
+		if(The5zigMod.getDataManager().getGameProfile().getId() == null) return;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -211,10 +212,19 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
 	 * @param time After how many seconds the client should reconnect to the server.
 	 */
 	private void reconnect(int time) {
-		if (reconnecting)
+		final int seconds = reconnectAdd + (int) (MAX_RECONNECT_TIME - (MAX_RECONNECT_TIME - time) * Math.pow(Math.E, -0.1 * reconnectTries));
+		reconnectIn(seconds);
+	}
+
+	public void reloadNow() {
+		disconnect();
+		new Thread(The5zigMod::newNetworkManager).start();
+	}
+
+	private void reconnectIn(int seconds) {
+		if(reconnecting)
 			return;
 		reconnecting = true;
-		final int seconds = reconnectAdd + (int) (MAX_RECONNECT_TIME - (MAX_RECONNECT_TIME - time) * Math.pow(Math.E, -0.1 * reconnectTries));
 		reconnectTries++;
 		The5zigMod.logger.info("Reconnecting in {} seconds...", seconds);
 		new Thread(new Runnable() {
