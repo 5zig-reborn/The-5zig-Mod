@@ -10,6 +10,7 @@ import com.mojang.authlib.UserAuthentication;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.event.AccountSwitchEvent;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -156,6 +157,7 @@ public class AccountManager {
     private void updateSettings() {
         The5zigMod.reloadDataManager();
         The5zigMod.getNetworkManager().reloadNow();
+        The5zigMod.getListener().fireEvent(new AccountSwitchEvent());
         if(The5zigMod.getVars().getServer() != null) {
             String host = The5zigMod.getVars().getServer();
             int port = 25565;
