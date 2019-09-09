@@ -6,8 +6,6 @@
 
   "mixins": [
     "MixinCommonMinecraft",
-    "MixinCommonGuiScreen",
-    "MixinCommonNetworkManager",
 
     "MixinMinecraft",
     "MixinGuiIngame",
@@ -22,6 +20,8 @@
     "MixinGuiAchievement",
     "MixinGuiChat",
     "MixinGuiChatNew",
-    "MixinGuiPlayerTabOverlay"
+    "MixinGuiPlayerTabOverlay",
+    "MixinGuiScreen",
+    "MixinNetworkManager"
   ]
 }

@@ -1,9 +1,11 @@
 rootProject.name = "the-5zig-mod"
 
-include '1.13.2'
+include '1.14.4'
 include '1.12.2'
 include '1.8.9'
+include '1.13.2'
 
-project(':1.13.2').projectDir = file('version-specific/1.13.2')
+project(':1.14.4').projectDir = file('version-specific/1.14.4')
 project(':1.12.2').projectDir = file('version-specific/1.12.2')
 project(':1.8.9').projectDir = file('version-specific/1.8.9')
+project(':1.13.2').projectDir = file('version-specific/1.13.2')
