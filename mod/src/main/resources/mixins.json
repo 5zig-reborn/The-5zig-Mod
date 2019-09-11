@@ -22,6 +22,7 @@
     "MixinGuiChatNew",
     "MixinGuiPlayerTabOverlay",
     "MixinGuiScreen",
-    "MixinNetworkManager"
+    "MixinNetworkManager",
+    "MixinGameSettings"
   ]
 }
