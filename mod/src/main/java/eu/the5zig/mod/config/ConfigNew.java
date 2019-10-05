@@ -588,6 +588,25 @@ public class ConfigNew {
 		add(new BoolItem("plugin_update", null, true));
 		add(new BoolItem("pingOnTab", "display", false));
 
+		add(new DisplayCategoryItem("spotify", "display", "spotify"));
+		add(new StringItem("refresh_token", "spotify", "") {
+			@Override
+			public String translateValue() {
+				return I18n.translate(get().isEmpty() ? "spotify.token.not_set" : "spotify.token.set");
+			}
+
+			@Override
+			public int getMaxLength() {
+				return 300;
+			}
+
+			@Override
+			public void action() {
+				String pair = get();
+				The5zigMod.getDataManager().getSpotifyManager().setTokens(pair);
+			}
+		});
+
 		// [REBORN] New config end
 	}
 

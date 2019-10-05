@@ -7,7 +7,7 @@ repositories {
     }
     maven {
         name = "5zig"
-        url = "https://repo.5zigreborn.eu/repository/maven-releases"
+        url = "https://dl.bintray.com/5zig-reborn/maven"
     }
 }
 
