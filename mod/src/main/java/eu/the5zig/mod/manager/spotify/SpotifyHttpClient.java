@@ -89,5 +89,4 @@ public class SpotifyHttpClient {
 		new Bootstrap().channel(NioSocketChannel.class).group(eventLoop).handler(new SpotifyHttpInitializer(callback, ssl, uri.getHost(), port, timeout, ignoreInvalidCertificates)).option(
 				ChannelOption.CONNECT_TIMEOUT_MILLIS, timeout).remoteAddress(inetHost, port).connect().addListener(future);
 	}
-
 }

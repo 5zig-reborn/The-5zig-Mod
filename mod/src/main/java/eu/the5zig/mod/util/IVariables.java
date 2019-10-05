@@ -236,20 +236,6 @@ public interface IVariables {
 	IButton createIconButton(IResourceLocation resourceLocation, int u, int v, int id, int x, int y);
 
 	/**
-	 * Creates an instance of a button. This button has a label and an icon texture.
-	 *
-	 * @param resourceLocation the texture that should be rendered instead of the texture.
-	 * @param u                the u-coordinate of the texture.
-	 * @param v                the v-coordinate of the texture.
-	 * @param id               the id of the button.
-	 * @param x                the x-coordinate of the button.
-	 * @param y                the y-coordinate of the button.
-	 * @param display		   the displayed string.
-	 * @return an instance of a button.
-	 */
-	IButton createIconTextButton(IResourceLocation resourceLocation, int u, int v, int id, int x, int y, String display);
-
-	/**
 	 * Creates an instance of a textfield.
 	 *
 	 * @param id     the id of the textfield.

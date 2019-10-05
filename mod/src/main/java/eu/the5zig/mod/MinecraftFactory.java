@@ -19,8 +19,14 @@
 
 package eu.the5zig.mod;
 
+import eu.the5zig.mod.asm.ReflectionNames;
+import eu.the5zig.mod.asm.Transformer;
 import eu.the5zig.mod.util.ClassProxyCallback;
 import eu.the5zig.mod.util.IVariables;
+import net.minecraft.launchwrapper.LogWrapper;
+import net.minecraft.realms.RealmsSharedConstants;
+
+import java.lang.reflect.Field;
 
 public class MinecraftFactory {
 
@@ -29,6 +35,46 @@ public class MinecraftFactory {
 
 	static {
 		try {
+			String version;
+			Field vf;
+			String reflName = null;
+			try {
+				vf = RealmsSharedConstants.class.getField("VERSION_STRING");
+
+				version = (String) vf.get(null);
+
+
+				switch (version) {
+					case "1.8.9":
+						reflName = "ReflectionNames189";
+						break;
+					case "1.12.2":
+						reflName = "ReflectionNames1122";
+						break;
+					case "1.13.2":
+						reflName = "ReflectionNames1132";
+						break;
+				}
+			} catch (Exception e) {
+				version = "1.14.4";
+				reflName = "ReflectionNames1144";
+			}
+			LogWrapper.info("Minecraft Version: " + version);
+
+			try {
+				LogWrapper.finest("Checking for Forge");
+				Class.forName("net.minecraftforge.client.GuiIngameForge");
+				LogWrapper.info("Forge detected!");
+				Transformer.FORGE = true;
+			} catch (Exception ignored) {
+				LogWrapper.info("Forge not found!");
+			}
+
+			try {
+				Transformer.REFLECTION = (ReflectionNames) Class.forName("eu.the5zig.mod.asm." + reflName).newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 			variables = (IVariables) Class.forName("Variables").newInstance();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

@@ -24,13 +24,21 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.Version;
 import eu.the5zig.mod.chat.network.NetworkManager;
 import eu.the5zig.mod.event.EventHandler;
 import eu.the5zig.mod.event.TickEvent;
 import eu.the5zig.util.Callback;
 import eu.the5zig.util.io.http.HttpResponseCallback;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SpotifyManager {
@@ -44,8 +52,13 @@ public class SpotifyManager {
 	private static final int DEFAULT_TIMEOUT_MILLIS = 10000;
 	private static final int POLL_TIME = 60;
 
+	private static final String currentlyPlayingUrl = "https://api.spotify.com/v1/me/player/currently-playing";
+	private static final String getTokenUrl = "https://secure.5zigreborn.eu/spotify?refresh=";
+
 	private static final String characters = "abcdefghijklmnopqrstuvwxyz";
 	private static final Map<String, String> originHeader = Collections.singletonMap("Origin", "https://open.spotify.com");
+
+	private String authToken;
 
 	private volatile boolean connected = false;
 	private boolean connecting = false;
@@ -55,7 +68,7 @@ public class SpotifyManager {
 	private String oAuthToken;
 	private String csrfToken;
 
-	private SpotifyStatus status;
+	private SpotifyNewStatus status;
 	private long lastStatusReceived;
 
 	private final SpotifyWebAPI webAPI;
@@ -63,15 +76,45 @@ public class SpotifyManager {
 	public SpotifyManager() {
 		webAPI = new SpotifyWebAPI();
 		The5zigMod.getListener().registerListener(this);
+		initTokens();
 	}
 
 	public SpotifyWebAPI getWebAPI() {
 		return webAPI;
 	}
 
+	private void initTokens() {
+		String refresh = The5zigMod.getConfig().getString("refresh_token");
+		if(refresh != null && !refresh.isEmpty())
+			refreshToken(refresh);
+	}
+
+	public void setTokens(String tokens) {
+		String[] data = tokens.split("/");
+		authToken = data[0];
+		The5zigMod.getConfig().get("refresh_token").set(data[1]);
+		The5zigMod.getConfig().save();
+	}
+
+	private void refreshToken(String refreshToken) {
+		The5zigMod.getAsyncExecutor().execute(() -> {
+			HttpClient client = HttpClientBuilder.create().build();
+			HttpGet request = new HttpGet(getTokenUrl + refreshToken);
+			request.addHeader("User-Agent", "5zig/" + Version.VERSION);
+			try {
+				HttpResponse response = client.execute(request);
+				if(response.getStatusLine().getStatusCode() == 200) {
+					authToken = IOUtils.toString(response.getEntity().getContent());
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
 	@EventHandler
 	public void onTick(TickEvent event) {
-		if (The5zigMod.getModuleMaster().isItemActive("SPOTIFY")) {
+		if (The5zigMod.getModuleMaster().isItemActive("SPOTIFY") && authToken != null && !authToken.isEmpty()) {
 			if (!connected && !connecting && --reconnectTicks <= 0 && NetworkManager.CLIENT_NIO_EVENTLOOP != null) {
 				connecting = true;
 				The5zigMod.getAsyncExecutor().execute(new Runnable() {
@@ -104,7 +147,7 @@ public class SpotifyManager {
 							connecting = false;
 							disconnectError = null;
 							connected = true;
-							loadInitialStatus();
+							loadStatus();
 						}
 					});
 				}
@@ -140,7 +183,11 @@ public class SpotifyManager {
 	}
 
 	private void checkPort(final int port, final Callback<Integer> callback) {
-		makeRequest(getURL("/service/version.json?service=remote", port), Collections.singletonMap("service", "remote"), originHeader, new HttpResponseCallback() {
+		if(authToken == null) {
+			callback.call(null);
+			return;
+		}
+		makeRequest(currentlyPlayingUrl, new HashMap<>(), Collections.singletonMap("Authorization", "Bearer " + authToken), new HttpResponseCallback() {
 			@Override
 			public void call(String response, int responseCode, Throwable throwable) {
 				if (responseCode == 200) {
@@ -155,103 +202,26 @@ public class SpotifyManager {
 	}
 
 	private void doAuth(final Runnable onDone) {
-		loadOAuthToken(new Runnable() {
-			@Override
-			public void run() {
-				loadCsrfToken(onDone);
-			}
-		});
+		onDone.run();
 	}
 
-	private void loadOAuthToken(final Runnable runnable) {
-		if (oAuthToken != null) {
-			runnable.run();
-		} else {
-			makeRequest("https://open.spotify.com/token", Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), new HttpResponseCallback() {
-				@Override
-				public void call(String response, int responseCode, Throwable throwable) {
-					if (throwable != null) {
-						The5zigMod.logger.error("Could not load Spotify OAuth-Token!", throwable);
-						reconnect();
-					} else if (response != null) {
-						JsonElement element = new JsonParser().parse(response);
-						if (!parseError(element)) {
-							if (element.isJsonObject() && element.getAsJsonObject().has("t") && element.getAsJsonObject().get("t").isJsonPrimitive()) {
-								oAuthToken = element.getAsJsonObject().get("t").getAsString();
-								oAuthToken = "BQAsFd3_YqXqoTUWZ7H_phBKIBZhITn5viQ-_jqsxeCzJLWhfh7tOMKWqj0L4FoLHxbwYtWUqO5kea8__4c";
-								runnable.run();
-							} else {
-								The5zigMod.logger.error("Could not load Spotify OAuth-Token!");
-								reconnect();
-							}
-						}
-					}
-				}
-			});
-		}
-	}
-
-	private void loadCsrfToken(final Runnable runnable) {
-		makeRequest(getURL("/simplecsrf/token.json"), Collections.<String, String>emptyMap(), originHeader, new HttpResponseCallback() {
+	private void loadStatus() {
+		Map<String, String> authParams = Collections.singletonMap("Authorization", "Bearer " + authToken);
+		makeRequest(currentlyPlayingUrl, new HashMap<>(), authParams, new HttpResponseCallback() {
 			@Override
 			public void call(String response, int responseCode, Throwable throwable) {
-				if (throwable != null) {
-					The5zigMod.logger.error("Could not load Spotify Csrf-Token!", throwable);
-					reconnect();
-				} else if (response != null) {
-					JsonElement element = new JsonParser().parse(response);
-					if (!parseError(element)) {
-						if (element.isJsonObject() && element.getAsJsonObject().has("token") && element.getAsJsonObject().get("token").isJsonPrimitive()) {
-							csrfToken = element.getAsJsonObject().get("token").getAsString();
-							runnable.run();
-						} else {
-							The5zigMod.logger.error("Could not load Spotify Csrf-Token: " + response);
-							reconnect();
-						}
-					}
-				}
-			}
-		});
-	}
-
-	private void loadInitialStatus() {
-		Map<String, String> authParams = createAuthParams();
-		makeRequest(getURL("/remote/status.json"), authParams, originHeader, new HttpResponseCallback() {
-			@Override
-			public void call(String response, int responseCode, Throwable throwable) {
-				if (throwable != null) {
-					The5zigMod.logger.error("Could not load Spotify Status!", throwable);
-					reconnect();
-				} else if (response != null) {
-					JsonElement element = new JsonParser().parse(response);
-					if (!parseError(element)) {
-						setStatus(The5zigMod.gson.fromJson(element, SpotifyStatus.class));
-						pollStatus();
-					}
-				}
-			}
-		});
-	}
-
-	private void pollStatus() {
-		Map<String, String> authParams = createAuthParams();
-		authParams.put("returnafter", String.valueOf(POLL_TIME));
-		authParams.put("returnon", "login,logout,play,pause,error,ap");
-		makeRequest(getURL("/remote/status.json"), authParams, originHeader, new HttpResponseCallback() {
-			@Override
-			public void call(String response, int responseCode, Throwable throwable) {
-				if (throwable != null) {
+				if (responseCode != 200 || throwable != null) {
 					The5zigMod.logger.warn("Error while polling Spotify status!", throwable);
 					setStatus(null);
 				} else if (response != null) {
 					JsonElement element = new JsonParser().parse(response);
 					if (!parseError(element)) {
 						try {
-							setStatus(The5zigMod.gson.fromJson(element, SpotifyStatus.class));
+							setStatus(The5zigMod.gson.fromJson(element, SpotifyNewStatus.class));
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						pollStatus();
+						loadStatus();
 					}
 				}
 			}
@@ -269,19 +239,19 @@ public class SpotifyManager {
 		});
 	}
 
-	public SpotifyStatus getStatus() {
+	public SpotifyNewStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(SpotifyStatus status) {
+	public void setStatus(SpotifyNewStatus status) {
 		long currentTimeMillis = System.currentTimeMillis();
 		lastStatusReceived = currentTimeMillis;
 		if (status != null) {
-			status.setServerTime(currentTimeMillis);
-			if (status.getTrack() != null && status.getTrack().hasTrackInformation()) {
+			status.setTimestamp(currentTimeMillis);
+			if (status.getTrack() != null) {
 				if ((this.status == null || (!status.getTrack().equals(this.status.getTrack())) || !this.status.isPlaying()) && status.isPlaying() ) {
 					The5zigMod.logger.info(
-							"[Spotify | Now Playing] \"" + status.getTrack().getTrackInformation().getName() + "\" by " + status.getTrack().getArtistInformation().getName());
+							"[Spotify | Now Playing] \"" + status.getTrack().getName() + "\" by " + status.getTrack().getArtistsString());
 				}
 				resolveTrackImage(status.getTrack());
 			}
@@ -289,8 +259,12 @@ public class SpotifyManager {
 		this.status = status;
 	}
 
-	public void resolveTrackImage(final SpotifyTrack track) {
-		webAPI.resolveTrackImage(track);
+	public void resolveTrackImage(final SpotifyNewTrack track) {
+		try {
+			webAPI.resolveTrackImage(track);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private String getURL(String path, int port) {

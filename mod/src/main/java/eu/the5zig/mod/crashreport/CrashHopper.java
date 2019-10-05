@@ -20,10 +20,8 @@
 package eu.the5zig.mod.crashreport;
 
 import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.mod.Version;
 import eu.the5zig.mod.util.EnvironmentUtils;
 import eu.the5zig.util.Utils;
-import net.minecraft.realms.RealmsSharedConstants;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -122,14 +120,6 @@ public class CrashHopper {
 		} while ((throwable = throwable.getCause()) != null);
 
 		if (!containsModFile) {
-			return;
-		}
-
-		if (!Version.MCVERSION.equals(RealmsSharedConstants.VERSION_STRING)) {
-			for (int i = 0; i < 10; i++) {
-				The5zigMod.logger.warn(
-						"MINECRAFT VERSION OF THE 5ZIG MOD (" + Version.MCVERSION + ") DOES NOT MATCH CURRENT MINECRAFT VERSION (" + RealmsSharedConstants.VERSION_STRING + ")!");
-			}
 			return;
 		}
 

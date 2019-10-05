@@ -23,8 +23,8 @@ import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.manager.spotify.SpotifyManager;
-import eu.the5zig.mod.manager.spotify.SpotifyStatus;
-import eu.the5zig.mod.manager.spotify.SpotifyTrack;
+import eu.the5zig.mod.manager.spotify.SpotifyNewStatus;
+import eu.the5zig.mod.manager.spotify.SpotifyNewTrack;
 import eu.the5zig.mod.modules.AbstractModuleItem;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.render.RenderLocation;
@@ -55,17 +55,17 @@ public class Spotify extends AbstractModuleItem {
 		Gui.drawRect(x, y, x + getWidth(dummy), y + getHeight(dummy) - 2, SpotifyManager.SPOTIFY_COLOR_BACKGROUND);
 
 		SpotifyManager spotifyManager = The5zigMod.getDataManager().getSpotifyManager();
-		SpotifyStatus status = spotifyManager != null && spotifyManager.isConnected() ? spotifyManager.getStatus() : null;
-		SpotifyTrack track = status != null && status.getTrack() != null ? status.getTrack() : null;
+		SpotifyNewStatus status = spotifyManager != null && spotifyManager.isConnected() ? spotifyManager.getStatus() : null;
+		SpotifyNewTrack track = status != null && status.getTrack() != null ? status.getTrack() : null;
 
 		int trackLeft = x;
 		int trackTop = y;
 		int trackRight = x + getWidth(dummy) - 4;
 		int albumSize = getHeight(dummy) - 2;
 		// Album Preview
-		if (track != null && track.hasTrackInformation()) {
+		if (track != null) {
 			if (track.getImage() != null && !track.getImage().equals(base64Renderer.getBase64String())) {
-				base64Renderer.setBase64String(track.getImage(), "spotify/track_" + track.getTrackInformation().getId());
+				base64Renderer.setBase64String(track.getImage(), "spotify/track_" + track.getId());
 			} else if (track.getImage() == null && base64Renderer.getBase64String() != null) {
 				base64Renderer.reset();
 			}
@@ -78,10 +78,10 @@ public class Spotify extends AbstractModuleItem {
 		int infoLeft = trackLeft + albumSize + 4;
 		int infoTop = trackTop + 3;
 		int maxInfoWidth = trackRight - infoLeft;
-		String trackName = track != null ? track.getType() == SpotifyTrack.Type.ad ? I18n.translate("modules.item.spotify.ad") :
-				track.getTrackInformation() != null ? track.getTrackInformation().getName() : "" : spotifyManager != null && spotifyManager.getDisconnectError() != null ? I18n.translate(
+		String trackName = track != null ? status.getType() == SpotifyNewTrack.Type.ad ? I18n.translate("modules.item.spotify.ad") :
+				track.getName() : spotifyManager != null && spotifyManager.getDisconnectError() != null ? I18n.translate(
 				"modules.item.spotify.error." + spotifyManager.getDisconnectError().toString().toLowerCase(Locale.ROOT)) : null;
-		String artistName = track != null && track.getArtistInformation() != null ? track.getArtistInformation().getName() : null;
+		String artistName = track != null && track.getArtists() != null ? track.getArtistsString() : null;
 
 		if (trackName != null && (scrollingTrack == null || !trackName.equals(scrollingTrack.getText()))) {
 			scrollingTrack = new ScrollingText(trackName, maxInfoWidth, 8, SpotifyManager.SPOTIFY_COLOR_BACKGROUND, 0xaaaaaa);
@@ -111,10 +111,10 @@ public class Spotify extends AbstractModuleItem {
 		int positionLineRight = trackRight - 11;
 		int positionWidth = positionLineRight - positionLineLeft;
 		Gui.drawRect(positionLineLeft, positionLineTop, positionLineRight, positionLineBottom, SpotifyManager.SPOTIFY_COLOR_SECOND);
-		double playingPosition = status != null ? status.getPlayingPosition() * 1000 : 0;
-		long millisSinceUpdate = status != null && status.isPlaying() ? (int) (System.currentTimeMillis() - status.getServerTime()) : 0;
+		double playingPosition = status != null ? status.getProgress() * 1000 : 0;
+		long millisSinceUpdate = status != null && status.isPlaying() ? (int) (System.currentTimeMillis() - status.getTimestamp()) : 0;
 		double trackPosition = playingPosition + millisSinceUpdate;
-		long trackLength = track != null ? track.getLength() * 1000 : 1000;
+		long trackLength = track != null ? track.getDuration() * 1000 : 1000;
 		double trackPercentage = trackPosition / trackLength;
 		Gui.drawRect(positionLineLeft, positionLineTop, positionLineLeft + (trackPercentage * positionWidth), positionLineBottom, SpotifyManager.SPOTIFY_COLOR_ACCENT);
 		drawScaledString(Utils.convertToClock((long) trackPosition), infoLeft, positionLineTop, 0xaaaaaa, 0.35f);
@@ -138,7 +138,7 @@ public class Spotify extends AbstractModuleItem {
 			return true;
 		}
 		SpotifyManager manager = The5zigMod.getDataManager().getSpotifyManager();
-		return manager != null && manager.getStatus() != null && manager.getStatus().getTrack() != null && manager.getStatus().getTrack().hasTrackInformation();
+		return manager != null && manager.getStatus() != null && manager.getStatus().getTrack() != null;
 	}
 
 	@Override

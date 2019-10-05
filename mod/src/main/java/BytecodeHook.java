@@ -216,16 +216,6 @@ public class BytecodeHook {
 	}
 
 	@BytecodeAccess
-	public static void onOptionsActionPerformed(Object instance, Object button) {
-		ClassProxy.guiOptionsActionPerformed(instance, button);
-	}
-
-	@BytecodeAccess
-	public static void onOptionsTick(Object instance) {
-		ClassProxy.fixOptionButtons(instance);
-	}
-
-	@BytecodeAccess
 	public static void onCustomPayload(String channel, ByteBuf byteBuf) {
 		The5zigMod.getListener().handlePluginMessage(channel, byteBuf);
 	}
@@ -258,11 +248,6 @@ public class BytecodeHook {
 	@BytecodeAccess
 	public static void onGuiDisconnectedInit(Object parentScreen) {
 		The5zigMod.getDataManager().getAutoReconnectManager().startCountdown(parentScreen);
-	}
-
-	@BytecodeAccess
-	public static void onGuiDisconnectedDraw(Object instance) {
-		ClassProxy.handleGuiDisconnectedDraw(instance);
 	}
 
 	@BytecodeAccess
@@ -318,11 +303,6 @@ public class BytecodeHook {
 	@BytecodeAccess
 	public static void onGuiResourcePacksMouseClicked(double mouseX, double mouseY, int button) {
 		onGuiResourcePacksMouseClicked((int)mouseX, (int)mouseY, button);
-	}
-
-	@BytecodeAccess
-	public static void onGuiMultiplayerInit(Object instance, Object serverSelectionListInstance) {
-		ClassProxy.handleGuiMultiplayerInit(instance, serverSelectionListInstance);
 	}
 
 	@BytecodeAccess
@@ -415,11 +395,6 @@ public class BytecodeHook {
 		The5zigMod.getListener().onSendChatMessage(message);
 	}
 
-	@BytecodeAccess
-	public static void onGuiSignClosed(Object tileSign) {
-		String[] text = The5zigMod.getListener().onSignEdited(ClassProxy.getSignText(tileSign));
-		ClassProxy.setSignText(tileSign, text);
-	}
 
 	@BytecodeAccess
 	public static void onGuiGameOverInit() {
