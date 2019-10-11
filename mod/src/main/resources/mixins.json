@@ -23,6 +23,8 @@
     "MixinGuiPlayerTabOverlay",
     "MixinGuiScreen",
     "MixinNetworkManager",
-    "MixinGameSettings"
+    "MixinGameSettings",
+    "MixinGuiConnecting",
+    "MixinGuiDisconnected"
   ]
 }
