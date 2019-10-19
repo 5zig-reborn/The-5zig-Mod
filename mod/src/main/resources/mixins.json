@@ -26,5 +26,8 @@
     "MixinGameSettings",
     "MixinGuiConnecting",
     "MixinGuiDisconnected"
-  ]
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
