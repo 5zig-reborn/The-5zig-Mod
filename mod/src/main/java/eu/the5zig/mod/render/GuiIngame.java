@@ -166,7 +166,7 @@ public class GuiIngame {
 			GLUtil.pushMatrix();
 			GLUtil.translate((float) (scaledWidth / 2), (float) (scaledHeight - 78), 0.0F);
 			GLUtil.enableBlend();
-			GLUtil.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_FALSE, GL11.GL_TRUE);
+			GLUtil.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_FALSE, GL11.GL_TRUE); 
 
 			The5zigMod.getVars().drawString(this.hoverText, -The5zigMod.getVars().getStringWidth(this.hoverText) / 2, -4, 0xD33D3A + (l3 << 24));
 			GLUtil.disableBlend();
