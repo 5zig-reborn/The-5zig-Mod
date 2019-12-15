@@ -59,6 +59,8 @@ public class InstallerNew {
 	protected File sourceFile;
 	protected File[] otherMods;
 
+	private boolean optifine;
+
 	public InstallerNew(File installDirectory, String modVersion, String minecraftVersion) throws MinecraftNotFoundException {
 		this.modVersion = modVersion;
 		this.minecraftVersion = minecraftVersion;
@@ -103,8 +105,8 @@ public class InstallerNew {
 		}
 
 		extractSourcesToLib(callback);
-		copyMinecraftVersion(callback);
 		copyOtherModsIntoMinecraftJar(callback);
+		copyMinecraftVersion(callback);
 		updateLauncherJson(callback);
 
 		if (callback != null)
@@ -198,6 +200,7 @@ public class InstallerNew {
 
 				if (entry != null) {
 					callback.log("Found Optifine!");
+					optifine = true;
 
 					File temp = File.createTempFile(otherMod.getName(), null);
 					temp.deleteOnExit();
@@ -254,9 +257,11 @@ public class InstallerNew {
 				iterator.remove();
 			}
 		}
-
+		String launchWrapperVersion = optifine && Utils.versionCompare(minecraftVersion, "1.14") >= 0
+				? "optifine:launchwrapper-of:2.1"
+				: "net.minecraft:launchwrapper:1.7";
 		JSONObject launchWrapper = new JSONObject();
-		launchWrapper.put("name", "net.minecraft:launchwrapper:1.7");
+		launchWrapper.put("name", launchWrapperVersion);
 		libraries.add(0, launchWrapper);
 		JSONObject mod = new JSONObject();
 		mod.put("name", "eu.the5zig:The5zigMod:" + minecraftVersion + "_" + modVersion);
