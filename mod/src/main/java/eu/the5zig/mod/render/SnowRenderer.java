@@ -29,7 +29,7 @@ public class SnowRenderer {
 
 	private IResourceLocation resourceLocation = The5zigMod.getVars().createResourceLocation("textures/environment/snow.png");
 	private int yOffset;
-	private boolean render = true;
+	private boolean render;
 
 	public SnowRenderer() {
 		Calendar calendar = Calendar.getInstance();
