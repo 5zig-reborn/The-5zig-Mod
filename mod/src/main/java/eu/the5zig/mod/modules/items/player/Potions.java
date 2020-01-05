@@ -38,7 +38,7 @@ public class Potions extends AbstractModuleItem {
 	@Override
 	public void render(int x, int y, RenderLocation renderLocation, boolean dummy) {
 		List<? extends PotionEffect> potionEffects = dummy ? The5zigMod.getVars().getDummyPotionEffects() : The5zigMod.getVars().getActivePotionEffects();
-		GLUtil.enableBlend();
+		GLUtil.enableBlend(); 
 		for (PotionEffect potionEffect : potionEffects) {
 			if (potionEffect.getIconIndex() != -1) {
 				String display = toString(potionEffect);
