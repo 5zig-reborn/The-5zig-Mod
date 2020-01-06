@@ -21,7 +21,7 @@ package eu.the5zig.mod.gui.elements;
 
 import java.util.List;
 
-public interface IGuiList<E extends Row> { 
+public interface IGuiList<E extends Row> {
 
 	void callDrawScreen(int mouseX, int mouseY, float partialTicks);
 
