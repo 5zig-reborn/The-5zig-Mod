@@ -71,6 +71,7 @@ public class RewardsCache {
                 if(conn.getResponseCode() != 404) {
                     reward.setDisplayString(IOUtils.toString(conn.getInputStream(), StandardCharsets.UTF_8));
                 }
+                conn.disconnect();
             }
             catch (IOException ex) {
                 The5zigMod.logger.error("Couldn't fetch patreon info.");
