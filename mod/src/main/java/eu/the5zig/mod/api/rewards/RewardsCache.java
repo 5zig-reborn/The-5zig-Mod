@@ -20,21 +20,11 @@ package eu.the5zig.mod.api.rewards;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.mod.Version;
-import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 public class RewardsCache {
     private static Cache<String, Reward> cachedRewards;
-
-    private static final String PATREON_URL = "https://secure.5zigreborn.eu/rewards/";
-
     private static boolean operate = true;
 
     static {
@@ -50,32 +40,12 @@ public class RewardsCache {
 
     public static String getRewardString(String uuid) {
         if(!operate) return null;
-
         Reward reward = cachedRewards.getIfPresent(uuid);
-        if(reward == null) {
-            downloadReward(uuid);
-        }
         return reward == null ? null : reward.getDisplayString();
     }
 
-    private static void downloadReward(String uuid) {
-        if(!operate) return;
-
-        Reward reward = new Reward((String) null);
-        loadPlayerIntoCache(uuid, reward);
-        new Thread(() -> {
-            try {
-                URL url = new URL(PATREON_URL + uuid);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
-                if(conn.getResponseCode() != 404) {
-                    reward.setDisplayString(IOUtils.toString(conn.getInputStream(), StandardCharsets.UTF_8));
-                }
-                conn.disconnect();
-            }
-            catch (IOException ex) {
-                The5zigMod.logger.error("Couldn't fetch patreon info.");
-            }
-        }).start();
+    public static void putReward(String uuid, String reward) {
+        Reward result = new Reward(reward);
+        loadPlayerIntoCache(uuid, result);
     }
 }
