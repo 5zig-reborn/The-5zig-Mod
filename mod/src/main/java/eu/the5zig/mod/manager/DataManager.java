@@ -51,6 +51,7 @@ import eu.the5zig.mod.server.cytooxien.ServerInstanceCytooxien;
 import eu.the5zig.mod.server.gomme.ServerInstanceGommeHD;
 import eu.the5zig.mod.server.hypixel.ServerInstanceHypixel;
 import eu.the5zig.mod.server.mineplex.ServerInstanceMineplex;
+import eu.the5zig.mod.server.octc.ServerInstanceOCC;
 import eu.the5zig.mod.server.playminity.ServerInstancePlayMinity;
 import eu.the5zig.mod.server.simplehg.ServerInstanceSimpleHG;
 import eu.the5zig.mod.server.timolia.ServerInstanceTimolia;
@@ -125,6 +126,7 @@ public class DataManager {
 		registerServerInstance(new ServerInstanceVenicraft());
 		registerServerInstance(new ServerInstanceCytooxien());
 		registerServerInstance(new ServerInstanceSimpleHG());
+		registerServerInstance(new ServerInstanceOCC());
 
 		The5zigMod.getListener().registerListener(teamSpeakReconnectListener = new TeamSpeakReconnectListener());
 		TeamSpeakListener teamSpeakListener = new TeamSpeakListener();
