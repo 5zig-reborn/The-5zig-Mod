@@ -108,6 +108,9 @@ public class GuiWelcome extends Gui {
 		The5zigMod.getVars().drawString("Add Friends and see what server they are currently playing on.", getWidth() / 2 - 140, y += 12);
 		The5zigMod.getVars().drawString("Create Group Chats and Chat with multiple Friends at once.", getWidth() / 2 - 140, y += 12);
 
+		The5zigMod.getVars().drawString("Note: by using our online features you agree to our Privacy Policy.", getWidth() / 2 - 140, y += 24);
+		The5zigMod.getVars().drawString("You can find it over at §6https://5zigreborn.eu/privacy§r.", getWidth() / 2 - 140, y += 12);
+
 		getButtonById(200).setLabel("What are you waiting for? Start " + (pulse > 20 ? ChatColor.GOLD : ChatColor.RESET) + "NOW" + ChatColor.RESET + "!");
 	}
 
