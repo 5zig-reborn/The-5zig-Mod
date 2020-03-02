@@ -11,6 +11,11 @@ public class ArenaTeam extends GameModeItem<ServerOCC.Arena> {
 
     @Override
     protected Object getValue(boolean dummy) {
-        return null;
+        return dummy ? "Red" : getGameMode().getTeam();
+    }
+
+    @Override
+    public String getTranslation() {
+        return "ingame.team";
     }
 }

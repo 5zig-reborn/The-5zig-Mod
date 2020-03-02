@@ -13,4 +13,9 @@ public class ArenaMode extends GameModeItem<ServerOCC.Arena> {
     protected Object getValue(boolean dummy) {
         return dummy ? "CTW" : getGameMode().getSubMode();
     }
+
+    @Override
+    public String getTranslation() {
+        return "ingame.mode";
+    }
 }

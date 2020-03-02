@@ -13,4 +13,9 @@ public class ArenaMap extends GameModeItem<ServerOCC.Arena> {
     protected Object getValue(boolean dummy) {
         return dummy ? "PixelMix" : getGameMode().getMap();
     }
+
+    @Override
+    public String getTranslation() {
+        return "ingame.map";
+    }
 }

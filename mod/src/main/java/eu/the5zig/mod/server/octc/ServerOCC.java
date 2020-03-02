@@ -4,8 +4,7 @@ import eu.the5zig.mod.server.GameMode;
 
 public class ServerOCC {
     public static class Arena extends GameMode {
-        private String subMode;
-        private String map;
+        private String subMode, map, team;
 
         @Override
         public String getName() {
@@ -26,6 +25,14 @@ public class ServerOCC {
 
         public void setMap(String map) {
             this.map = map;
+        }
+
+        public String getTeam() {
+            return team;
+        }
+
+        public void setTeam(String team) {
+            this.team = team;
         }
     }
 }
