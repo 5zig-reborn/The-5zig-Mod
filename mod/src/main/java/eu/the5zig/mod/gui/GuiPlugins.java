@@ -199,7 +199,7 @@ public class GuiPlugins extends Gui {
 	private class PluginRow implements RowExtended, Comparable<PluginRow> {
 
 		public File file;
-		public LoadedPlugin loadedPlugin;
+		LoadedPlugin loadedPlugin;
 
 		private PluginRow(File file, LoadedPlugin loadedPlugin) {
 			this.file = file;
@@ -222,6 +222,10 @@ public class GuiPlugins extends Gui {
 
 		@Override
 		public void draw(int x, int y, int slotHeight, int mouseX, int mouseY) {
+			if(loadedPlugin == null) {
+				The5zigMod.getVars().drawString(ChatColor.ITALIC + "Invalid plugin " + file.getName(), x + 40, y + 2);
+				return;
+			}
 			if(loadedPlugin.getImageUrl() != null && !cachedIcons.containsKey(loadedPlugin)) {
 				cachedIcons.put(loadedPlugin, null);
 				new Thread(() ->

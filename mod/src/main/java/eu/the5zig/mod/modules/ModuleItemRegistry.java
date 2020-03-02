@@ -32,6 +32,9 @@ import eu.the5zig.mod.modules.items.server.cytooxien.MarioPartyFirstPlayer;
 import eu.the5zig.mod.modules.items.server.cytooxien.MarioPartyPlace;
 import eu.the5zig.mod.modules.items.server.gommehd.*;
 import eu.the5zig.mod.modules.items.server.hypixel.*;
+import eu.the5zig.mod.modules.items.server.octc.ArenaMap;
+import eu.the5zig.mod.modules.items.server.octc.ArenaMode;
+import eu.the5zig.mod.modules.items.server.octc.ArenaTeam;
 import eu.the5zig.mod.modules.items.server.playminity.JumpLeagueCheckpoints;
 import eu.the5zig.mod.modules.items.server.playminity.JumpLeagueFails;
 import eu.the5zig.mod.modules.items.server.playminity.JumpLeagueLives;
@@ -168,6 +171,10 @@ public class ModuleItemRegistry {
 		registerItem("SIMPLEHG_KIT", SimpleHGKit.class, Category.SERVER_SIMPLEHG);
 		registerItem("SIMPLEHG_FEAST", SimpleHGFeast.class, Category.SERVER_SIMPLEHG);
 		registerItem("SIMPLEHG_MINIFEAST", SimpleHGMiniFeast.class, Category.SERVER_SIMPLEHG);
+
+		registerItem("OCTC_MODE", ArenaMode.class, Category.SERVER_OCC);
+		registerItem("OCTC_MAP", ArenaMap.class, Category.SERVER_OCC);
+		registerItem("OCTC_TEAM", ArenaTeam.class, Category.SERVER_OCC);
 
 		registerItem("TIME", Time.class, Category.SYSTEM);
 		registerItem("DATE", Date.class, Category.SYSTEM);

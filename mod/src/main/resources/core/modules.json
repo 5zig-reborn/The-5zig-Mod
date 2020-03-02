@@ -671,6 +671,24 @@
       ]
     },
     {
+      "id": "octc",
+      "name": "%gamemode%",
+      "server": "octc",
+      "showLabel": true,
+      "location": "TOP_LEFT",
+      "items": [
+        {
+          "type": "OCTC_MODE"
+        },
+        {
+          "type": "OCTC_MAP"
+        },
+        {
+          "type": "OCTC_TEAM"
+        }
+      ]
+    },
+    {
       "id": "party",
       "name": "Party",
       "showLabel": true,

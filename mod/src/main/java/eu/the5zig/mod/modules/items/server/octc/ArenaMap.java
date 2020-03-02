@@ -11,6 +11,6 @@ public class ArenaMap extends GameModeItem<ServerOCC.Arena> {
 
     @Override
     protected Object getValue(boolean dummy) {
-        return null;
+        return dummy ? "PixelMix" : getGameMode().getMap();
     }
 }
