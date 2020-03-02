@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019 5zig Reborn
+ * Copyright (c) 2019-2020 5zig Reborn
+ * Copyright (c) 2015-2019 5zig
  *
  * This file is part of The 5zig Mod
  * The 5zig Mod is free software: you can redistribute it and/or modify
