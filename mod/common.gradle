@@ -63,7 +63,7 @@ jar {
             'MixinConnector': 'eu.the5zig.mod.MixinConnector5zig',
             'TweakOrder': '-900',
             '5zig-Version': project.version,
-            'Minecraft-Version': project.name
+            'Minecraft-Version': project.ext.get("customVer") != null ? project.ext.get("customVer") : project.name
     )
 
     from {

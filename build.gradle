@@ -3,6 +3,7 @@ subprojects {
 }
 
 allprojects {
+    project.ext.set("customVer", null);
     apply plugin: 'java'
 
     jar.baseName = "5zig-Reborn-" + project.name
