@@ -52,5 +52,10 @@ public class ServerOCC {
         public void setTeam(String team) {
             this.team = team;
         }
+
+        @Override
+        public boolean isRespawnable() {
+            return true;
+        }
     }
 }

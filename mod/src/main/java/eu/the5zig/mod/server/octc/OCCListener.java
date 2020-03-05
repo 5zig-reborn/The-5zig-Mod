@@ -24,6 +24,8 @@ import eu.the5zig.mod.server.IPatternResult;
 import eu.the5zig.util.minecraft.ChatColor;
 
 public class OCCListener extends AbstractGameListener<ServerOCC.Arena> {
+    private String lastSubtitle;
+
     @Override
     public Class<ServerOCC.Arena> getGameMode() {
         return ServerOCC.Arena.class;
@@ -48,6 +50,27 @@ public class OCCListener extends AbstractGameListener<ServerOCC.Arena> {
         }
         else if("map".equals(key)) {
             gameMode.setMap(match.get(0).trim());
+            gameMode.setKills(0);
+            gameMode.setDeaths(0);
+            gameMode.setKillStreak(0);
+            gameMode.setTeam(null);
         }
+        else if(key.startsWith("kill_")) {
+            String killer = match.get(1);
+            if(killer != null && killer.equals(The5zigAPI.getAPI().getGameProfile().getName())) {
+                gameMode.setKills(gameMode.getKills() + 1);
+                gameMode.setKillStreak(gameMode.getKillStreak() + 1);
+            }
+        }
+    }
+
+    @Override
+    public void onTitle(ServerOCC.Arena gameMode, String title, String subTitle) {
+        if("§r§a§r§a§r§aLeft click to respawn in §r§b0.2§r§as§r".equals(subTitle)
+                || "§r§a§r§a§r§aRespawning in §r§b0.2§r§as§r".equals(subTitle) && !subTitle.equals(lastSubtitle)) {
+            gameMode.setDeaths(gameMode.getDeaths() + 1);
+            gameMode.setKillStreak(0);
+        }
+        lastSubtitle = subTitle;
     }
 }

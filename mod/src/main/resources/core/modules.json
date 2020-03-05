@@ -685,6 +685,15 @@
         },
         {
           "type": "OCTC_TEAM"
+        },
+        {
+          "type": "KILLS"
+        },
+        {
+          "type": "KILLSTREAK"
+        },
+        {
+          "type": "DEATHS"
         }
       ]
     },
