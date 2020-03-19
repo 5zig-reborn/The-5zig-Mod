@@ -603,6 +603,7 @@ public class ConfigNew {
 			@Override
 			public void action() {
 				String pair = get();
+				if(!pair.contains("/")) return;
 				The5zigMod.getDataManager().getSpotifyManager().setTokens(pair);
 			}
 		});
