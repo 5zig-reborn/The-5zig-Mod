@@ -103,12 +103,12 @@ public class GuiTextMacroEdit extends Gui {
 	}
 
 	@Override
-	protected void onKeyType(char character, int eventKey) {
+	protected void keyPressed(int key, int scanCode, int modifiers) {
 		if (!pressed) {
 			return;
 		}
-		if (!textMacro.getKeys().contains(eventKey)) {
-			textMacro.getKeys().add(eventKey);
+		if (!textMacro.getKeys().contains(key)) {
+			textMacro.getKeys().add(key);
 			lastPressed = System.currentTimeMillis();
 			getButtonById(1).setLabel(I18n.translate("text_macros.edit.macro.listening"));
 			tickCount = 0;
