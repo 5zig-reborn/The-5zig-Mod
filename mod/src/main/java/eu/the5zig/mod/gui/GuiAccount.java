@@ -49,6 +49,7 @@ public class GuiAccount extends Gui {
                 getHeight() / 4, 300, 20));
         addTextField(passwordField = The5zigMod.getVars().createTextfield(2, getWidth() / 2 - 150,
                 getHeight() / 2, 300, 20));
+        userField.callSetMaxStringLength(254);
 
         addButton(The5zigMod.getVars().createButton(201, getWidth() / 2 - 100, getHeight() - 35, The5zigMod.getVars().translate("gui.done")));
 
