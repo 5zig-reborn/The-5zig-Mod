@@ -58,6 +58,8 @@ public class GuiFriends extends Gui {
 
 	private boolean hoverProfile;
 
+	private AlertOverlay alertDisconnected;
+
 	public GuiFriends(Gui lastScreen) {
 		super(lastScreen);
 	}
@@ -84,6 +86,8 @@ public class GuiFriends extends Gui {
 		addButton(The5zigMod.getVars().createIconButton(The5zigMod.ITEMS, 32, 16, 3, getWidth() - 128, 6));
 
 		addButton(The5zigMod.getVars().createButton(726, 8, getHeight() - 27, 80, 20, "Site Login..."));
+
+		alertDisconnected = new AlertOverlay(this, "gui.alert.server_disconnected", "error");
 	}
 
 	@Override
@@ -106,6 +110,10 @@ public class GuiFriends extends Gui {
 			The5zigMod.getVars().displayScreen(new GuiParty(this));
 		}
 		else if(button.getId() == 726) {
+			if(!The5zigMod.getNetworkManager().isConnected()) {
+				alertDisconnected.open();
+				return;
+			}
 			The5zigMod.getNetworkManager().sendPacket(new PacketAuthToken(false));
 		}
 	}
@@ -116,10 +124,12 @@ public class GuiFriends extends Gui {
 			The5zigMod.getVars().displayScreen(new GuiProfile(this));
 			The5zigMod.getVars().playSound("ui.button.click", 1);
 		}
+		alertDisconnected.onClick(x, y);
 	}
 
 	@Override
 	protected void tick() {
+		alertDisconnected.tick();
 		serverPinger.callPingPendingNetworks();
 		searchText = getTextfieldById(1).callGetText();
 
@@ -170,6 +180,8 @@ public class GuiFriends extends Gui {
 		drawHover(mouseX, mouseY, getButtonById(4), ImmutableList.of(I18n.translate("friend.chats")));
 		drawHover(mouseX, mouseY, getButtonById(5), ImmutableList.of(partyInvitations > 0 ? I18n.translate("friend.party.invitations", partyInvitations) : I18n.translate("friend.party")));
 		GLUtil.disableDepth();
+
+		alertDisconnected.draw(mouseX, mouseY);
 	}
 
 	private void drawHover(int mouseX, int mouseY, IButton button, List<String> text) {
@@ -246,6 +258,12 @@ public class GuiFriends extends Gui {
 			}
 			return optionalRenderer.renderer;
 		}
+	}
+
+	@Override
+	protected void mouseReleased(int x, int y, int state) {
+		alertDisconnected.mouseReleased(x, y);
+		super.mouseReleased(x, y, state);
 	}
 
 	private class ServerIcon {
