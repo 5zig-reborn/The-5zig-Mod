@@ -115,6 +115,7 @@ public class ILoveRadio extends AbstractModuleItem {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void drawScaledString(String string, int x, int y, int color, float scale) {
 		GLUtil.pushMatrix();
 		GLUtil.translate(x, y, 1);

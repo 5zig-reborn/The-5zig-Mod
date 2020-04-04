@@ -33,6 +33,7 @@ public class PacketStartLogin implements Packet {
 	private String username;
 
 	private boolean offlineMode;
+	@SuppressWarnings("unused")
 	private String key;
 
 	public PacketStartLogin(String username) {

@@ -44,6 +44,7 @@ public class GuiPartyInviteMembers extends Gui {
 
 	private ITextfield textfield, textfield1;
 
+	@SuppressWarnings("unlikely-arg-type")
 	public GuiPartyInviteMembers(Gui lastScreen) {
 		super(lastScreen);
 		Party party = The5zigMod.getPartyManager().getParty();
@@ -127,6 +128,7 @@ public class GuiPartyInviteMembers extends Gui {
 		The5zigMod.getDataManager().getSearchManager().keyTyped(character, key);
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	protected void tick() {
 		getButtonById(1).setEnabled(!invitedFriends.isEmpty());

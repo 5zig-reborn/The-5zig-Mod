@@ -36,12 +36,16 @@ import java.util.regex.Pattern;
 
 public class SpotifyWebAPI {
 
-    private static final String BASE_URL = "https://api.spotify.com/v1";
-    private static final int TIMEOUT = 10000;
-    private static final Pattern JS_PATTERN = Pattern.compile("\\s+Spotify\\.Entity = (.*);");
+    @SuppressWarnings("unused")
+	private static final String BASE_URL = "https://api.spotify.com/v1";
+    @SuppressWarnings("unused")
+	private static final int TIMEOUT = 10000;
+    @SuppressWarnings("unused")
+	private static final Pattern JS_PATTERN = Pattern.compile("\\s+Spotify\\.Entity = (.*);");
 
     private final Cache<String, String> TRACK_IMAGE_LOOKUP = CacheBuilder.newBuilder().maximumSize(500).build();
-    private final Cache<String, SpotifyTrack> SPOTIFY_SEARCH_RESULTS = CacheBuilder.newBuilder().maximumSize(500).build();
+    @SuppressWarnings("unused")
+	private final Cache<String, SpotifyTrack> SPOTIFY_SEARCH_RESULTS = CacheBuilder.newBuilder().maximumSize(500).build();
 
     public boolean resolveTrackImage(final SpotifyNewTrack track) throws IOException {
         URL url = new URL(track.getImageUrl());

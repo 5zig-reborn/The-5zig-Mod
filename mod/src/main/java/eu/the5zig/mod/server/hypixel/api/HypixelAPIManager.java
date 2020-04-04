@@ -34,6 +34,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -72,7 +73,7 @@ public class HypixelAPIManager extends APIManager {
 			throw new HypixelAPIMissingKeyException();
 
 		try {
-			return UUID.fromString(IOUtils.toString(keyFile.toURI()));
+			return UUID.fromString(IOUtils.toString(keyFile.toURI(), StandardCharsets.UTF_8));
 		} catch (Exception e) {
 			throw new HypixelAPIMissingKeyException(e);
 		}

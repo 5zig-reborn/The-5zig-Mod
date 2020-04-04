@@ -44,7 +44,9 @@ import java.util.concurrent.Executors;
 public class I18n {
 
 	private static final String PRE = "lang/" + Version.LANGVERSION + "/", MID = "language", END = ".properties";
-	private static final Locale[] defaultLocales = new Locale[]{Locale.US, Locale.GERMANY, new Locale("es", "ES"), new Locale("nl", "NL"), Locale.CHINA, new Locale("pt", "BR")};
+	private static final Locale[] defaultLocales = new Locale[]{Locale.US, Locale.GERMANY, new Locale("es", "ES"), new Locale("nl", "NL"), Locale.CHINA, new Locale("pt", "BR"),
+			new Locale("cs", "CZ"), new Locale("da", "DK"), new Locale("fr", "FR"), new Locale("it", "IT"), new Locale("ja", "JP"), new Locale("no", "NO"), new Locale("pl", "PL"), new Locale("ru", "RU"),
+			new Locale("sv", "SE"), new Locale("tr", "TR")};
 
 	private static List<Locale> languages = Lists.newArrayList();
 	private static Locale currentLanguage;

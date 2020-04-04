@@ -82,7 +82,6 @@ public abstract class SearchEntry<T> {
 			visible = true;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void draw() {
 		if (!visible)
 			return;

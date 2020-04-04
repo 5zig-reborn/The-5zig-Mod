@@ -36,12 +36,15 @@ public class ServerInfoImpl implements ServerInfo
     private long created;
     private String bannerURL;
     private String bannerImageURL;
-    private int bannerImageInterval;
-    private String hostButtonTooltip;
+    @SuppressWarnings("unused")
+	private int bannerImageInterval;
+    @SuppressWarnings("unused")
+	private String hostButtonTooltip;
     private String hostButtonURL;
     private String hostButtonImageURL;
     private float prioritySpeakerDimmModificator;
-    private String phoneticName;
+    @SuppressWarnings("unused")
+	private String phoneticName;
     private int iconId;
     private LogFileParseManager parseManager;
     

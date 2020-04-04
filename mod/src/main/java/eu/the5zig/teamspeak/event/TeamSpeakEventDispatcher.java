@@ -19,7 +19,6 @@
 
 package eu.the5zig.teamspeak.event;
 
-import java.lang.annotation.*;
 import java.lang.reflect.*;
 import java.util.*;
 import com.google.common.collect.*;

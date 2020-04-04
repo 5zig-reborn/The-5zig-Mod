@@ -29,7 +29,6 @@ import eu.the5zig.mod.event.ServerQuitEvent;
 public class DiscordRPCManager {
 
     public static final long CLIENT_ID = 587300876440305685L;
-    public static final String IMG_LOGO = "logo";
 
     private IPCClient client;
 

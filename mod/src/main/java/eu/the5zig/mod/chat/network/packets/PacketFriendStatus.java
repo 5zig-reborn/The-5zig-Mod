@@ -42,7 +42,9 @@ public class PacketFriendStatus implements Packet {
 	private FriendStatus friendStatus;
 	private boolean enabled;
 	private String status;
+	@SuppressWarnings("unused")
 	private Rank rank;
+	@SuppressWarnings("unused")
 	private long time;
 	private Friend.OnlineStatus onlineStatus;
 

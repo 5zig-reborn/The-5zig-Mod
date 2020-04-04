@@ -189,6 +189,7 @@ public class MojangAPIManager extends APIManager {
 	}
 
 	private class User {
+		@SuppressWarnings("unused")
 		private String id, name;
 	}
 
@@ -209,6 +210,7 @@ public class MojangAPIManager extends APIManager {
 			return endpoints;
 		}
 
+		@SuppressWarnings("unused")
 		public MojangStatus getStatus() {
 			return status;
 		}

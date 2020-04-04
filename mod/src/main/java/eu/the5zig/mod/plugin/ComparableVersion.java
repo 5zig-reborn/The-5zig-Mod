@@ -582,7 +582,6 @@ public class ComparableVersion
         parseVersion( version );
     }
 
-    @SuppressWarnings( "checkstyle:innerassignment" )
     public final void parseVersion( String version )
     {
         this.value = version;

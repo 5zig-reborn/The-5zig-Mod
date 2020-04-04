@@ -19,7 +19,6 @@
 
 package eu.the5zig.teamspeak.request;
 
-import com.google.common.collect.*;
 import java.util.*;
 
 public class Request

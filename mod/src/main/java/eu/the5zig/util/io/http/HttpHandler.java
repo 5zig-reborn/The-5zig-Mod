@@ -52,7 +52,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<HttpObject> {
 	protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
 		if (msg instanceof HttpResponse) {
 			HttpResponse response = (HttpResponse) msg;
-			this.responseCode = response.getStatus().code();
+			this.responseCode = response.status().code();
 
 			if (responseCode == HttpResponseStatus.NO_CONTENT.code()) {
 				done(ctx);

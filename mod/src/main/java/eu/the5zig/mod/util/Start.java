@@ -32,6 +32,7 @@ import org.apache.commons.lang3.Validate;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -47,7 +48,7 @@ public class Start {
 
 		if (optionSet.has(uuidSpec)) {
 			File launcherProfilesFile = new File(getMinecraftDirectory(), "launcher_profiles.json");
-			JsonObject root = new JsonParser().parse(IOUtils.toString(launcherProfilesFile.toURI())).getAsJsonObject();
+			JsonObject root = new JsonParser().parse(IOUtils.toString(launcherProfilesFile.toURI(), StandardCharsets.UTF_8)).getAsJsonObject();
 			String selectedUser = optionSet.valueOf(uuidSpec);
 			JsonObject authenticationDatabase = null;
 			for (Map.Entry<String, JsonElement> entry : root.get("authenticationDatabase").getAsJsonObject().entrySet()) {

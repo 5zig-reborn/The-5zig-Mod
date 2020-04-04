@@ -86,7 +86,9 @@ public class GuiTeamSpeak extends Gui {
 	private Rectangle chatBox;
 
 	// Mouse location
+	@SuppressWarnings("unused")
 	private int mouseX;
+	@SuppressWarnings("unused")
 	private int mouseY;
 
 	private TabView<ServerTab> serverTabView;
@@ -104,11 +106,13 @@ public class GuiTeamSpeak extends Gui {
 	 * The selected entry.
 	 */
 	private static GuiTeamSpeakEntry selectedEntry;
+	@SuppressWarnings("unused")
 	private int selectedEntryX, selectedEntryY;
 	private boolean draggingSelectedEntry;
 	/**
 	 * Time time in millis of the first click.
 	 */
+	@SuppressWarnings("unused")
 	private long lastTimeEntryClicked;
 	/**
 	 * A List containing all collapsed channels.
@@ -119,6 +123,7 @@ public class GuiTeamSpeak extends Gui {
 	/**
 	 * Indicates, whether the player is currently scrolling though the entry list.
 	 */
+	@SuppressWarnings("unused")
 	private boolean scrolling;
 
 	private final List<TeamSpeakButton> teamSpeakButtons = Lists.newArrayList();

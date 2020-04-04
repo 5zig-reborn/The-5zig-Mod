@@ -30,6 +30,7 @@ import eu.the5zig.util.minecraft.ChatColor;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ModuleMaster {
@@ -124,7 +125,7 @@ public class ModuleMaster {
 	public void loadModules() throws Throwable {
 		String json;
 		try {
-			json = FileUtils.readFileToString(file);
+			json = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
 		} catch (Throwable e) {
 			The5zigMod.logger.error("Could not load module file " + file + "!");
 			throw e;

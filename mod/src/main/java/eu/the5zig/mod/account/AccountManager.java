@@ -50,7 +50,8 @@ public class AccountManager {
     private static Gson gson;
     private static Type accountsType;
 
-    private boolean encrypted;
+	@SuppressWarnings("unused")
+	private boolean encrypted;
     private String password;
 
     private boolean isNewManager;

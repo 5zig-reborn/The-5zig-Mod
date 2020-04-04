@@ -90,7 +90,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 		The5zigMod.getNetworkManager().sendPacket(new PacketFriendStatus(PacketFriendStatus.FriendStatus.LOBBY, getServer().getLobbyString()));
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onGameModeJoin(server.getGameMode());
 			}
@@ -236,7 +235,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onServerConnect(getCurrentGameMode());
 			}
@@ -250,7 +248,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 		onServer = false;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onServerDisconnect(getCurrentGameMode());
 			}
@@ -263,7 +260,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onTick(getCurrentGameMode());
 			}
@@ -276,7 +272,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onKeyPress(getCurrentGameMode(), event.getKeyCode());
 			}
@@ -289,7 +284,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onPayloadReceive(getCurrentGameMode(), event.getChannel(), event.getPayload());
 			}
@@ -303,7 +297,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 		final String message = event.getMessage();
 		boolean ignore = executeAllBool(new ExtendedCallback<AbstractGameListener, Boolean>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public Boolean get(AbstractGameListener key) {
 				return key.onServerChat(getCurrentGameMode(), message);
 			}
@@ -322,7 +315,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		boolean ignore = executeAllBool(new ExtendedCallback<AbstractGameListener, Boolean>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public Boolean get(AbstractGameListener key) {
 				return key.onActionBar(getCurrentGameMode(), event.getMessage());
 			}
@@ -339,7 +331,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onPlayerListHeaderFooter(getCurrentGameMode(), event.getHeader(), event.getFooter());
 			}
@@ -352,7 +343,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onTitle(getCurrentGameMode(), event.getTitle(), event.getSubTitle());
 			}
@@ -365,7 +355,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onTeleport(getCurrentGameMode(), event.getX(), event.getY(), event.getZ(), event.getYaw(), event.getPitch());
 			}
@@ -378,7 +367,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			return;
 		executeAll(new Callback<AbstractGameListener>() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void call(AbstractGameListener callback) {
 				callback.onChestSetSlot(getCurrentGameMode(), event.getContainerTitle(), event.getSlot(), event.getItemStack());
 			}
@@ -396,7 +384,6 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 			final PatternResult patternResult = new PatternResult(match);
 			executeAll(new Callback<AbstractGameListener>() {
 				@Override
-				@SuppressWarnings("unchecked")
 				public void call(AbstractGameListener callback) {
 					callback.onMatch(getCurrentGameMode(), key, patternResult);
 				}

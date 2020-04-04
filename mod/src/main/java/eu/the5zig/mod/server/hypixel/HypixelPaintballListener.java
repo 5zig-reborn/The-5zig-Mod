@@ -22,9 +22,10 @@ package eu.the5zig.mod.server.hypixel;
 import eu.the5zig.mod.server.AbstractGameListener;
 import eu.the5zig.mod.server.GameState;
 import eu.the5zig.mod.server.IPatternResult;
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Locale;
+
+import org.apache.commons.lang3.text.WordUtils;
 
 public class HypixelPaintballListener extends AbstractGameListener<ServerHypixel.Paintball> {
 

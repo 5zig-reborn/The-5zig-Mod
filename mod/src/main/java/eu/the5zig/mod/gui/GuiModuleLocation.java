@@ -33,6 +33,7 @@ import java.util.Locale;
 
 public class GuiModuleLocation extends Gui {
 
+	@SuppressWarnings("unused")
 	private static final float CENTER_THRESHOLD = 0.03f;
 
 	private final Module module;

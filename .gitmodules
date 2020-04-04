@@ -3,7 +3,7 @@
 	url = https://github.com/5zig-reborn/plugin-api
 [submodule "i18n"]
 	path = i18n
-	url = https://github.com/5zig-reborn/translations
+	url = https://github.com/TreyRuffy/translations
 [submodule "version-specific"]
 	path = version-specific
-	url = https://github.com/5zig-reborn/version-support
+	url = https://github.com/TreyRuffy/version-support

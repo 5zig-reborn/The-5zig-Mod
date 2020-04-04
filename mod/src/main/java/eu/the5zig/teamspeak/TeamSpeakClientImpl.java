@@ -30,8 +30,10 @@ import java.util.*;
 
 public class TeamSpeakClientImpl implements TeamSpeakClient
 {
-    private static final String HOST = "localhost";
-    private static final int PORT = 25639;
+    @SuppressWarnings("unused")
+	private static final String HOST = "localhost";
+    @SuppressWarnings("unused")
+	private static final int PORT = 25639;
     private final List<ConnectListener> CONNECT_LISTENERS;
     private final List<DisconnectListener> DISCONNECT_LISTENERS;
     private boolean connected;

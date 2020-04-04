@@ -141,6 +141,7 @@ public class PartyManager {
 
 	public class PartyOwner extends User {
 
+		@SuppressWarnings("unused")
 		private long time;
 
 		public PartyOwner(String username, UUID uuid) {

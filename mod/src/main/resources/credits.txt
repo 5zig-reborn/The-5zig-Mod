@@ -1,5 +1,5 @@
 # The 5zig Mod - Credits
 reborn: RoccoDev, zortax
 developer: 5zig
-special_thanks: 5zig, Oreon, Niki, TheLeftover, pizzachief, Kico, Gerrygames
+special_thanks: 5zig, TreyRuffy, Oreon, Niki, TheLeftover, pizzachief, Kico, Gerrygames
 translators: DaDodger, oscitare, ItsNiklass, Niki, ThrusterRecord, Elphios, Fearr, Maart, ElSarraHD, FA_yt, ZombiekillerHV, e_l1997, TomLodberg, SuikaWars, Mattheus R., DarkBlueRose, IPlayForHer, Diego R. V., Creerio, wertos97, TheKing_Ice, mihapain

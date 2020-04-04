@@ -90,6 +90,9 @@ public class GuiAccountManager extends Gui implements Clickable<Account> {
         else if(button.getId() == 2) { // Remove
             synchronized (guiList.getRows()) {
                 int selected = guiList.getSelectedId();
+                if (selected == 0) {
+                	return;
+                }
                 The5zigMod.getAccountManager().getAccounts().remove(selected);
                 guiList.calculateHeightMap();
             }

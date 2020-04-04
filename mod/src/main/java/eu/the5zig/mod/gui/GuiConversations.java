@@ -57,6 +57,7 @@ public class GuiConversations extends Gui implements Clickable<Conversation> {
 	public IGuiList<? extends Row> chatList;
 	private int chatboxWidth = 100;
 
+	@SuppressWarnings("unused")
 	private AudioCallback audioCallback;
 
 	public GuiConversations(Gui lastScreen) {

@@ -30,8 +30,10 @@ public class WinRegistry
     public static final int REG_SUCCESS = 0;
     public static final int REG_NOTFOUND = 2;
     public static final int REG_ACCESSDENIED = 5;
-    private static final int KEY_ALL_ACCESS = 983103;
-    private static final int KEY_READ = 131097;
+    @SuppressWarnings("unused")
+	private static final int KEY_ALL_ACCESS = 983103;
+    @SuppressWarnings("unused")
+	private static final int KEY_READ = 131097;
     private static Preferences userRoot;
     private static Preferences systemRoot;
     private static Class<? extends Preferences> userClass;

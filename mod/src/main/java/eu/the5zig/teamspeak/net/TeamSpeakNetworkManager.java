@@ -22,7 +22,6 @@ package eu.the5zig.teamspeak.net;
 import io.netty.handler.codec.*;
 import java.util.concurrent.atomic.*;
 import com.google.common.base.*;
-import com.google.common.collect.*;
 import io.netty.bootstrap.*;
 import io.netty.channel.socket.nio.*;
 import io.netty.channel.socket.*;

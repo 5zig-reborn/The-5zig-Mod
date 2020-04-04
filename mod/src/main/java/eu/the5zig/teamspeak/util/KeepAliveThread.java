@@ -26,7 +26,8 @@ import eu.the5zig.teamspeak.request.*;
 
 public class KeepAliveThread extends Thread
 {
-    private static final int SLEEP = 60000;
+    @SuppressWarnings("unused")
+	private static final int SLEEP = 60000;
     private final TeamSpeakNetworkManager networkManager;
     
     public KeepAliveThread(final TeamSpeakNetworkManager networkManager) {

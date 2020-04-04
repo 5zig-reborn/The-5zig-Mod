@@ -25,6 +25,7 @@ import eu.the5zig.mod.gui.elements.Row;
 
 public class MCPVPServer implements Row {
 
+	@SuppressWarnings("unused")
 	private String ID;
 	private boolean IsAcceptingPlayers;
 	private String MOTD;
@@ -32,10 +33,13 @@ public class MCPVPServer implements Row {
 	private int Players;
 	private int MaxPlayers;
 	private boolean IsOnline;
+	@SuppressWarnings("unused")
 	private int PingLength;
 	private String Server;
 	private String Region;
+	@SuppressWarnings("unused")
 	private String LastPingStart;
+	@SuppressWarnings("unused")
 	private String LastOnline;
 
 	public int getSeconds() {

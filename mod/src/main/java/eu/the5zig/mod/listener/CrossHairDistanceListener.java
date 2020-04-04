@@ -23,7 +23,6 @@ import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.event.EventHandler;
 import eu.the5zig.mod.event.TickEvent;
 import eu.the5zig.mod.util.GLUtil;
-import eu.the5zig.mod.util.IVariables;
 import eu.the5zig.util.Utils;
 import org.lwjgl.opengl.GL11;
 

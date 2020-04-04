@@ -20,7 +20,6 @@
 package eu.the5zig.teamspeak.response;
 
 import java.util.*;
-import com.google.common.collect.*;
 import eu.the5zig.teamspeak.util.*;
 
 public class TeamSpeakResponse

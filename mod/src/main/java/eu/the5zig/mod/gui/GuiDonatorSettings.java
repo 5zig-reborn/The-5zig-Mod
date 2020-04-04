@@ -25,6 +25,7 @@ import eu.the5zig.mod.gui.elements.IButton;
 
 public class GuiDonatorSettings extends Gui {
 
+	@SuppressWarnings("unused")
 	private String message;
 
 	public GuiDonatorSettings(Gui lastScreen) {

@@ -24,6 +24,7 @@ import java.util.List;
 public class PlayerResource {
 
 	private CapeResource capeResource;
+	@SuppressWarnings("unused")
 	private List<ItemModelResource> itemModelResources;
 
 	public PlayerResource() {

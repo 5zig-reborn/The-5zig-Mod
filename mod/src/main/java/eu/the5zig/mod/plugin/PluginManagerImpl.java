@@ -40,6 +40,7 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -175,7 +176,7 @@ public class PluginManagerImpl implements PluginManager {
 	}
 
 	private LoadedPlugin loadPlugin0(File file, boolean skipUpdateCheck) throws Exception {
-		JsonElement modModulesElement = new JsonParser().parse(FileUtils.readFileToString(The5zigMod.getModuleMaster().getFile()));
+		JsonElement modModulesElement = new JsonParser().parse(FileUtils.readFileToString(The5zigMod.getModuleMaster().getFile(), StandardCharsets.UTF_8));
 		JarFile jarFile = new JarFile(file);
 		ZipEntry pluginEntry = jarFile.getEntry("plugin.json");
 		if (pluginEntry == null) {

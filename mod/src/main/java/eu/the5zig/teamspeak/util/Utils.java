@@ -61,7 +61,7 @@ public class Utils
         return "<" + Utils.timeFormatter.format(new Date(System.currentTimeMillis())) + "> ";
     }
     
-    public static BufferedImage readImage(final String imageUrl) throws IOException {
+	public static BufferedImage readImage(final String imageUrl) throws IOException {
         final URL url = new URL(imageUrl);
         final HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/5.0");

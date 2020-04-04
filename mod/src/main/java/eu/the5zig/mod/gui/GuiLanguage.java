@@ -21,6 +21,7 @@ package eu.the5zig.mod.gui;
 
 import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
+import eu.the5zig.mod.SocialUrls;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
@@ -44,7 +45,11 @@ public class GuiLanguage extends GuiOptions {
 	public void initGui() {
 		languages.clear();
 		addButton(The5zigMod.getVars().createButton(100, getWidth() / 2 - 100, getHeight() - 40, The5zigMod.getVars().translate("gui.done")));
-
+		String helpTranslateText = I18n.translate("language.help_translate");
+		addButton(The5zigMod.getVars().createStringButton(101, (2 * getWidth() / 3) + 50, getHeight() - 35,
+				The5zigMod.getVars().getStringWidth(ChatColor.ITALIC.toString() + ChatColor.UNDERLINE.toString() + helpTranslateText), 10,
+				ChatColor.ITALIC.toString() + ChatColor.UNDERLINE.toString() + helpTranslateText));
+		
 		for (Locale locale : I18n.getLanguages()) {
 			languages.add(new LanguageRow(locale));
 		}
@@ -60,6 +65,9 @@ public class GuiLanguage extends GuiOptions {
 		if (button.getId() == 100) {
 			selectLanguage(languageSlot.getSelectedId());
 			The5zigMod.getVars().displayScreen(lastScreen);
+		}
+		if (button.getId() == 101) {
+			SocialUrls.open("https://translate.5zigreborn.eu/");
 		}
 	}
 

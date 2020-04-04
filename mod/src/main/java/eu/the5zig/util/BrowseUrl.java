@@ -24,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
@@ -49,7 +50,7 @@ public enum BrowseUrl {
             Process process = AccessController.doPrivileged((PrivilegedExceptionAction<Process>)
                     (() -> Runtime.getRuntime().exec(this.getOpenCommand(url))));
 
-            for (String s : IOUtils.readLines(process.getErrorStream())) {
+            for (String s : IOUtils.readLines(process.getErrorStream(), StandardCharsets.UTF_8)) {
                 The5zigMod.logger.error(s);
             }
 

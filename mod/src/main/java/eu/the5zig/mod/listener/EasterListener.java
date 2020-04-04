@@ -65,7 +65,7 @@ public class EasterListener {
 				// download frames
 				if (bufferedImage == null) {
 					try {
-						BufferedImage bufferedImage = ImageIO.read(new URL("http://5zig.net/dl/nyan.jpg"));
+						BufferedImage bufferedImage = ImageIO.read(new URL("http://5zigreborn.eu/dl/nyan.jpg"));
 						if (bufferedImage == null)
 							throw new IOException("Image could not be loaded!");
 						EasterListener.this.bufferedImage = bufferedImage;
@@ -78,7 +78,7 @@ public class EasterListener {
 				// start audio
 				AudioInputStream din = null;
 				try {
-					AudioInputStream in = AudioSystem.getAudioInputStream(new URL("http://5zig.net/dl/nyan.wav"));
+					AudioInputStream in = AudioSystem.getAudioInputStream(new URL("http://5zigreborn.eu/dl/nyan.wav"));
 					AudioFormat baseFormat = in.getFormat();
 					AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, baseFormat.getSampleRate(), 16, baseFormat.getChannels(), baseFormat.getChannels() * 2,
 							baseFormat.getSampleRate(), false);

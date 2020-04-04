@@ -526,6 +526,7 @@ public class The5zigMod {
 	 * @param fileName the path of the file that should be checked.
 	 * @return true, if the file is currently locked by the file system.
 	 */
+	@SuppressWarnings("unused")
 	private static boolean isFileLocked(String fileName) {
 		RandomAccessFile f = null;
 		try {

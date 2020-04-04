@@ -23,14 +23,13 @@ import eu.the5zig.teamspeak.net.*;
 import eu.the5zig.teamspeak.tslogs.*;
 import com.google.common.collect.*;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.Charsets;
 import org.apache.commons.lang3.*;
 import com.google.common.base.*;
 import eu.the5zig.teamspeak.response.*;
 import eu.the5zig.teamspeak.util.*;
-import org.apache.commons.io.*;
-import org.apache.commons.codec.binary.*;
 import eu.the5zig.teamspeak.request.*;
+
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import eu.the5zig.teamspeak.api.*;
 
@@ -238,7 +237,7 @@ public class ServerTabImpl implements ServerTab
                 public void onDone(final TeamSpeakCommandResponse response) {
                     final PropertyMap propertyMap = new PropertyMap(response.getParsedResponse());
                     final String hash = propertyMap.get("passwordhash");
-                    final String base64hash = Base64.encodeBase64String(hash.getBytes(Charsets.UTF_8));
+                    final String base64hash = Base64.encodeBase64String(hash.getBytes(StandardCharsets.UTF_8));
                     final ChannelEditRequest command = new ChannelEditRequest(channel, name, base64hash, topic, description, lifespan, defaultChannel, parentChannel, orderChannel, bottomPosition, neededTalkPower, codec, codecQuality, maxClients);
                     if (command.getParams().size() > 1) {
                         ServerTabImpl.this.networkManager.sendRequest(command, new EmptyCallback<TeamSpeakCommandResponse>());

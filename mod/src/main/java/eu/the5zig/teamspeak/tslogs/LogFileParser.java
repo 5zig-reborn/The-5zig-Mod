@@ -21,12 +21,12 @@ package eu.the5zig.teamspeak.tslogs;
 
 import eu.the5zig.teamspeak.impl.*;
 import org.apache.commons.io.input.*;
-import com.google.common.collect.*;
 import org.apache.commons.io.*;
 import java.util.*;
 import javax.swing.text.html.*;
 import javax.swing.text.html.parser.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public abstract class LogFileParser extends TailerListenerAdapter
 {
@@ -44,7 +44,7 @@ public abstract class LogFileParser extends TailerListenerAdapter
         thread.start();
     }
     
-    private void readTail() {
+	private void readTail() {
         ReversedLinesFileReader reader = null;
         try {
             reader = new ReversedLinesFileReader(this.logFile, 4096, Charsets.UTF_8);
@@ -81,7 +81,7 @@ public abstract class LogFileParser extends TailerListenerAdapter
         this.parse(this.rebuildUTF8String(line));
     }
     
-    private void parse(final String line) {
+	private void parse(final String line) {
         Reader reader = null;
         try {
             String replace = line.replace("&nbsp;", " ");
@@ -104,6 +104,6 @@ public abstract class LogFileParser extends TailerListenerAdapter
         for (int i = 0; i < len; ++i) {
             bytes[i] = (byte)line.charAt(i);
         }
-        return new String(bytes, Charsets.UTF_8);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 }

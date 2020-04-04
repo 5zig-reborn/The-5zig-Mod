@@ -20,15 +20,25 @@ package eu.the5zig.mod.discord;
 
 import com.jagrosh.discordipc.entities.RichPresence;
 
+import eu.the5zig.mod.I18n;
+
 import java.time.OffsetDateTime;
 
 public class The5zigRichPresence {
-    private String text, state, smallImage;
+	
+    private String details, state, smallImage, smallImageText, largeImage, largeImageText;
+    private OffsetDateTime startTimestamp, endTimestamp;
 
-    static The5zigRichPresence getDefault() {
+    public static The5zigRichPresence getDefault() {
         The5zigRichPresence presence = new The5zigRichPresence();
-        presence.text = "Menu";
-        presence.state = "Menu";
+        presence.details = "Minecraft";
+        presence.state = I18n.translate("discord.main_menu");
+        presence.largeImage = "unknown_server";
+        presence.largeImageText = I18n.translate("discord.main_menu");
+        presence.smallImage = "default";
+        presence.smallImageText = "5zig Reborn";
+        presence.startTimestamp = OffsetDateTime.now();
+        presence.endTimestamp = null;
         return presence;
     }
 
@@ -36,21 +46,43 @@ public class The5zigRichPresence {
         this.state = state;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public void setSmallImage(String smallImage) {
         this.smallImage = smallImage;
     }
+    
+    public void setSmallImageText(String smallImageText) {
+    	this.smallImageText = smallImageText;
+    }
+    
+    public void setLargeImage(String largeImage) {
+    	this.largeImage = largeImage;
+    }
+    
+    public void setLargeImageText(String largeImageText) {
+    	this.largeImageText = largeImageText;
+    }
+    
+    public void setStartTimestamp(OffsetDateTime startTimestamp) {
+    	this.startTimestamp = startTimestamp;
+    }
+    
+    public void setEndTimestamp(OffsetDateTime endTimestamp) {
+    	this.endTimestamp = endTimestamp;
+    }
+    
 
     RichPresence build() {
         RichPresence.Builder builder = new RichPresence.Builder();
-        return builder.setDetails(text)
+        return builder.setDetails(details)
                 .setState(state)
-                .setSmallImage(smallImage)
-                .setStartTimestamp(OffsetDateTime.now())
-                .setLargeImage(DiscordRPCManager.IMG_LOGO)
+                .setSmallImage(smallImage, smallImageText)
+                .setStartTimestamp(startTimestamp)
+                .setEndTimestamp(endTimestamp)
+                .setLargeImage(largeImage, largeImageText)
                 .build();
     }
 }

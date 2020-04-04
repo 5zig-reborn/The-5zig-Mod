@@ -23,7 +23,6 @@ import eu.the5zig.teamspeak.response.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.google.common.collect.*;
 import eu.the5zig.teamspeak.request.*;
 import io.netty.util.concurrent.*;
 import io.netty.channel.*;

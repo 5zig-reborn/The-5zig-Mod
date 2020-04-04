@@ -104,6 +104,7 @@ public class Updater implements Runnable {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void downloadLatest(String url, String md5, String version, String mcVersion, boolean sameMinecraftVersion) throws Exception {
 		File minecraftDir = The5zigMod.getVars().getMinecraftDataDirectory();
 
@@ -114,7 +115,7 @@ public class Updater implements Runnable {
 			ReadableByteChannel rbc = Channels.newChannel(website.openStream());
 			FileOutputStream fos = new FileOutputStream(modsFile);
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-
+			
 			String downloadedMD5 = FileUtils.md5(modsFile);
 			if (!downloadedMD5.equals(md5)) {
 				org.apache.commons.io.FileUtils.deleteQuietly(modsFile);
@@ -159,7 +160,9 @@ public class Updater implements Runnable {
 
 		public String name;
 		public String mc;
+		@SuppressWarnings("unused")
 		public String url;
+		@SuppressWarnings("unused")
 		public String md5;
 
 	}

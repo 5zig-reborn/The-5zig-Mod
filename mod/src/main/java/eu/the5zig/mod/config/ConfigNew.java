@@ -25,6 +25,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import eu.the5zig.mod.I18n;
+import eu.the5zig.mod.SocialUrls;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.entity.Friend;
 import eu.the5zig.mod.chat.entity.Profile;
@@ -41,6 +42,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -73,7 +75,7 @@ public class ConfigNew {
 		addDefaultItems();
 
 		try {
-			load(FileUtils.readFileToString(file));
+			load(FileUtils.readFileToString(file, StandardCharsets.UTF_8));
 		} catch (Exception e) {
 			The5zigMod.logger.warn("Error loading config! Creating new one...", e);
 		}
@@ -512,7 +514,6 @@ public class ConfigNew {
 		});
 		add(new EnumItem<GuiConversations.BackgroundType>("chatBackgroundType", "chat_settings", GuiConversations.BackgroundType.TRANSPARENT, GuiConversations.BackgroundType.class) {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void action() {
 				if (get() == GuiConversations.BackgroundType.TRANSPARENT) {
 					The5zigMod.getDataManager().getChatBackgroundManager().resetBackgroundImage();
@@ -605,6 +606,12 @@ public class ConfigNew {
 				String pair = get();
 				if(!pair.contains("/")) return;
 				The5zigMod.getDataManager().getSpotifyManager().setTokens(pair);
+			}
+		});
+		add(new NonConfigItem("spotify_link", "spotify") {
+			@Override
+			public void action() {
+				SocialUrls.open("https://secure.5zigreborn.eu/spotify");
 			}
 		});
 

@@ -24,7 +24,6 @@ import java.awt.image.*;
 import com.google.common.base.Objects;
 import com.google.common.collect.*;
 import java.util.*;
-import com.google.common.base.*;
 import eu.the5zig.teamspeak.response.*;
 import eu.the5zig.teamspeak.util.*;
 import eu.the5zig.teamspeak.request.*;

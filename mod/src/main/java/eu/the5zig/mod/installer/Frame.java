@@ -34,7 +34,9 @@ public class Frame extends JFrame {
 
 	private final File thisFile;
 
+	@SuppressWarnings("unused")
 	private JPanel mainPanel;
+	@SuppressWarnings("unused")
 	private JPanel modListPanel;
 
 

@@ -21,8 +21,11 @@ package eu.the5zig.mod.chat.network.filetransfer;
 
 public class FileReceiveManager {
 
+	@SuppressWarnings("unused")
 	private int parts;
+	@SuppressWarnings("unused")
 	private int chunkSize;
+	@SuppressWarnings("unused")
 	private long totalLength;
 
 	public FileReceiveManager(int parts, int chunkSize, long totalLength) {

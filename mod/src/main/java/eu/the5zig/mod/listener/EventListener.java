@@ -20,6 +20,8 @@
 package eu.the5zig.mod.listener;
 
 import com.google.common.collect.Maps;
+
+import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.api.ServerAPIListener;
 import eu.the5zig.mod.api.SettingListener;
@@ -33,11 +35,19 @@ import eu.the5zig.mod.manager.ChatFilterManager;
 import eu.the5zig.mod.manager.TextMacroManager;
 import eu.the5zig.mod.manager.TextReplacementManager;
 import eu.the5zig.mod.server.Server;
+import eu.the5zig.mod.server.bergwerk.ServerInstanceBergwerk;
+import eu.the5zig.mod.server.cytooxien.ServerInstanceCytooxien;
+import eu.the5zig.mod.server.gomme.ServerInstanceGommeHD;
+import eu.the5zig.mod.server.hypixel.ServerInstanceHypixel;
+import eu.the5zig.mod.server.mineplex.ServerInstanceMineplex;
+import eu.the5zig.mod.server.octc.ServerInstanceOCC;
+import eu.the5zig.mod.server.timolia.ServerInstanceTimolia;
 import eu.the5zig.mod.util.TabList;
 import eu.the5zig.util.minecraft.ChatColor;
 import io.netty.buffer.ByteBuf;
 
 import java.lang.reflect.Method;
+import java.time.OffsetDateTime;
 import java.util.*;
 
 public class EventListener {
@@ -145,7 +155,35 @@ public class EventListener {
 		}
 
 		The5zigRichPresence presence = new The5zigRichPresence();
-		presence.setText("Playing on");
+		presence.setDetails(I18n.translate("discord.playing_on"));
+		if (new ServerInstanceBergwerk().handleServer(host, port)) {
+			presence.setLargeImage("bergwerk");
+			presence.setLargeImageText("Bergwerk");
+		} else if (new ServerInstanceCytooxien().handleServer(host, port)) {
+			presence.setLargeImage("cytooxien");
+			presence.setLargeImageText("Cytooxien");
+		} else if (new ServerInstanceGommeHD().handleServer(host, port)) {
+			presence.setLargeImage("gomme");
+			presence.setLargeImageText("GommeHD");
+		} else if (new ServerInstanceHypixel().handleServer(host, port)) {
+			presence.setLargeImage("hypixel");
+			presence.setLargeImageText("Hypixel");
+		} else if (new ServerInstanceMineplex().handleServer(host, port)) {
+			presence.setLargeImage("mineplex");
+			presence.setLargeImageText("Mineplex");
+		} else if (new ServerInstanceOCC().handleServer(host, port)) {
+			presence.setLargeImage("octc");
+			presence.setLargeImageText("Octc");
+		} else if (new ServerInstanceTimolia().handleServer(host, port)) {
+			presence.setLargeImage("timolia");
+			presence.setLargeImageText("Timolia");
+		} else {
+			presence.setLargeImage("unknown_server");
+			presence.setLargeImageText(host + (port == 25565 ? "" : ":" + port));
+		}
+		presence.setSmallImage("default");
+        presence.setSmallImageText("5zig Reborn");
+		presence.setStartTimestamp(OffsetDateTime.now());
 		presence.setState(host + (port == 25565 ? "" : ":" + port));
 		The5zigMod.getDiscordRPCManager().setPresence(presence);
 	}
@@ -271,6 +309,24 @@ public class EventListener {
 	public String[] onSignEdited(String[] lines) {
 		SignEditEvent event = fireEvent(new SignEditEvent(lines));
 		return event.getLines();
+	}
+
+	public void onSingleplayer() {
+		The5zigRichPresence presence = new The5zigRichPresence();
+		presence.setDetails(I18n.translate("discord.playing_on"));
+		presence.setSmallImage("default");
+		presence.setSmallImageText("5zig Reborn");
+		presence.setStartTimestamp(OffsetDateTime.now());
+		presence.setLargeImage("unknown_server");
+		presence.setLargeImageText(I18n.translate("Singleplayer"));
+		presence.setState(I18n.translate("discord.singleplayer"));
+		The5zigMod.getDiscordRPCManager().setPresence(presence);
+		fireEvent(new SingleplayerEvent());
+	}
+
+	public void onSingleplayerLeave() {
+		The5zigMod.getDiscordRPCManager().setPresence(The5zigRichPresence.getDefault());
+		fireEvent(new LeaveSingleplayerEvent());
 	}
 
 }

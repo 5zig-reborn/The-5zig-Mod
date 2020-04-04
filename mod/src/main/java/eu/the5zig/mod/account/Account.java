@@ -86,7 +86,8 @@ public class Account implements RowExtended {
         this.password = password;
     }
 
-    private transient int x, y;
+	@SuppressWarnings("unused")
+	private transient int x, y;
     private transient boolean clickable, selected;
 
     public boolean isClickable() {

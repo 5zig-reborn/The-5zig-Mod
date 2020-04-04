@@ -40,7 +40,6 @@ public class HttpClient {
 	public static final int TIMEOUT = 5000;
 	private static final Cache<String, InetAddress> addressCache = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
 
-	@SuppressWarnings("UnusedAssignment")
 	public static void get(String url, EventLoopGroup eventLoop, final HttpResponseCallback callback) {
 		Preconditions.checkNotNull(url, "url");
 		Preconditions.checkNotNull(eventLoop, "eventLoop");
@@ -79,7 +78,7 @@ public class HttpClient {
 					String path = uri.getRawPath() + ((uri.getRawQuery() == null) ? "" : "?" + uri.getRawQuery());
 
 					HttpRequest request = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, path);
-					request.headers().set(HttpHeaders.Names.HOST, uri.getHost());
+					request.headers().set(HttpHeaderNames.HOST, uri.getHost());
 
 					future.channel().writeAndFlush(request);
 				} else {

@@ -37,6 +37,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -104,7 +105,7 @@ public class SpotifyManager {
 			try {
 				HttpResponse response = client.execute(request);
 				if(response.getStatusLine().getStatusCode() == 200) {
-					authToken = IOUtils.toString(response.getEntity().getContent());
+					authToken = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -228,6 +229,7 @@ public class SpotifyManager {
 		}, DEFAULT_TIMEOUT_MILLIS + POLL_TIME * 1000);
 	}
 
+	@SuppressWarnings("unused")
 	private void play(String uri) {
 		Map<String, String> authParams = createAuthParams();
 		authParams.put("uri", uri);

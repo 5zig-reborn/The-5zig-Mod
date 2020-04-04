@@ -37,7 +37,6 @@ import java.util.Map;
 public class SpotifyHttpClient {
 
 
-	@SuppressWarnings("UnusedAssignment")
 	public static void get(String url, final Map<String, String> headers, int timeout, boolean ignoreInvalidCertificates, EventLoopGroup eventLoop, final HttpResponseCallback callback) {
 		Preconditions.checkNotNull(url, "url");
 		Preconditions.checkNotNull(eventLoop, "eventLoop");
@@ -73,8 +72,8 @@ public class SpotifyHttpClient {
 					String path = uri.getRawPath() + ((uri.getRawQuery() == null) ? "" : "?" + uri.getRawQuery());
 
 					HttpRequest request = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, path);
-					request.headers().set(HttpHeaders.Names.HOST, uri.getHost());
-					request.headers().set(HttpHeaders.Names.USER_AGENT, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
+					request.headers().set(HttpHeaderNames.HOST, uri.getHost());
+					request.headers().set(HttpHeaderNames.USER_AGENT, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
 					for (Map.Entry<String, String> entry : headers.entrySet()) {
 						request.headers().set(entry.getKey(), entry.getValue());
 					}

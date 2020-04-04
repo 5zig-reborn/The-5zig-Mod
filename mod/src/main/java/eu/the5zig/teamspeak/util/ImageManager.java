@@ -27,7 +27,6 @@ import javax.imageio.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.*;
-import org.apache.commons.lang3.*;
 import eu.the5zig.teamspeak.api.*;
 import com.google.common.base.*;
 import java.net.*;
