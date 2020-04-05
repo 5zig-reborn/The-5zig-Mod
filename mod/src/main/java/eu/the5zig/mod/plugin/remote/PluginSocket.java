@@ -22,18 +22,18 @@ import eu.the5zig.mod.The5zigMod;
 import org.apache.commons.io.IOUtils;
 
 import javax.crypto.Cipher;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PluginSocket {
     private ServerSocket inner;
@@ -74,7 +74,10 @@ public class PluginSocket {
             try(InputStream stream = activeConnection.getInputStream()) {
                 try(InputStreamReader isr = new InputStreamReader(stream)) {
                     try(BufferedReader buf = new BufferedReader(isr)) {
-                        String base64 = buf.readLine();
+                        HttpData data = dataFromHttp(buf.readLine());
+                        if(data == null) return;
+                        String base64 = data.pluginId;
+                        writeResponse(activeConnection.getOutputStream(), data.httpVer);
                         byte[] realData = Base64.getDecoder().decode(base64);
                         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
                         cipher.init(Cipher.DECRYPT_MODE, decryptionKey);
@@ -92,11 +95,32 @@ public class PluginSocket {
         inner.close();
     }
 
+    private void writeResponse(OutputStream stream, String httpVer) throws IOException {
+        stream.write(("HTTP/" + httpVer + " 200 OK\n\n Please follow the instructions on the 5zig mod.").getBytes(StandardCharsets.UTF_8));
+        stream.flush();
+    }
+
+    private HttpData dataFromHttp(String in) {
+        Pattern p = Pattern.compile("GET /plugin/(.*) HTTP/(.*)");
+        Matcher m = p.matcher(in);
+        if(m.find()) {
+            HttpData data = new HttpData();
+            data.pluginId = m.group(1);
+            data.httpVer = m.group(2);
+            return data;
+        }
+        return null;
+    }
+
     public void stop() {
         try {
             inner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static class HttpData {
+        public String pluginId, httpVer;
     }
 }
