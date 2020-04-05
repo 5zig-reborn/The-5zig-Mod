@@ -18,9 +18,14 @@
 
 package eu.the5zig.mod.plugin.remote;
 
+import eu.the5zig.mod.The5zigMod;
 import org.apache.commons.io.IOUtils;
 
 import javax.crypto.Cipher;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -28,31 +33,70 @@ import java.nio.ByteBuffer;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 public class PluginSocket {
     private ServerSocket inner;
-    private Socket activeConnection;
     private PublicKey decryptionKey;
 
+    private GuiPluginSocket display;
+
+    public static void startListening() {
+        GuiPluginSocket gui = new GuiPluginSocket(The5zigMod.getVars().getCurrentScreen());
+        PluginSocket socket = new PluginSocket(gui);
+        new Thread(() -> {
+            try {
+                socket.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+        The5zigMod.getVars().displayScreen(gui);
+    }
+
+    private PluginSocket(GuiPluginSocket display) {
+        this.display = display;
+        display.setSocket(this);
+    }
+
     public void start() throws Exception {
-        inner = new ServerSocket(31415, 50, InetAddress.getByName("127.0.0.1"));
-        byte[] keyBytes = IOUtils.toByteArray(getClass().getResource("/plugin_sock.pub"));
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
+        inner = new ServerSocket(31415, 1, InetAddress.getByName("127.0.0.1"));
+        byte[] derBytes = IOUtils.toByteArray(getClass().getResourceAsStream("/plugin_socket.pub"));
+
         KeyFactory factory = KeyFactory.getInstance("RSA");
-        decryptionKey = factory.generatePublic(spec);
+        decryptionKey = factory.generatePublic(new X509EncodedKeySpec(derBytes));
         listen();
     }
 
     private void listen() throws Exception {
-        // Limit concurrent connections to 1
-        if(activeConnection == null) {
-            activeConnection = inner.accept();
-            byte[] data = IOUtils.toByteArray(activeConnection.getInputStream());
-            Cipher cipher = Cipher.getInstance("RSA/None/PKCS1");
-            cipher.init(Cipher.DECRYPT_MODE, decryptionKey);
-            byte[] dec = cipher.doFinal(data);
-            int pluginId = ByteBuffer.wrap(dec).getInt();
-            System.out.println(pluginId);
+        display.setState(GuiPluginSocket.DownloadState.LISTENING);
+        try(Socket activeConnection = inner.accept()) {
+            try(InputStream stream = activeConnection.getInputStream()) {
+                try(InputStreamReader isr = new InputStreamReader(stream)) {
+                    try(BufferedReader buf = new BufferedReader(isr)) {
+                        String base64 = buf.readLine();
+                        byte[] realData = Base64.getDecoder().decode(base64);
+                        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+                        cipher.init(Cipher.DECRYPT_MODE, decryptionKey);
+                        byte[] dec = cipher.doFinal(realData);
+                        int pluginId = ByteBuffer.wrap(dec).getInt();
+                        display.setState(GuiPluginSocket.DownloadState.DOWNLOADING_INFO);
+                        RemotePluginDownloader dl = new RemotePluginDownloader();
+                        display.setDownloader(dl);
+                        RemotePlugin plugin = dl.download(pluginId);
+                        display.setPreview(plugin);
+                    }
+                }
+            }
+        }
+        inner.close();
+    }
+
+    public void stop() {
+        try {
+            inner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

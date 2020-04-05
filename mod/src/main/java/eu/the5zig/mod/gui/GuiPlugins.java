@@ -31,6 +31,7 @@ import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.RowExtended;
 import eu.the5zig.mod.plugin.LoadedPlugin;
 import eu.the5zig.mod.plugin.PluginManagerImpl;
+import eu.the5zig.mod.plugin.remote.PluginSocket;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.render.PNGUtils;
 import eu.the5zig.util.minecraft.ChatColor;
@@ -156,6 +157,7 @@ public class GuiPlugins extends Gui {
 				alertAddDisabled.open();
 				return;
 			}
+			PluginSocket.startListening();
 		}
 	}
 
