@@ -36,7 +36,6 @@ import eu.the5zig.mod.server.Server;
 import eu.the5zig.mod.util.TabList;
 import eu.the5zig.util.minecraft.ChatColor;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 
 import java.lang.reflect.Method;
 import java.util.*;
