@@ -15,6 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with The 5zig Mod.  If not, see <http://www.gnu.org/licenses/>.
  */
+import org.apache.tools.ant.filters.EscapeUnicode
 
 apply plugin: 'java'
 
@@ -71,6 +72,13 @@ dependencies {
     embed group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
 
     embed 'com.github.5zig-reborn:DiscordIPC:master-SNAPSHOT'
+}
+
+tasks.withType(ProcessResources).each { task ->
+    task.from(task.getSource()) {
+        include '**/*.properties'
+        filter(EscapeUnicode) // native2ascii for i18n files
+    }
 }
 
 jar {
