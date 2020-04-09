@@ -59,7 +59,7 @@ public class GuiIngame {
 		}
 	}
 
-	public void onRenderFood() {
+	public void onRenderFood() { 
 		if (The5zigMod.getVars().isRidingEntity()) {
 			return;
 		}
