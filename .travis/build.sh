@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Build
 ./gradlew build
 
