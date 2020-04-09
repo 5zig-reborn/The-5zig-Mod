@@ -22,7 +22,6 @@ package eu.the5zig.mod.gui;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import eu.the5zig.mod.I18n;
-import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.config.items.*;
 import eu.the5zig.mod.gui.elements.ButtonRow;
@@ -34,7 +33,6 @@ import eu.the5zig.mod.modules.Module;
 import eu.the5zig.mod.modules.ModuleItemPropertiesImpl;
 import eu.the5zig.mod.modules.RenderSettingsImpl;
 import eu.the5zig.mod.render.RenderLocation;
-import eu.the5zig.mod.util.GLUtil;
 import eu.the5zig.mod.util.Keyboard;
 import eu.the5zig.mod.util.SliderCallback;
 import eu.the5zig.util.minecraft.ChatColor;
@@ -324,17 +322,6 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 
 	private void renderItemPreviewBox(int x, int y, int width, int height) {
 		Gui.drawRect(x, y, x + width, y + height, 0x88222222);
-		GLUtil.pushMatrix();
-		float scale = 1.6f;
-		GLUtil.translate(x + width / 2, y + height / 2 - The5zigMod.getVars().getFontHeight() * scale / 2, 1);
-		GLUtil.scale(scale, scale, scale);
-		GLUtil.enableBlend();
-		GLUtil.enableDepth();
-		MinecraftFactory.getVars().drawCenteredString(I18n.translate("modules.preview"), 0, 0, 0x22dddddd);
-		GLUtil.disableBlend();
-		GLUtil.disableDepth();
-		GLUtil.popMatrix();
-
 		Gui.drawRectOutline(x, y, x + width, y + height, 0xff000000);
 	}
 

@@ -19,8 +19,6 @@
 
 package eu.the5zig.mod.gui.elements;
 
-import eu.the5zig.mod.I18n;
-import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.modules.ActiveModuleItem;
@@ -71,17 +69,6 @@ public class StaticModulePreviewRow implements Row {
 
 	private void renderModulePreviewBox(int x, int y, int width, int height) {
 		Gui.drawRect(x, y, x + width, y + height, 0x22888888);
-		GLUtil.pushMatrix();
-		float scale = 1.6f;
-		GLUtil.translate(x + width / 2, y + height / 2 - The5zigMod.getVars().getFontHeight() * scale / 2, 1);
-		GLUtil.scale(scale, scale, scale);
-		GLUtil.enableBlend();
-		GLUtil.enableDepth();
-		MinecraftFactory.getVars().drawCenteredString(I18n.translate("modules.preview"), 0, 0, 0x55dddddd);
-		GLUtil.disableBlend();
-		GLUtil.disableDepth();
-		GLUtil.popMatrix();
-
 		Gui.drawRectOutline(x, y, x + width, y + height, 0xff000000);
 	}
 
