@@ -98,7 +98,9 @@ public class GuiChatFilter extends GuiOptions {
 	@Override
 	protected void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		int y = 0;
-		for (String line : The5zigMod.getVars().splitStringToWidth(I18n.translate("chat_filter.help"), getWidth() / 4 * 3)) {
+		String text = I18n.translate("chat_filter.help");
+		text += "\n§6https://docs.5zigreborn.eu/Mod/chat-filter";
+		for (String line : The5zigMod.getVars().splitStringToWidth(text, getWidth() / 4 * 3)) {
 			drawCenteredString(ChatColor.GRAY + line, getWidth() / 2, 34 + y);
 			y += 10;
 		}
