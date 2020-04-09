@@ -192,6 +192,15 @@ public class ChatFilterManager {
 	}
 
 	public static String replacePlaceholders(String autoText) {
+		if(autoText.contains("${username}")) {
+			autoText = autoText.replace("${username}", The5zigMod.getDataManager().getGameProfile().getName());
+		}
+		if(autoText.contains("${uuid}")) {
+			autoText = autoText.replace("${uuid}", The5zigMod.getDataManager().getGameProfile().getId().toString());
+		}
+		if(autoText.contains("${uuid-stripped}")) {
+			autoText = autoText.replace("${uuid-stripped}", The5zigMod.getDataManager().getGameProfile().getId().toString().replace("-", ""));
+		}
 		if (autoText.contains("${time-min}")) {
 			autoText = autoText.replace("${time-min}", Utils.convertToTimeWithMinutes(System.currentTimeMillis()));
 		}
