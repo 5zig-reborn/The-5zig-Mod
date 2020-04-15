@@ -36,6 +36,8 @@ public enum Rank {
 	CAPE_CUSTOM(6, 'r', "Custom Cape"),
 	PATRON(1, '2', "Tier I Patron"),
 	CAPE_DEFAULT(5, 'r', "Default Cape"),
+	BUG_REPORTER(9, 'd', "Bug Report Team"),
+	PLUGIN_DEV(8, '3', "Plugin Developer"),
 	USER(0, 'r', "User");
 
 	private int index;
