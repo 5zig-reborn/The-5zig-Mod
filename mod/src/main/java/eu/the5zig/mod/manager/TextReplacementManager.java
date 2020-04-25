@@ -67,8 +67,8 @@ public class TextReplacementManager {
 
 				}
 				nextIndex = index + replacement.getReplacement().length();
-				text = text.substring(0, index) + replacement.getReplacement() + text.substring(index + replacement.getMessage().length(),
-						text.length());
+				text = text.substring(0, index) + ChatFilterManager.replacePlaceholders(replacement.getReplacement())
+						+ text.substring(index + replacement.getMessage().length());
 			}
 		}
 		return text;
