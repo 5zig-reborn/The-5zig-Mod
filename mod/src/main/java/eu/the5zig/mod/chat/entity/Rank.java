@@ -92,5 +92,4 @@ public enum Rank {
 		builder.deleteCharAt(builder.length() - 2);
 		return builder.toString().trim();
 	}
-
 }
