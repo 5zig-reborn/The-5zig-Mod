@@ -313,7 +313,7 @@ public class DataManager {
 		String timeFormat = The5zigMod.getConfig().getString("chatTimePrefixTimeFormat");
 		try {
 			String prefix = bracketsColor + bracketsFormatting.getFirst() + mainColor + new SimpleDateFormat(timeFormat).format(new Date()) +
-					bracketsColor + bracketsFormatting.getLast() + " ";
+					bracketsColor + bracketsFormatting.getLast() + "§r ";
 			return The5zigMod.getVars().getChatComponentWithPrefix(prefix, originalChatComponent);
 		} catch (Exception e) {
 			The5zigMod.logger.warn("Failed to parse time format " + timeFormat, e);
