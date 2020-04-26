@@ -92,6 +92,10 @@ jar {
             'Minecraft-Version': project.ext.get("customVer") != null ? project.ext.get("customVer") : project.name
     )
 
+    if (System.getenv("TRAVIS_COMMIT") != null && (System.getenv("TRAVIS_TAG") == null || System.getenv("TRAVIS_TAG").isEmpty())) {
+        manifest.attributes.put("5zig-Build", System.getenv("TRAVIS_COMMIT"))
+    }
+
     from {
         duplicatesStrategy DuplicatesStrategy.EXCLUDE
         configurations.embed.collect {

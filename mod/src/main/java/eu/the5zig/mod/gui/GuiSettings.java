@@ -351,7 +351,11 @@ public class GuiSettings extends Gui {
 
 	@Override
 	public String getTitleName() {
-		return "main".equals(category) ? "The 5zig Mod v" + Version.VERSION : null;
+		if("main".equals(category)) {
+			String suffix = Version.UPDATE == null ? "" : " - §6" + I18n.translate("update.available." + Version.UPDATE);
+			return "The 5zig Mod v" + Version.VERSION + suffix;
+		}
+		return null;
 	}
 
 	@Override

@@ -50,54 +50,33 @@ public class Updater implements Runnable {
 
 	@Override
 	public void run() {
-//		final UpdateType updateType = The5zigMod.getConfig().getEnum("autoUpdate", UpdateType.class);
-//		if (updateType == UpdateType.NEVER)
-//			return;
 		try {
-//			String latestVersion = IOUtils.toString(
-//					new URL("http://5zig.net/api/update?mc=" + Version.MCVERSION + "&same-version=" + (updateType == UpdateType.SAME_VERSION ? 1 : 0)).toURI());
-			URL url = new URL("https://secure.5zigreborn.eu/version?mc=" + Version.MCVERSION);
+			URL url = new URL("https://secure.5zigreborn.eu/version?mc=" + (Version.BETA == null ? Version.MCVERSION : Version.BETA));
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
-			Download download = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), Download.class);
-			connection.disconnect();
-			if (!"DEV".equals(Version.VERSION) && !Version.VERSION.contains("_b") && Utils.versionCompare(Version.VERSION, download.name) < 0 && Utils.versionCompare(Version.MCVERSION, download.mc) <= 0) {
-				The5zigMod.logger.info("Found new update of The 5zig Mod (v" + download.name + ")!");
-				The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.1"));
-				The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.2"));
-
-//				boolean sameMinecraftVersion = Version.MCVERSION.equals(download.mc);
-//				if (updateType == UpdateType.SAME_VERSION && !sameMinecraftVersion) {
-//					return;
-//				}
-
-//				if (!sameMinecraftVersion) {
-//					File minecraftDir = new File("").getAbsoluteFile();
-//					File versionsDir = new File(minecraftDir, "versions");
-//					File minecraftJarDirectory = new File(versionsDir, download.mc);
-//					File minecraftJarFile = new File(minecraftJarDirectory, download.mc + ".jar");
-//					if (!minecraftJarFile.exists()) {
-//						sameMinecraftVersion = true;
-//						The5zigMod.logger.info("New Minecraft version doesn't exist yet! Trying to download most recent mod file for Minecraft " + Version.MCVERSION);
-//						latestVersion = IOUtils.toString(new URL("http://5zig.net/api/update?mc=" + Version.MCVERSION + "&same-version=1").toURI());
-//						download = The5zigMod.gson.fromJson(latestVersion, Download.class);
-//						if (download.name == null || Utils.versionCompare(Version.VERSION, download.name) >= 0) {
-//							The5zigMod.logger.info("No new download available for this Minecraft version!");
-//							return;
-//						}
-//					}
-//				}
-//
-//				File modLibraryDirectory = new File(InstallerUtils.getMinecraftDirectory(),
-//						"libraries" + File.separator + "eu" + File.separator + "the5zig" + File.separator + "The5zigMod" + File.separator + download.mc + "_" + download.name);
-//				if (modLibraryDirectory.exists()) {
-//					The5zigMod.logger.info("Update already has been downloaded! Aborting...");
-//					return;
-//				}
-//
-//				downloadLatest(download.url, download.md5, download.name, download.mc, sameMinecraftVersion);
-			} else {
-				The5zigMod.logger.info("The 5zig Mod is up to date!");
+			if(Version.BETA != null) {
+				BetaUpdate update = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), BetaUpdate.class);
+				connection.disconnect();
+				if(update.update) {
+					Version.UPDATE = "beta";
+					The5zigMod.logger.info("Found new beta update of The 5zig Mod!");
+					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.beta.1"));
+					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.beta.2"));
+				} else {
+					The5zigMod.logger.info("The 5zig Mod is up to date!");
+				}
+			}
+			else {
+				Download download = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), Download.class);
+				connection.disconnect();
+				if (!"DEV".equals(Version.VERSION) && !Version.VERSION.contains("_b") && Utils.versionCompare(Version.VERSION, download.name) < 0 && Utils.versionCompare(Version.MCVERSION, download.mc) <= 0) {
+					Version.UPDATE = "stable";
+					The5zigMod.logger.info("Found new update of The 5zig Mod (v" + download.name + ")!");
+					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.1"));
+					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.2"));
+				} else {
+					The5zigMod.logger.info("The 5zig Mod is up to date!");
+				}
 			}
 		} catch (Exception e) {
 			The5zigMod.logger.error("Could not check for latest 5zig Mod Version!", e);
@@ -156,12 +135,14 @@ public class Updater implements Runnable {
 	}
 
 	private static class Download {
-
 		public String name;
 		public String mc;
 		public String url;
-		public String md5;
+	}
 
+	private static class BetaUpdate {
+		public boolean update;
+		public boolean beta;
 	}
 
 	public enum UpdateType {

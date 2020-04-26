@@ -30,9 +30,11 @@ public class Version {
     public static final int LANGVERSION = 44;
     public static final int PROTOCOL = 5;
     public static final int APIVERSION = 4;
+    public static final String BETA;
+    public static String UPDATE;
 
     static {
-        String version = "DEV", mcVersion = "unknown";
+        String version = "DEV", mcVersion = "unknown", beta = null;
 
         try {
             Enumeration<URL> resources = Version.class.getClassLoader()
@@ -42,6 +44,7 @@ public class Version {
                 if (manifest.getMainAttributes().getValue("5zig-Version") != null) {
 					version = manifest.getMainAttributes().getValue("5zig-Version");
 					mcVersion = manifest.getMainAttributes().getValue("Minecraft-Version");
+                    beta = manifest.getMainAttributes().getValue("5zig-Build");
                 }
             }
         } catch (Exception ex) {
@@ -50,6 +53,7 @@ public class Version {
         finally {
         	VERSION = version;
         	MCVERSION = mcVersion;
+        	BETA = beta;
 		}
     }
 
