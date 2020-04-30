@@ -1,0 +1,10 @@
+{
+  "required": false,
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "package": "eu.the5zig.mod.mixin",
+  "refmap": "mixins.refmap.json",
+  "mixins": [
+    "IMinecraft"
+  ]
+}
