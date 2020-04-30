@@ -60,7 +60,7 @@ public class ChatFilterManager {
 			DelayedAutoText delayedAutoText = it.next();
 			delayedAutoText.currentTick++;
 			if (delayedAutoText.currentTick >= delayedAutoText.ticksDelayed) {
-				The5zigMod.getListener().onSendChatMessage(delayedAutoText.autoText);
+				The5zigMod.getListener().doSendChatMessage(delayedAutoText.autoText);
 				it.remove();
 			}
 		}
@@ -181,7 +181,7 @@ public class ChatFilterManager {
 				}
 				delayedAutoTexts.add(new DelayedAutoText(chatMessage.getAutoTextDelay(), cancelPattern, autoText));
 			} else {
-				The5zigMod.getListener().onSendChatMessage(autoText);
+				The5zigMod.getListener().doSendChatMessage(autoText);
 			}
 			return false;
 		} else if (chatMessage.getAction() == ChatFilter.Action.PLAY_SOUND) {

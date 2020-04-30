@@ -178,6 +178,13 @@ public class EventListener {
 		return event.isCancelled();
 	}
 
+	public void doSendChatMessage(String message) {
+		ChatSendEvent event = fireEvent(new ChatSendEvent(message));
+		if(!event.isCancelled()) {
+			The5zigMod.getVars().sendMessage(message);
+		}
+	}
+
 	/**
 	 * Handles all received chat messages.
 	 *

@@ -36,7 +36,7 @@ public class JoinTextListener {
 				The5zigMod.getScheduler().postToMainThread(new Runnable() {
 					@Override
 					public void run() {
-						The5zigMod.getListener().onSendChatMessage(text.getMessage());
+						The5zigMod.getListener().doSendChatMessage(text.getMessage());
 					}
 				}, true, text.getDelay());
 			}

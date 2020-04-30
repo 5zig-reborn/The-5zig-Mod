@@ -47,7 +47,7 @@ public class TextMacroManager {
 					String autoText = macro.getMessage();
 					autoText = ChatFilterManager.replacePlaceholders(autoText);
 					if (macro.isAutoSend()) {
-						The5zigMod.getListener().onSendChatMessage(autoText);
+						The5zigMod.getListener().doSendChatMessage(autoText);
 					} else {
 						The5zigMod.getVars().typeInChatGUI(autoText);
 					}
