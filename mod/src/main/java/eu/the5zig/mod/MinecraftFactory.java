@@ -44,6 +44,9 @@ public class MinecraftFactory {
 	}
 
 	public static ClassProxyCallback getClassProxyCallback() {
+		if(classProxyCallback == null && !The5zigMod.hasBeenInitialized()) {
+			The5zigMod.init();
+		}
 		return classProxyCallback;
 	}
 
