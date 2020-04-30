@@ -24,6 +24,7 @@ import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.modules.StringItem;
 import eu.the5zig.mod.render.BracketsFormatting;
 import eu.the5zig.mod.render.DisplayRenderer;
+import eu.the5zig.mod.util.MathUtil;
 
 public class Direction extends StringItem {
 
@@ -31,6 +32,7 @@ public class Direction extends StringItem {
 	public void registerSettings() {
 		getProperties().addSetting("directionStyle", Style.STRING, Style.class);
 		getProperties().addSetting("showDirectionTowards", false);
+		getProperties().addSetting("countAngleNorth", false);
 	}
 
 	@Override
@@ -42,7 +44,9 @@ public class Direction extends StringItem {
 		float rotationYaw = dummy ? 0 : The5zigMod.getVars().getPlayerRotationYaw();
 		Style directionStyle = (Style) getProperties().getSetting("directionStyle").get();
 		if (directionStyle == Style.DEGREE) {
-			return shorten(Math.abs(rotationYaw) % 360.0) + "\u00b0";
+			boolean angleNorth = (boolean) getProperties().getSetting("countAngleNorth").get();
+			double angle = Math.abs(rotationYaw) % 360.0;
+			return shorten(angleNorth ? MathUtil.angleSumDegrees(angle, 180) : angle) + "\u00b0";
 		}
 		float fDir = rotationYaw / 360 * 4;
 		fDir = fDir % 4;
