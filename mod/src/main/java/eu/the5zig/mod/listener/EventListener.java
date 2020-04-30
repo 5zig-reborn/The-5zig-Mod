@@ -175,7 +175,12 @@ public class EventListener {
 
 	public boolean onSendChatMessage(String message) {
 		ChatSendEvent event = fireEvent(new ChatSendEvent(message));
-		return event.isCancelled();
+		if(event.isCancelled() || message == null) return true;
+		if(!message.equals(event.getMessage())) {
+		    The5zigMod.getVars().sendMessage(event.getMessage());
+		    return true;
+        }
+		return false;
 	}
 
 	public void doSendChatMessage(String message) {
