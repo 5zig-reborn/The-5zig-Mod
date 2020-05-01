@@ -180,6 +180,8 @@ public class The5zigMod {
 			logger.info("Forge detected!");
 		}
 
+		ModCompat.check();
+
 		modDirectory = new File(The5zigMod.getVars().getMinecraftDataDirectory(), "the5zigmod");
 		// Workaround to allow Minecraft specific classes the interaction with mod core classes.
 		MinecraftFactory.setClassProxyCallback(new ClassProxyCallbackImpl());
