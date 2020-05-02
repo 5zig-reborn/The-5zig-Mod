@@ -74,6 +74,7 @@ public class ModuleItemRegistry {
 		registerItem("TARGET_BLOCK_NAME", TargetBlockName.class, Category.GENERAL);
 		registerItem("DAMAGE_RESISTANCE", DamageResistance.class, Category.GENERAL);
 		registerItem("COMBAT_RANGE", CombatRange.class, Category.GENERAL);
+		registerItem("UPTIME", Uptime.class, Category.GENERAL);
 
 		registerItem("MAIN_HAND", MainHand.class, Category.EQUIP);
 		registerItem("OFF_HAND", OffHand.class, Category.EQUIP);

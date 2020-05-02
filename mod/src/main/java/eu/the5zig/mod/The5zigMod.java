@@ -60,6 +60,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 /**
@@ -158,6 +159,7 @@ public class The5zigMod {
 	private static AccountManager accountManager;
 
 	private static boolean initialized = false;
+	private static LocalDateTime startDate;
 
 	private The5zigMod() {
 	}
@@ -174,6 +176,7 @@ public class The5zigMod {
 		initialized = true;
 
 		long start = System.currentTimeMillis();
+		startDate = LocalDateTime.now();
 
 		logger.info("Initializing the 5zig Mod!");
 		if (Transformer.FORGE) {
@@ -463,6 +466,10 @@ public class The5zigMod {
 
 	public static IOverlay getOverlayMessage() {
 		return getVars().newOverlay();
+	}
+
+	public static LocalDateTime getStartDate() {
+		return startDate;
 	}
 
 	/**
