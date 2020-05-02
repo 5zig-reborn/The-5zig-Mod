@@ -34,7 +34,6 @@ public class GuiLanguage extends GuiOptions {
 
 	private List<LanguageRow> languages = Lists.newArrayList();
 	private IGuiList languageSlot;
-	private int tickCount = 20;
 
 	public GuiLanguage(Gui lastScreen) {
 		super(lastScreen);
@@ -69,21 +68,6 @@ public class GuiLanguage extends GuiOptions {
 		LanguageRow language = languages.get(id);
 		I18n.setLanguage(language.getLocale());
 		The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("language.select", I18n.translate("author")));
-	}
-
-	@Override
-	protected void tick() {
-		tickCount++;
-		if (tickCount >= 20) {
-			tickCount = 0;
-			if (I18n.loadLocales()) {
-				languages.clear();
-				for (Locale locale : I18n.getLanguages()) {
-					languages.add(new LanguageRow(locale));
-				}
-				languageSlot.setSelectedId(I18n.getLanguages().indexOf(I18n.getCurrentLanguage()));
-			}
-		}
 	}
 
 	@Override
