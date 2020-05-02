@@ -204,6 +204,7 @@ public class The5zigMod {
 			CrashReportUtil.makeCrashReport(e, "Loading Main Configuration.");
 		}
 		DEBUG = config.getBool("debug");
+		if("true".equals(System.getProperty("5zig.debug"))) DEBUG = true;
 		setupLogger();
 		variables.updateOverlayCount(getConfig().getInt("maxOverlays"));
 		chatFilterConfig = new ChatFilterConfiguration(modDirectory);
