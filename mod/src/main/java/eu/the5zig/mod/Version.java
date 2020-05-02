@@ -28,7 +28,7 @@ public class Version {
     public static final String VERSION;
     public static final String MCVERSION;
     public static final int LANGVERSION = 44;
-    public static final int PROTOCOL = 5;
+    public static final int PROTOCOL = 6;
     public static final int APIVERSION = 4;
     public static final String BETA;
     public static String UPDATE;

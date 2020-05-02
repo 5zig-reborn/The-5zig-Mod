@@ -31,6 +31,7 @@ import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.RowExtended;
 import eu.the5zig.mod.plugin.LoadedPlugin;
 import eu.the5zig.mod.plugin.PluginManagerImpl;
+import eu.the5zig.mod.plugin.remote.PluginSocket;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.render.PNGUtils;
 import eu.the5zig.util.minecraft.ChatColor;
@@ -55,6 +56,8 @@ public class GuiPlugins extends Gui {
 
 	private HashMap<LoadedPlugin, String> cachedIcons = new HashMap<>();
 
+	private AlertOverlay alertAddDisabled;
+
 	public GuiPlugins(Gui lastScreen) {
 		super(lastScreen);
 		this.pluginManager = The5zigMod.getAPI().getPluginManager();
@@ -67,8 +70,12 @@ public class GuiPlugins extends Gui {
 		addButton(The5zigMod.getVars().createButton(3, getWidth() / 2, getHeight() - 38, 90, 20, I18n.translate("plugin_manager.plugin_folder")));
 		addButton(The5zigMod.getVars().createButton(200, getWidth() / 2 + 95, getHeight() - 38, 95, 20, The5zigMod.getVars().translate("gui.back")));
 
-		addButton(The5zigMod.getVars().createButton(4, getWidth() - 100, 6, 90, 20, I18n.translate("plugin_manager.update") + ": " +
+		addButton(The5zigMod.getVars().createButton(4, getWidth() - 130, 6, 90, 20, I18n.translate("plugin_manager.update") + ": " +
 				The5zigMod.getConfig().get("plugin_update").translateValue()));
+
+		addButton(The5zigMod.getVars().createButton(5, getWidth() - 30, 6, 20, 20, "+"));
+
+		alertAddDisabled = new AlertOverlay(this, "gui.alert.feature_unavailable", "error");
 
 		guiList = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 64, getHeight() - 50, 0, getWidth(),
 				pluginRows);
@@ -145,10 +152,18 @@ public class GuiPlugins extends Gui {
 
 			button.setLabel(I18n.translate("plugin_manager.update") + ": " + item.translateValue());
 		}
+		else if(button.getId() == 5) {
+			if(!The5zigMod.getDataManager().getServerSettings().getPluginAddDirect()) {
+				alertAddDisabled.open();
+				return;
+			}
+			PluginSocket.startListening();
+		}
 	}
 
 	@Override
 	protected void tick() {
+		alertAddDisabled.tick();
 		File[] pluginCandidates = pluginManager.getPluginCandidates();
 		if (pluginCandidates != null) {
 			for (File pluginCandidate : pluginCandidates) {
@@ -189,6 +204,25 @@ public class GuiPlugins extends Gui {
 			drawCenteredString(ChatColor.GRAY + line, getWidth() / 2, 34 + y);
 			y += 10;
 		}
+		alertAddDisabled.draw(mouseX, mouseY);
+	}
+
+	@Override
+	protected void handleMouseInput() {
+		if(!alertAddDisabled.getState())
+			super.handleMouseInput();
+	}
+
+	@Override
+	protected void mouseReleased(int x, int y, int state) {
+		alertAddDisabled.mouseReleased(x, y);
+		super.mouseReleased(x, y, state);
+	}
+
+	@Override
+	protected void mouseClicked(int x, int y, int button) {
+		alertAddDisabled.onClick(x, y);
+		super.mouseClicked(x, y, button);
 	}
 
 	@Override

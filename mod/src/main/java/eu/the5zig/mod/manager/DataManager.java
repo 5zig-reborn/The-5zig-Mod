@@ -108,6 +108,8 @@ public class DataManager {
 	private final TimerManager timerManager = new TimerManager();
 	private final ChatSearchManager chatSearchManager = new ChatSearchManager();
 
+	private final ServerSettings serverSettings = new ServerSettings();
+
 	private boolean tsRequiresAuth = false;
 	private final TeamSpeakReconnectListener teamSpeakReconnectListener;
 
@@ -331,5 +333,9 @@ public class DataManager {
 
 	public TeamSpeakReconnectListener getTeamSpeakReconnectListener() {
 		return teamSpeakReconnectListener;
+	}
+
+	public ServerSettings getServerSettings() {
+		return serverSettings;
 	}
 }

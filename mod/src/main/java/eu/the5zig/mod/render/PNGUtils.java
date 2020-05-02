@@ -57,4 +57,38 @@ public class PNGUtils {
         }
         return null;
     }
+
+    public static PNGData downloadBase64PNGComplex(String urlString) {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(urlString);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
+            BufferedImage image = ImageIO.read(conn.getInputStream());
+            // Converting Image byte array into Base64 String
+            ByteBuf localByteBuf1 = Unpooled.buffer();
+            ImageIO.write(image, "PNG", new ByteBufOutputStream(localByteBuf1));
+            ByteBuf localByteBuf2 = Base64.encode(localByteBuf1);
+            String imageDataString = localByteBuf2.toString(Charsets.UTF_8);
+            The5zigMod.logger.debug("Got Base64 encoded image for {}", urlString);
+            PNGData data = new PNGData();
+            data.base64 = imageDataString;
+            data.width = image.getWidth();
+            data.height = image.getHeight();
+            return data;
+        } catch (Exception e) {
+            The5zigMod.logger.warn("Could not get Base64 image for {}", urlString);
+            e.printStackTrace();
+        }
+        finally {
+            if(conn != null)
+                conn.disconnect();
+        }
+        return null;
+    }
+
+    public static class PNGData {
+        public String base64;
+        public int width, height;
+    }
 }

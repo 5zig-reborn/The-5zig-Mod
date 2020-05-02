@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2019-2020 5zig Reborn
- * Copyright (c) 2015-2019 5zig
  *
  * This file is part of The 5zig Mod
  * The 5zig Mod is free software: you can redistribute it and/or modify
@@ -17,35 +16,20 @@
  * along with The 5zig Mod.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.the5zig.mod.chat.network.packets;
+package eu.the5zig.mod.manager;
 
-import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.mod.manager.ServerSettings;
-import io.netty.buffer.ByteBuf;
+public class ServerSettings {
+    private boolean pluginAddDirect;
 
-import java.io.IOException;
+    ServerSettings() {
+        this.pluginAddDirect = false;
+    }
 
-/**
- * Created by 5zig.
- * All rights reserved © 2015
- */
-public class PacketSettings implements Packet {
+    public boolean getPluginAddDirect() {
+        return pluginAddDirect;
+    }
 
-	private boolean pluginAddDirect;
-
-	@Override
-	public void read(ByteBuf buffer) throws IOException {
-		pluginAddDirect = buffer.readBoolean();
-	}
-
-	@Override
-	public void write(ByteBuf buffer) throws IOException {
-
-	}
-
-	@Override
-	public void handle() {
-		ServerSettings settings = The5zigMod.getDataManager().getServerSettings();
-		settings.setPluginAddDirect(pluginAddDirect);
-	}
+    public void setPluginAddDirect(boolean pluginAddDirect) {
+        this.pluginAddDirect = pluginAddDirect;
+    }
 }
