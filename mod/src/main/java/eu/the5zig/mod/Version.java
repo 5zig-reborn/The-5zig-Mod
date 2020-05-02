@@ -19,6 +19,8 @@
 
 package eu.the5zig.mod;
 
+import eu.the5zig.util.minecraft.ChatColor;
+
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.jar.Manifest;
@@ -32,6 +34,11 @@ public class Version {
     public static final int APIVERSION = 4;
     public static final String BETA;
     public static String UPDATE;
+
+    public static String getVersionDisplay() {
+        if("3.14.0".equals(VERSION)) return "§6The §aπ§6zig Mod";
+        return ChatColor.GOLD + "The 5zig Mod v" + Version.VERSION;
+    }
 
     static {
         String version = "DEV", mcVersion = "unknown", beta = null;
