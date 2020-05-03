@@ -71,6 +71,8 @@ public class PacketAuthToken implements Packet {
                 break;
             case SPOTIFY:
                 The5zigMod.getConfig().get("refresh_token").set(token);
+                The5zigMod.getDataManager().getSpotifyManager().setTokens(token);
+                The5zigMod.getConfig().save();
                 The5zigMod.getVars().displayScreen(new GuiCenteredText(null, I18n.translate("spotify.token_get")));
                 break;
         }

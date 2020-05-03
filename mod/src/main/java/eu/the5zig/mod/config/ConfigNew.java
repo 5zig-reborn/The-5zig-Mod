@@ -597,7 +597,7 @@ public class ConfigNew {
 
 			@Override
 			public int getMaxLength() {
-				return 300;
+				return 500;
 			}
 
 			@Override
