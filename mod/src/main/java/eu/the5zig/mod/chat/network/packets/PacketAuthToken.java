@@ -19,7 +19,9 @@
 
 package eu.the5zig.mod.chat.network.packets;
 
+import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.gui.GuiCenteredText;
 import eu.the5zig.util.BrowseUrl;
 import io.netty.buffer.ByteBuf;
 
@@ -29,6 +31,7 @@ import java.net.URI;
 
 public class PacketAuthToken implements Packet {
 
+    private TokenType type;
     private String token;
     private boolean remember;
 
@@ -40,6 +43,7 @@ public class PacketAuthToken implements Packet {
 
     @Override
     public void read(ByteBuf buffer) throws IOException {
+        type = TokenType.values()[buffer.readInt()];
         remember = buffer.readBoolean();
         token = PacketBuffer.readString(buffer);
     }
@@ -51,16 +55,28 @@ public class PacketAuthToken implements Packet {
 
     @Override
     public void handle() {
-        String baseUrl = The5zigMod.DEBUG ? "http://localhost:8080" : "https://secure.5zigreborn.eu";
-        try {
-            URI uri = new URI(baseUrl + "/login?token=" + token + "&remember=" + remember);
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().browse(uri);
-            } else {
-                BrowseUrl.get().openURL(uri.toURL());
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
+        switch (type) {
+            case SITE_LOGIN:
+                String baseUrl = The5zigMod.DEBUG ? "http://localhost:8080" : "https://secure.5zigreborn.eu";
+                try {
+                    URI uri = new URI(baseUrl + "/login?token=" + token + "&remember=" + remember);
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().browse(uri);
+                    } else {
+                        BrowseUrl.get().openURL(uri.toURL());
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case SPOTIFY:
+                The5zigMod.getConfig().get("refresh_token").set(token);
+                The5zigMod.getVars().displayScreen(new GuiCenteredText(null, I18n.translate("spotify.token_get")));
+                break;
         }
+    }
+
+    private enum TokenType {
+        SITE_LOGIN, SPOTIFY
     }
 }
