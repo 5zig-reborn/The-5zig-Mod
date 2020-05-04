@@ -21,16 +21,12 @@ package eu.the5zig.mod.api.rewards;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-import java.util.concurrent.TimeUnit;
-
 public class RewardsCache {
     private static Cache<String, Reward> cachedRewards;
-    private static boolean operate = true;
 
     static {
         cachedRewards = CacheBuilder.newBuilder()
                 .maximumSize(2000)
-                .expireAfterWrite(15, TimeUnit.MINUTES)
                 .build();
     }
 
@@ -39,7 +35,6 @@ public class RewardsCache {
     }
 
     public static String getRewardString(String uuid) {
-        if(!operate) return null;
         Reward reward = cachedRewards.getIfPresent(uuid);
         return reward == null ? null : reward.getDisplayString();
     }
