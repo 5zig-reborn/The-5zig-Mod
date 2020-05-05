@@ -608,6 +608,28 @@ public class ConfigNew {
 			}
 		});
 
+		add(new StringItem("hypixel_api_key", "server_hypixel", "") {
+			@Override
+			public String translate() {
+				return I18n.translate("config.server_hypixel.hypixel_api_key");
+			}
+
+			@Override
+			public int getMaxLength() {
+				return 36;
+			}
+
+			@Override
+			public void action() {
+				try {
+					The5zigMod.getHypixelAPIManager().setKey(UUID.fromString(get()));
+				}
+				catch (IllegalArgumentException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+
 		// [REBORN] New config end
 	}
 
