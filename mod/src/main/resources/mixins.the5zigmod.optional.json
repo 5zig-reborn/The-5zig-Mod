@@ -5,6 +5,7 @@
   "package": "eu.the5zig.mod.mixin",
   "refmap": "mixins.refmap.json",
   "mixins": [
-    "IMinecraft"
+    "IMinecraft",
+    "MixinAddPack"
   ]
 }
