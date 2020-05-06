@@ -630,6 +630,8 @@ public class ConfigNew {
 			}
 		});
 
+		add(new BoolItem("ping_on_serverlist", "display", false));
+
 		// [REBORN] New config end
 	}
 

@@ -25,6 +25,7 @@
     "MixinNetworkManager",
     "MixinGameSettings",
     "MixinGuiConnecting",
-    "MixinGuiDisconnected"
+    "MixinGuiDisconnected",
+    "MixinServerListEntry"
   ]
 }
