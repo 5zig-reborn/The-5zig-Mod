@@ -103,6 +103,26 @@ jar {
         }
     }
 
+    eachFile { file ->
+        if(file.name.endsWith(".lang")) {
+            file.name = file.name.toLowerCase(Locale.ROOT)
+            File f = file.getFile()
+            File newJson = new File(f.getParentFile(), file.name.replace(".lang", ".json"))
+            StringBuilder content = new StringBuilder()
+            content.append("{\n")
+            f.eachLine { line ->
+                String[] pair = line.split("=");
+                String key = pair[0].trim()
+                String value = pair[1].trim()
+                content.append('"').append(key).append('"').append(':').append('"').append(value).append('"').append(",\n")
+            }
+            content.setLength(content.length() - 2)
+            content.append("\n}")
+            newJson.write(content.toString())
+            include newJson.getName()
+        }
+    }
+
     exclude 'LICENSE.txt'
     exclude 'META-INF/*.RSA'
     exclude 'META-INF/*.SF'
