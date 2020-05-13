@@ -382,6 +382,10 @@ public class ModuleMaster {
 					The5zigMod.logger.error("Could not parse showPrefix for item \"" + registeredItem.getKey() + "\"!", e);
 				}
 			}
+			if (itemObject.has("customLabel")) {
+				String label = itemObject.get("customLabel").getAsString();
+				item.properties.setCustomLabel(label);
+			}
 		} catch (Throwable e) {
 			The5zigMod.logger.error("Could not parse type \"" + registeredItem.getKey() + "\"", e);
 		}
