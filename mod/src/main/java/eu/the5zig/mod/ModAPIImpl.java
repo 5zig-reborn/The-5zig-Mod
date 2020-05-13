@@ -38,6 +38,7 @@ import eu.the5zig.mod.util.CoordinateClipboard;
 import eu.the5zig.mod.util.IKeybinding;
 import eu.the5zig.mod.util.NetworkPlayerInfo;
 import eu.the5zig.mod.util.PlayerGameMode;
+import eu.the5zig.mod.util.component.MessageComponent;
 import io.netty.buffer.ByteBuf;
 import org.apache.commons.lang3.Validate;
 
@@ -426,5 +427,10 @@ public class ModAPIImpl implements ModAPI {
 	@Override
 	public CoordinateClipboard getCoordinateClipboard() {
 		return The5zigMod.getDataManager().getCoordinatesClipboard();
+	}
+
+	@Override
+	public void messagePlayerComponent(MessageComponent component, boolean secondChat) {
+		The5zigMod.getVars().sendChatComponent(component, secondChat);
 	}
 }

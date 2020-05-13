@@ -29,6 +29,7 @@ import eu.the5zig.mod.gui.ingame.ItemStack;
 import eu.the5zig.mod.gui.ingame.PotionEffect;
 import eu.the5zig.mod.gui.ingame.Scoreboard;
 import eu.the5zig.mod.gui.ingame.resource.IResourceManager;
+import eu.the5zig.mod.util.component.MessageComponent;
 import eu.the5zig.util.Callback;
 import io.netty.buffer.ByteBuf;
 
@@ -1127,6 +1128,8 @@ public interface IVariables {
 	 * Sets the current Session to a new one.
 	 */
 	void setSession(String name, String uuid, String token, String userType);
+
+	void sendChatComponent(MessageComponent component, boolean secondChat);
 
 	abstract class CapeCallback {
 

@@ -175,4 +175,9 @@ public class ModuleItemPropertiesImpl implements ModuleItemProperties {
 	public String shorten(float f) {
 		return Utils.getShortenedFloat(f, The5zigMod.getConfig().getInt("numberPrecision"));
 	}
+
+	@Override
+	public void setCustomLabel(String label) {
+
+	}
 }
