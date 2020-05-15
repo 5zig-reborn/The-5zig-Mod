@@ -133,9 +133,31 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 			}
 		} else if (buttonMap.containsKey(button)) {
 			ConfigItem item = buttonMap.get(button);
+			if(item instanceof StringItem) {
+				The5zigMod.getVars().displayScreen(new GuiCenteredTextfield(this, new CenteredTextfieldCallback() {
+					@Override
+					public void onDone(String text) {
+						item.set(text);
+						button.setLabel(item.translate());
+						if(guiListItems.getSelectedRow() != null) {
+							guiListItems.getSelectedRow().getHandle().settingsUpdated();
+						}
+						The5zigMod.getModuleMaster().save();
+					}
+
+					@Override
+					public String title() {
+						return null;
+					}
+				}));
+				return;
+			}
 			item.next();
 			item.action();
 			button.setLabel(item.translate());
+			if(guiListItems.getSelectedRow() != null) {
+				guiListItems.getSelectedRow().getHandle().settingsUpdated();
+			}
 			if (item.hasChanged())
 				The5zigMod.getModuleMaster().save();
 		} else if(button.getId() == 14) {

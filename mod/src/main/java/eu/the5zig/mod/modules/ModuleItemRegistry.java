@@ -187,6 +187,7 @@ public class ModuleItemRegistry {
 		registerItem("ILOVERADIO", ILoveRadio.class, Category.SYSTEM);
 		registerItem("EINSLIVE", EinsLive.class, Category.SYSTEM);
 		registerItem("TEAMSPEAK", TeamSpeakItem.class, Category.SYSTEM);
+		registerItem("COMMAND", CommandOutput.class, Category.SYSTEM);
 
 		registerItem("DUMMY", Dummy.class);
 		registerItem("COORDINATES_CLIPBOARD", CoordinatesClipboard.class, Category.OTHER);

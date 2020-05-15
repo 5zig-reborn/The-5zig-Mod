@@ -24,6 +24,7 @@ import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.config.IConfigItem;
 import eu.the5zig.mod.config.items.*;
+import eu.the5zig.mod.config.items.StringItem;
 import eu.the5zig.mod.render.BracketsFormatting;
 import eu.the5zig.util.Callable;
 import eu.the5zig.util.Utils;
@@ -99,6 +100,11 @@ public class ModuleItemPropertiesImpl implements ModuleItemProperties {
 	@Override
 	public <E extends Enum> void addSetting(String key, E defaultValue, Class<E> enumClass) {
 		addSetting(new EnumItem<E>(key, itemCategory, defaultValue, enumClass));
+	}
+
+	@Override
+	public void addSetting(String key, String defaultValue) {
+		addSetting(new StringItem(key, itemCategory, defaultValue));
 	}
 
 	public String getItemCategory() {
