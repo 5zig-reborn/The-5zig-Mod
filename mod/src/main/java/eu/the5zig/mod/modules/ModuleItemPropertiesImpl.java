@@ -41,6 +41,7 @@ public class ModuleItemPropertiesImpl implements ModuleItemProperties {
 	private Map<String, ConfigItem> settings = Maps.newHashMap();
 	private ModuleItemFormatting formatting;
 	private boolean showPrefix = true;
+	private String customLabel;
 
 	public ModuleItemPropertiesImpl(AbstractModuleItem item) {
 		this.item = item;
@@ -140,6 +141,7 @@ public class ModuleItemPropertiesImpl implements ModuleItemProperties {
 
 	@Override
 	public String getDisplayName() {
+		if(customLabel != null) return customLabel;
 		return item.getTranslation() != null && !item.getTranslation().isEmpty() ? I18n.translate(item.getTranslation()) : item.getName();
 	}
 
@@ -176,8 +178,7 @@ public class ModuleItemPropertiesImpl implements ModuleItemProperties {
 		return Utils.getShortenedFloat(f, The5zigMod.getConfig().getInt("numberPrecision"));
 	}
 
-	@Override
-	public void setCustomLabel(String label) {
-
+	public void setCustomLabel(String customLabel) {
+		this.customLabel = customLabel;
 	}
 }
