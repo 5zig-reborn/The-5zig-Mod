@@ -540,6 +540,10 @@ public class ModuleMaster {
 							if (!item.getHandle().properties.isShowPrefix()) {
 								itemObject.addProperty("showPrefix", item.getHandle().properties.isShowPrefix());
 							}
+							String customLabel;
+							if((customLabel = ((ModuleItemPropertiesImpl)item.getHandle().properties).getCustomLabel()) != null) {
+								itemObject.addProperty("customLabel", customLabel);
+							}
 							items.add(itemObject);
 						}
 						moduleObject.add("items", items);

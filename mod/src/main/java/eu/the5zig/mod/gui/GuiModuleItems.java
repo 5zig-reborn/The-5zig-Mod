@@ -93,8 +93,9 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 						I18n.translate("modules.settings.custom"))));
 		addButton(The5zigMod.getVars().createButton(11, getWidth() / 2 + 97, getHeight() - 48 - 90, 83, 20, I18n.translate("modules.settings.item.prefix") + ": " +
 				The5zigMod.toBoolean(guiListItems.getSelectedRow() == null || guiListItems.getSelectedRow().getHandle().getProperties().isShowPrefix())));
-		addButton(The5zigMod.getVars().createButton(12, getWidth() / 2 + 10, getHeight() - 48 - 68, 83, 20, I18n.translate("modules.move_up")));
-		addButton(The5zigMod.getVars().createButton(13, getWidth() / 2 + 97, getHeight() - 48 - 68, 83, 20, I18n.translate("modules.move_down")));
+		addButton(The5zigMod.getVars().createButton(12, getWidth() / 2 + 10, getHeight() - 48 - 68, 20, 20, "▲"));
+		addButton(The5zigMod.getVars().createButton(13, getWidth() / 2 + 35, getHeight() - 48 - 68, 20, 20, "▼"));
+		addButton(The5zigMod.getVars().createButton(14, getWidth() / 2 + 60, getHeight() - 48 - 68, 120, 20, I18n.translate("modules.label")));
 	}
 
 	@Override
@@ -137,6 +138,22 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 			button.setLabel(item.translate());
 			if (item.hasChanged())
 				The5zigMod.getModuleMaster().save();
+		} else if(button.getId() == 14) {
+			if(guiListItems.getSelectedRow() != null) {
+				ActiveModuleItem row = guiListItems.getSelectedRow();
+				The5zigMod.getVars().displayScreen(new GuiCenteredTextfield(this, new CenteredTextfieldCallback() {
+					@Override
+					public void onDone(String text) {
+						row.getHandle().getProperties().setCustomLabel(text);
+						The5zigMod.getModuleMaster().save();
+					}
+
+					@Override
+					public String title() {
+						return I18n.translate("modules.label.input");
+					}
+				}));
+			}
 		}
 	}
 
@@ -226,6 +243,7 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 		getButtonById(11).setEnabled(guiListItems.getSelectedRow() != null);
 		getButtonById(12).setEnabled(guiListItems.getSelectedId() > 0);
 		getButtonById(13).setEnabled(guiListItems.getSelectedId() < module.getItems().size() - 1);
+		getButtonById(14).setEnabled(guiListItems.getSelectedRow() != null);
 	}
 
 	@Override
