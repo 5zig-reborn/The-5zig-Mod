@@ -181,9 +181,23 @@ public class ConfigNew {
 		add(new HexColorItem("highlightWordsColor", "display", "0xffe338"));
 
 		add(new ColorFormattingItem("formattingPrefix", "formatting", ChatColor.RESET));
-		add(new SelectColorItem("colorPrefix", "formatting", ChatColor.GOLD));
+		add(new SelectColorItem("colorPrefix", "formatting", ChatColor.GOLD) {
+			@Override
+			public void action() {
+				super.action();
+				ConfigNew.this.get("rgbPrefix").set("");
+				save();
+			}
+		});
 		add(new ColorFormattingItem("formattingMain", "formatting", ChatColor.RESET));
-		add(new SelectColorItem("colorMain", "formatting", ChatColor.WHITE));
+		add(new SelectColorItem("colorMain", "formatting", ChatColor.WHITE) {
+			@Override
+			public void action() {
+				super.action();
+				ConfigNew.this.get("rgbMain").set("");
+				save();
+			}
+		});
 		add(new EnumItem<BracketsFormatting>("formattingBrackets", "formatting", BracketsFormatting.ARROW, BracketsFormatting.class) {
 			@Override
 			public String translateValue() {
@@ -631,6 +645,28 @@ public class ConfigNew {
 		});
 
 		add(new BoolItem("ping_on_serverlist", "display", false));
+		add(new StringItem("rgbMain", "formatting", "") {
+			@Override
+			public String translateValue() {
+				return I18n.translate(get().isEmpty() ? "spotify.token.not_set" : "#" + get());
+			}
+
+			@Override
+			public void set(String value) {
+				super.set(value.replace("#", ""));
+			}
+		});
+		add(new StringItem("rgbPrefix", "formatting", "") {
+			@Override
+			public String translateValue() {
+				return I18n.translate(get().isEmpty() ? "spotify.token.not_set" : "#" + get());
+			}
+
+			@Override
+			public void set(String value) {
+				super.set(value.replace("#", ""));
+			}
+		});
 
 		// [REBORN] New config end
 	}

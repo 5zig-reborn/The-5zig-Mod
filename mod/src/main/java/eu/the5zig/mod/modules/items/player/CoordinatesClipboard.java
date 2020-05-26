@@ -31,9 +31,8 @@ public class CoordinatesClipboard extends AbstractModuleItem {
 
 	@Override
 	public void render(int x, int y, RenderLocation renderLocation, boolean dummy) {
-		String renderString = getRenderString(dummy);
+		renderString(x, y, dummy, true);
 		int width = getWidth(dummy);
-		The5zigMod.getVars().drawString(renderString, x, y);
 
 		Vector2i coordinates = dummy ? new Vector2i(10, -53) : The5zigMod.getDataManager().getCoordinatesClipboard().getLocation();
 		double dx = coordinates.getX() - (dummy ? 10 : The5zigMod.getVars().getPlayerPosX());
@@ -58,7 +57,7 @@ public class CoordinatesClipboard extends AbstractModuleItem {
 
 	@Override
 	public int getWidth(boolean dummy) {
-		return The5zigMod.getVars().getStringWidth(getRenderString(dummy)) + 16;
+		return renderString(0, 0, dummy, false) + 16;
 	}
 
 	@Override
@@ -71,16 +70,33 @@ public class CoordinatesClipboard extends AbstractModuleItem {
 		return dummy || (The5zigMod.getDataManager().getCoordinatesClipboard().getLocation() != null && !The5zigMod.getVars().isPlayerListShown());
 	}
 
-	private String getRenderString(boolean dummy) {
+	private int renderString(int x, int y, boolean dummy, boolean render) {
+		int width = The5zigMod.getVars().getStringWidth(getPrefix("X"));
+		int totalWidth = width * 2;
 		if (dummy) {
-			return getPrefix("X") + "10 " + getPrefix("Z") + "-53 (105 m)";
+			String xPos = "10 ";
+			String yPos = "-53 (105 m) ";
+			if(render) {
+				renderPrefix(getPrefix("X"), x, y);
+				The5zigMod.getVars().drawString(xPos, x += width, y, getMainColor());
+				renderPrefix(getPrefix("Z"), x += The5zigMod.getVars().getStringWidth(xPos), y);
+				The5zigMod.getVars().drawString(yPos, x + width, y, getMainColor());
+			}
+			return totalWidth + The5zigMod.getVars().getStringWidth(xPos + yPos);
 		}
 		Vector2i coordinates = The5zigMod.getDataManager().getCoordinatesClipboard().getLocation();
 		double dx = coordinates.getX() - The5zigMod.getVars().getPlayerPosX();
 		double dz = coordinates.getY() - The5zigMod.getVars().getPlayerPosZ();
 		// render distance
 		double distance = Math.sqrt(dx * dx + dz * dz);
-		return getPrefix("X") + The5zigMod.getDataManager().getCoordinatesClipboard().getLocation().getX() + " " + getPrefix("Z") +
-				The5zigMod.getDataManager().getCoordinatesClipboard().getLocation().getY() + " (" + shorten(distance) + " m)";
+		String xPos = The5zigMod.getDataManager().getCoordinatesClipboard().getLocation().getX() + " ";
+		String yPos = The5zigMod.getDataManager().getCoordinatesClipboard().getLocation().getY() + " (" + shorten(distance) + " m)";
+		if(render) {
+			renderPrefix(getPrefix("X"), x, y);
+			The5zigMod.getVars().drawString(xPos, x += width, y, getMainColor());
+			renderPrefix(getPrefix("Z"), x += The5zigMod.getVars().getStringWidth(xPos), y);
+			The5zigMod.getVars().drawString(yPos, x + width, y, getMainColor());
+		}
+		return totalWidth + The5zigMod.getVars().getStringWidth(xPos + yPos);
 	}
 }

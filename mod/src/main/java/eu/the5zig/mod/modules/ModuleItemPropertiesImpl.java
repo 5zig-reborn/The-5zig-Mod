@@ -159,19 +159,15 @@ public class ModuleItemPropertiesImpl implements ModuleItemProperties {
 	@Override
 	public String buildPrefix(String prefixText) {
 		ChatColor mainFormatting = formatting != null && formatting.getMainFormatting() != null ? formatting.getMainFormatting() : The5zigMod.getConfig().get("formattingMain", ColorFormattingItem.class).get();
-		ChatColor mainColor = formatting != null && formatting.getMainColor() != null ? formatting.getMainColor() : The5zigMod.getConfig().get("colorMain", SelectColorItem.class).get();
 		if (!showPrefix) {
-			return mainColor.toString() + (mainFormatting == ChatColor.RESET ? "" : mainFormatting.toString());
+			return (mainFormatting == ChatColor.RESET ? "" : mainFormatting.toString());
 		}
-
 		ChatColor bracketsColor = The5zigMod.getConfig().get("colorBrackets", SelectColorItem.class).get();
 		BracketsFormatting bracketsFormatting = (BracketsFormatting) The5zigMod.getConfig().get("formattingBrackets", EnumItem.class).get();
 		ChatColor prefixFormatting = formatting != null && formatting.getPrefixFormatting() != null ? formatting.getPrefixFormatting() : The5zigMod.getConfig().get("formattingPrefix", ColorFormattingItem.class)
 				.get();
-		ChatColor prefixColor = formatting != null && formatting.getPrefixColor() != null ? formatting.getPrefixColor() : The5zigMod.getConfig().get("colorPrefix", SelectColorItem.class).get();
-
-		return bracketsColor.toString() + bracketsFormatting.getFirst() + prefixColor.toString() + (prefixFormatting == ChatColor.RESET ? "" : prefixFormatting.toString()) + prefixText +
-				bracketsColor.toString() + bracketsFormatting.getLast() + " " + mainColor.toString() + (mainFormatting == ChatColor.RESET ? "" : mainFormatting.toString());
+		return bracketsColor.toString() + bracketsFormatting.getFirst() + ChatColor.RESET.toString() + (prefixFormatting == ChatColor.RESET ? "" : prefixFormatting.toString()) + prefixText +
+				bracketsColor.toString() + bracketsFormatting.getLast() + " " + (mainFormatting == ChatColor.RESET ? "" : mainFormatting.toString());
 	}
 
 	@Override

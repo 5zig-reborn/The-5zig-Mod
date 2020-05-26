@@ -45,7 +45,7 @@ public class OnlineFriends extends AbstractModuleItem {
 		int index = 0;
 		int length = length();
 		for (String friend : friends) {
-			The5zigMod.getVars().drawString(pre + friend, x, y + (index * The5zigMod.getVars().getFontHeight()));
+			The5zigMod.getVars().drawString(pre + friend, x, y + (index * The5zigMod.getVars().getFontHeight()), getMainColor());
 			index++;
 			if (index >= length) {
 				break;

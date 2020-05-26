@@ -19,32 +19,22 @@
 
 package eu.the5zig.mod.modules.items.player;
 
+import com.google.common.collect.ImmutableMap;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.mod.modules.AbstractModuleItem;
-import eu.the5zig.mod.render.RenderLocation;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
-public class ChunkCoordinates extends AbstractModuleItem {
+public class ChunkCoordinates extends Coordinates {
 
 	@Override
 	public void registerSettings() {
-		getProperties().addSetting("coordStyle", CoordStyle.BELOW_OTHER, CoordStyle.class);
+		super.registerSettings();
 		getProperties().addSetting("chunkStyle", ChunkStyle.CHUNK, ChunkStyle.class);
 	}
 
 	@Override
-	public void render(int x, int y, RenderLocation renderLocation, boolean dummy) {
-		List<String> coordinates = getCoordinates(dummy);
-		for (int i = 0; i < coordinates.size(); i++) {
-			draw(coordinates.get(i), x, y + 10 * i, renderLocation == RenderLocation.CENTERED);
-		}
-	}
-
-	private List<String> getCoordinates(boolean dummy) {
+	protected Map<String, String> getCoordinates(boolean dummy) {
 		CoordStyle coordStyle = (CoordStyle) getProperties().getSetting("coordStyle").get();
 		ChunkStyle chunkStyle = (ChunkStyle) getProperties().getSetting("chunkStyle").get();
 		int xPos = dummy ? 100 : The5zigMod.getVars().getPlayerChunkX();
@@ -58,52 +48,24 @@ public class ChunkCoordinates extends AbstractModuleItem {
 			String yPre = getPrefix(I18n.translate("ingame.chunk") + " Y");
 			String zPre = getPrefix(I18n.translate("ingame.chunk") + " Z");
 			if (chunkStyle == ChunkStyle.CHUNK) {
-				return Arrays.asList(xPre + xPos, yPre + yPos, zPre + zPos);
+				return ImmutableMap.of(xPre, Integer.toString(xPos, 10), yPre, Integer.toString(yPos, 10), zPre, Integer.toString(zPos, 10));
 			} else if (chunkStyle == ChunkStyle.RELATIVE) {
-				return Arrays.asList(xPre + xPosRel, yPre + yPosRel, zPre + zPosRel);
+				return ImmutableMap.of(xPre, Integer.toString(xPosRel, 10), yPre, Integer.toString(yPosRel, 10),
+						zPre, Integer.toString(zPosRel, 10));
 			} else {
-				return Arrays.asList(xPre + xPos + " (" + xPosRel + ")", yPre + yPos + " (" + yPosRel + ")", zPre + zPos + " (" + zPosRel + ")");
+				return ImmutableMap.of(xPre, xPos + " (" + xPosRel + ")", yPre, yPos + " (" + yPosRel + ")",
+						zPre, zPos + " (" + zPosRel + ")");
 			}
 		} else {
 			String pre = getPrefix(I18n.translate("ingame.chunk") + " X/Y/Z");
 			if (chunkStyle == ChunkStyle.CHUNK) {
-				return Collections.singletonList(pre + xPos + "/" + yPos + "/" + zPos);
+				return ImmutableMap.of(pre, xPos + "/" + yPos + "/" + zPos);
 			} else if (chunkStyle == ChunkStyle.RELATIVE) {
-				return Collections.singletonList(pre + xPosRel + "/" + yPosRel + "/" + zPosRel);
+				return ImmutableMap.of(pre, xPosRel + "/" + yPosRel + "/" + zPosRel);
 			} else {
-				return Collections.singletonList(pre + xPos + " (" + xPosRel + ")" + "/" + yPos + " (" + yPosRel + ")" + "/" + zPos + " (" + zPosRel + ")");
+				return ImmutableMap.of(pre, xPos + " (" + xPosRel + ")" + "/" + yPos + " (" + yPosRel + ")" + "/" + zPos + " (" + zPosRel + ")");
 			}
 		}
-	}
-
-	private void draw(String string, int x, int y, boolean centered) {
-		if (centered) {
-			The5zigMod.getVars().drawCenteredString(string, x + The5zigMod.getVars().getStringWidth(string) / 2, y);
-		} else {
-			The5zigMod.getVars().drawString(string, x, y);
-		}
-	}
-
-	@Override
-	public int getWidth(boolean dummy) {
-		List<String> coordinates = getCoordinates(dummy);
-		int maxWidth = 0;
-		for (String coordinate : coordinates) {
-			int width = The5zigMod.getVars().getStringWidth(coordinate);
-			if (width > maxWidth) {
-				maxWidth = width;
-			}
-		}
-		return maxWidth;
-	}
-
-	@Override
-	public int getHeight(boolean dummy) {
-		return getProperties().getSetting("coordStyle").get() == CoordStyle.BELOW_OTHER ? 30 : 10;
-	}
-
-	public enum CoordStyle {
-		BELOW_OTHER, SIDE_BY_SIDE
 	}
 
 	public enum ChunkStyle {

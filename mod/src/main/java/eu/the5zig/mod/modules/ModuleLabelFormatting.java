@@ -25,10 +25,19 @@ public class ModuleLabelFormatting {
 
 	private ChatColor mainFormatting;
 	private ChatColor mainColor;
+	private int mainRgb;
 
 	public ModuleLabelFormatting(ChatColor mainFormatting, ChatColor mainColor) {
 		this.mainFormatting = mainFormatting;
-		this.mainColor = mainColor;
+		setMainColor(mainColor);
+	}
+
+	public void setMainRgb(int mainRgb) {
+		this.mainRgb = mainRgb;
+	}
+
+	public int getMainRgb() {
+		return mainRgb;
 	}
 
 	public ChatColor getMainFormatting() {
@@ -45,6 +54,7 @@ public class ModuleLabelFormatting {
 
 	public void setMainColor(ChatColor mainColor) {
 		this.mainColor = mainColor;
+		this.mainRgb = mainColor == null ? ChatColor.WHITE.getColor() : mainColor.getColor();
 	}
 
 }

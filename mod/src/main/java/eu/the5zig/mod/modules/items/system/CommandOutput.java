@@ -56,8 +56,9 @@ public class CommandOutput extends StringItem {
             super.render(x, y, renderLocation, dummy);
             return;
         }
-        The5zigMod.getVars().drawString(getPrefix(), x, y);
-        if(text != null) text.render(x + The5zigMod.getVars().getStringWidth(getPrefix()), y);
+        String prefix = getPrefix();
+        renderPrefix(prefix, x, y);
+        if(text != null) text.render(x + The5zigMod.getVars().getStringWidth(prefix), y, getMainColor());
     }
 
 
@@ -117,7 +118,7 @@ public class CommandOutput extends StringItem {
         int scrollingThreshold = (int)(float) getProperties().getSetting("scrolling").get();
         if(forced || last == null || !last.equals(value)) {
             int width = The5zigMod.getVars().getStringWidth(Strings.repeat("A", scrollingThreshold));
-            text = new ScrollingText(value, width, 10, 0x0, 0xffffffff);
+            text = new ScrollingText(formatValue(value), width, 10, 0x0, 0xffffffff);
         }
         last = value;
     }

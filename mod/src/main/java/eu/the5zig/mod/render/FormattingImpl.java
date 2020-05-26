@@ -30,11 +30,21 @@ public class FormattingImpl implements Formatting {
 
 	@Override
 	public String getMainFormatting() {
-		return The5zigMod.getRenderer().getMain();
+		return The5zigMod.getRenderer().getMainFormatting();
 	}
 
 	@Override
 	public String getBracketFormatting() {
 		return The5zigMod.getRenderer().getBrackets();
+	}
+
+	@Override
+	public int getMainRgb() {
+		return The5zigMod.getRenderer().getMainRgb();
+	}
+
+	@Override
+	public int getPrefixRgb() {
+		return The5zigMod.getRenderer().getPrefixRgb();
 	}
 }

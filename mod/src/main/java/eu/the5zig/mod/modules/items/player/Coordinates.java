@@ -19,13 +19,12 @@
 
 package eu.the5zig.mod.modules.items.player;
 
+import com.google.common.collect.ImmutableMap;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.modules.AbstractModuleItem;
 import eu.the5zig.mod.render.RenderLocation;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
 public class Coordinates extends AbstractModuleItem {
 
@@ -36,42 +35,43 @@ public class Coordinates extends AbstractModuleItem {
 
 	@Override
 	public void render(int x, int y, RenderLocation renderLocation, boolean dummy) {
-		List<String> coordinates = getCoordinates(dummy);
-		for (int i = 0; i < coordinates.size(); i++) {
-			draw(coordinates.get(i), x, y + 10 * i, renderLocation == RenderLocation.CENTERED);
+		Map<String, String> coordinates = getCoordinates(dummy);
+		int i = 0;
+		for (Map.Entry<String, String> entry : coordinates.entrySet()) {
+			draw(entry, x, y + 10 * i, renderLocation == RenderLocation.CENTERED);
+			i++;
 		}
 	}
 
-	private List<String> getCoordinates(boolean dummy) {
+	protected Map<String, String> getCoordinates(boolean dummy) {
 		CoordStyle coordStyle = (CoordStyle) getProperties().getSetting("coordStyle").get();
 		String xPos = shorten(dummy ? 0 : The5zigMod.getVars().getPlayerPosX());
 		String yPos = shorten(dummy ? 64 : The5zigMod.getVars().getPlayerPosY());
 		String zPos = shorten(dummy ? 0 : The5zigMod.getVars().getPlayerPosZ());
 		if (coordStyle == CoordStyle.BELOW_OTHER) {
-			String xPre = getPrefix("X") + xPos;
-			String yPre = getPrefix("Y") + yPos;
-			String zPre = getPrefix("Z") + zPos;
-			return Arrays.asList(xPre, yPre, zPre);
+			return ImmutableMap.of(getPrefix("X"), xPos, getPrefix("Y"), yPos, getPrefix("Z"), zPos);
 		} else {
-			String pre = getPrefix("X/Y/Z") + xPos + "/" + yPos + "/" + zPos;
-			return Collections.singletonList(pre);
+			return ImmutableMap.of(getPrefix("X/Y/Z"), xPos + "/" + yPos + "/" + zPos);
 		}
 	}
 
-	private void draw(String string, int x, int y, boolean centered) {
+	private void draw(Map.Entry<String, String> pair, int x, int y, boolean centered) {
 		if (centered) {
-			The5zigMod.getVars().drawCenteredString(string, x + The5zigMod.getVars().getStringWidth(string) / 2, y);
+			int length = The5zigMod.getVars().getStringWidth(pair.getKey());
+			renderPrefix(pair.getKey(), (x - length / 2), y);
+			The5zigMod.getVars().drawCenteredString(pair.getValue(), x + length / 2, y, getMainColor());
 		} else {
-			The5zigMod.getVars().drawString(string, x, y);
+			renderPrefix(pair.getKey(), x, y);
+			The5zigMod.getVars().drawString(formatValue(pair.getValue()), x + The5zigMod.getVars().getStringWidth(pair.getKey()), y, getMainColor());
 		}
 	}
 
 	@Override
 	public int getWidth(boolean dummy) {
-		List<String> coordinates = getCoordinates(dummy);
+		Map<String, String> coordinates = getCoordinates(dummy);
 		int maxWidth = 0;
-		for (String coordinate : coordinates) {
-			int width = The5zigMod.getVars().getStringWidth(coordinate);
+		for (Map.Entry<String, String> pair : coordinates.entrySet()) {
+			int width = The5zigMod.getVars().getStringWidth(pair.getKey() + pair.getValue());
 			if (width > maxWidth) {
 				maxWidth = width;
 			}

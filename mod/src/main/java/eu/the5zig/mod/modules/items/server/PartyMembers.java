@@ -58,7 +58,7 @@ public class PartyMembers extends AbstractModuleItem {
 		for (int i = 0; i < members.size(); i++) {
 			The5zigMod.getVars().drawString(pre + members.get(i) + (i == 0 &&
 							(Boolean) this.getProperties().getSetting("star").get() ? ChatColor.GOLD.toString() + " ★" : ""),
-					x, y + index * The5zigMod.getVars().getFontHeight());
+					x, y + index * The5zigMod.getVars().getFontHeight(), getMainColor());
 			index++;
 			if (index >= length) {
 				break;

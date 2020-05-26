@@ -51,9 +51,9 @@ public class Potions extends AbstractModuleItem {
 				The5zigMod.getVars().renderPotionIcon(potionEffect.getIconIndex());
 				GLUtil.popMatrix();
 
-				The5zigMod.getVars().drawString(display, x + 16, y);
+				The5zigMod.getVars().drawString(display, x + 16, y, getMainColor());
 			} else {
-				The5zigMod.getVars().drawString(toString(potionEffect), x, y);
+				The5zigMod.getVars().drawString(toString(potionEffect), x, y, getMainColor());
 			}
 			y += 12;
 		}
@@ -92,7 +92,7 @@ public class Potions extends AbstractModuleItem {
 
 	private String getColorByDurability(int time) {
 		if (!(Boolean) getProperties().getSetting("coloredPotionDurability").get()) {
-			return The5zigMod.getRenderer().getMain();
+			return The5zigMod.getRenderer().getMainFormatting();
 		}
 		if (time >= 20 * 60) {
 			return ChatColor.DARK_GREEN.toString();

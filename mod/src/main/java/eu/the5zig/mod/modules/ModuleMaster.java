@@ -321,7 +321,9 @@ public class ModuleMaster {
 				JsonObject colorObject = moduleObject.get("color").getAsJsonObject();
 				ChatColor mainFormatting = colorObject.has("mainFormatting") ? ChatColor.valueOf(colorObject.get("mainFormatting").getAsString()) : null;
 				ChatColor mainColor = colorObject.has("mainColor") ? ChatColor.valueOf(colorObject.get("mainColor").getAsString()) : null;
-				module.setLabelFormatting(new ModuleLabelFormatting(mainFormatting, mainColor));
+				ModuleLabelFormatting fmt = new ModuleLabelFormatting(mainFormatting, mainColor);
+				if(colorObject.has("mainRgb")) fmt.setMainRgb(colorObject.get("mainRgb").getAsInt());
+				module.setLabelFormatting(fmt);
 			} catch (Throwable e) {
 				The5zigMod.logger.error("Could not parse color for module \"" + module.getId() + "\"!", e);
 			}
@@ -369,7 +371,10 @@ public class ModuleMaster {
 					ChatColor prefixColor = colorObject.has("prefixColor") ? ChatColor.valueOf(colorObject.get("prefixColor").getAsString()) : null;
 					ChatColor mainFormatting = colorObject.has("mainFormatting") ? ChatColor.valueOf(colorObject.get("mainFormatting").getAsString()) : null;
 					ChatColor mainColor = colorObject.has("mainColor") ? ChatColor.valueOf(colorObject.get("mainColor").getAsString()) : null;
-					item.properties.setFormatting(new ModuleItemFormattingImpl(prefixFormatting, prefixColor, mainFormatting, mainColor));
+					ModuleItemFormattingImpl formatting = new ModuleItemFormattingImpl(prefixFormatting, prefixColor, mainFormatting, mainColor);
+					if(colorObject.has("mainRgb")) formatting.setMainRgb(colorObject.get("mainRgb").getAsInt());
+					if(colorObject.has("prefixRgb")) formatting.setPrefixRgb(colorObject.get("prefixRgb").getAsInt());
+					item.properties.setFormatting(formatting);
 				} catch (Throwable e) {
 					The5zigMod.logger.error("Could not parse color for item \"" + registeredItem.getKey() + "\"!", e);
 				}
@@ -503,6 +508,9 @@ public class ModuleMaster {
 								colorObject.addProperty("mainFormatting", module.getLabelFormatting().getMainFormatting().name());
 							if (module.getLabelFormatting().getMainColor() != null)
 								colorObject.addProperty("mainColor", module.getLabelFormatting().getMainColor().name());
+							if (module.getLabelFormatting().getMainColor() == null ||
+									module.getLabelFormatting().getMainColor().getColor() != module.getLabelFormatting().getMainRgb())
+								colorObject.addProperty("mainRgb", module.getLabelFormatting().getMainRgb());
 							moduleObject.add("color", colorObject);
 						}
 						moduleObject.addProperty("enabled", module.isEnabled());
@@ -529,12 +537,18 @@ public class ModuleMaster {
 								JsonObject colorObject = new JsonObject();
 								if (item.getHandle().properties.getFormatting().getPrefixFormatting() != null)
 									colorObject.addProperty("prefixFormatting", item.getHandle().properties.getFormatting().getPrefixFormatting().name());
-								if (item.getHandle().properties.getFormatting().getPrefixColor() != null)
+								ChatColor prefixColor;
+								if ((prefixColor = item.getHandle().properties.getFormatting().getPrefixColor()) != null)
 									colorObject.addProperty("prefixColor", item.getHandle().properties.getFormatting().getPrefixColor().name());
+								if (prefixColor == null || item.getHandle().properties.getFormatting().getPrefixRgb() != prefixColor.getColor())
+									colorObject.addProperty("prefixRgb", item.getHandle().properties.getFormatting().getPrefixRgb());
 								if (item.getHandle().properties.getFormatting().getMainFormatting() != null)
 									colorObject.addProperty("mainFormatting", item.getHandle().properties.getFormatting().getMainFormatting().name());
-								if (item.getHandle().properties.getFormatting().getMainColor() != null)
+								ChatColor mainColor;
+								if ((mainColor = item.getHandle().properties.getFormatting().getMainColor()) != null)
 									colorObject.addProperty("mainColor", item.getHandle().properties.getFormatting().getMainColor().name());
+								if (mainColor == null || item.getHandle().properties.getFormatting().getMainRgb() != mainColor.getColor())
+									colorObject.addProperty("mainRgb", item.getHandle().properties.getFormatting().getMainRgb());
 								itemObject.add("color", colorObject);
 							}
 							if (!item.getHandle().properties.isShowPrefix()) {

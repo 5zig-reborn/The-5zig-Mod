@@ -27,12 +27,13 @@ public class ModuleItemFormattingImpl implements ModuleItemFormatting {
 	private ChatColor prefixColor;
 	private ChatColor mainFormatting;
 	private ChatColor mainColor;
+	private int mainRgb, prefixRgb;
 
 	public ModuleItemFormattingImpl(ChatColor prefixFormatting, ChatColor prefixColor, ChatColor mainFormatting, ChatColor mainColor) {
 		this.prefixFormatting = prefixFormatting;
-		this.prefixColor = prefixColor;
+		setPrefixColor(prefixColor);
 		this.mainFormatting = mainFormatting;
-		this.mainColor = mainColor;
+		setMainColor(mainColor);
 	}
 
 	@Override
@@ -51,6 +52,7 @@ public class ModuleItemFormattingImpl implements ModuleItemFormatting {
 
 	public void setPrefixColor(ChatColor prefixColor) {
 		this.prefixColor = prefixColor;
+		this.prefixRgb = prefixColor == null ? ChatColor.WHITE.getColor() : prefixColor.getColor();
 	}
 
 	@Override
@@ -67,7 +69,26 @@ public class ModuleItemFormattingImpl implements ModuleItemFormatting {
 		return mainColor;
 	}
 
+	@Override
+	public int getMainRgb() {
+		return mainRgb;
+	}
+
+	@Override
+	public int getPrefixRgb() {
+		return prefixRgb;
+	}
+
+	public void setMainRgb(int mainRgb) {
+		this.mainRgb = mainRgb;
+	}
+
+	public void setPrefixRgb(int prefixRgb) {
+		this.prefixRgb = prefixRgb;
+	}
+
 	public void setMainColor(ChatColor mainColor) {
 		this.mainColor = mainColor;
+		this.mainRgb = mainColor == null ? ChatColor.WHITE.getColor() : mainColor.getColor();
 	}
 }

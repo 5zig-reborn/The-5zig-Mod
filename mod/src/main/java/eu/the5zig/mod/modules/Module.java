@@ -21,11 +21,11 @@ package eu.the5zig.mod.modules;
 
 import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
+import eu.the5zig.mod.The5zigAPI;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.Version;
 import eu.the5zig.mod.asm.Transformer;
 import eu.the5zig.mod.config.items.ColorFormattingItem;
-import eu.the5zig.mod.config.items.SelectColorItem;
 import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.gui.elements.Row;
 import eu.the5zig.mod.render.DisplayRenderer;
@@ -137,35 +137,36 @@ public class Module implements Row {
 
 		if (isShowLabel()) {
 			String displayName = getDisplayName();
+			int color = getLabelColor();
 
 			int labelWidth = The5zigMod.getVars().getStringWidth(displayName);
 			if (location == ModuleLocation.CUSTOM) {
 				if (anchorPoint == AnchorPoint.TOP_LEFT) {
-					The5zigMod.getVars().drawString(displayName, x, y);
+					The5zigMod.getVars().drawString(displayName, x, y, color);
 				} else if (anchorPoint == AnchorPoint.TOP_CENTER) {
-					The5zigMod.getVars().drawString(displayName, x - labelWidth / 2, y);
+					The5zigMod.getVars().drawString(displayName, x - labelWidth / 2, y, color);
 				} else if (anchorPoint == AnchorPoint.TOP_RIGHT) {
-					The5zigMod.getVars().drawString(displayName, x - labelWidth, y);
+					The5zigMod.getVars().drawString(displayName, x - labelWidth, y, color);
 				} else if (anchorPoint == AnchorPoint.CENTER_LEFT) {
-					The5zigMod.getVars().drawString(displayName, x, y - totalHeight / 2);
+					The5zigMod.getVars().drawString(displayName, x, y - totalHeight / 2, color);
 				} else if (anchorPoint == AnchorPoint.CENTER_CENTER) {
-					The5zigMod.getVars().drawString(displayName, x - labelWidth / 2, y - totalHeight / 2);
+					The5zigMod.getVars().drawString(displayName, x - labelWidth / 2, y - totalHeight / 2, color);
 				} else if (anchorPoint == AnchorPoint.CENTER_RIGHT) {
-					The5zigMod.getVars().drawString(displayName, x - labelWidth, y - totalHeight / 2);
+					The5zigMod.getVars().drawString(displayName, x - labelWidth, y - totalHeight / 2, color);
 				} else if (anchorPoint == AnchorPoint.BOTTOM_LEFT) {
-					The5zigMod.getVars().drawString(displayName, x, y - totalHeight);
+					The5zigMod.getVars().drawString(displayName, x, y - totalHeight, color);
 				} else if (anchorPoint == AnchorPoint.BOTTOM_CENTER) {
-					The5zigMod.getVars().drawString(displayName, x - labelWidth / 2, y - totalHeight);
+					The5zigMod.getVars().drawString(displayName, x - labelWidth / 2, y - totalHeight, color);
 				} else if (anchorPoint == AnchorPoint.BOTTOM_RIGHT) {
-					The5zigMod.getVars().drawString(displayName, x - labelWidth, y - totalHeight);
+					The5zigMod.getVars().drawString(displayName, x - labelWidth, y - totalHeight, color);
 				}
 			} else {
 				if (renderLocation == RenderLocation.CENTERED) {
-					The5zigMod.getVars().drawString(displayName, x - (labelWidth / 2), y);
+					The5zigMod.getVars().drawString(displayName, x - (labelWidth / 2), y, color);
 				} else if (renderLocation == RenderLocation.RIGHT) {
-					The5zigMod.getVars().drawString(displayName, x + (maxWidth - labelWidth), y);
+					The5zigMod.getVars().drawString(displayName, x + (maxWidth - labelWidth), y, color);
 				} else {
-					The5zigMod.getVars().drawString(displayName, x, y);
+					The5zigMod.getVars().drawString(displayName, x, y, color);
 				}
 			}
 			y += 12;
@@ -406,9 +407,12 @@ public class Module implements Row {
 		}
 
 		ChatColor mainFormatting = labelFormatting != null && labelFormatting.getMainFormatting() != null ? labelFormatting.getMainFormatting() : The5zigMod.getConfig().get("formattingPrefix", ColorFormattingItem.class).get();
-		ChatColor mainColor = labelFormatting != null && labelFormatting.getMainColor() != null ? labelFormatting.getMainColor() : The5zigMod.getConfig().get("colorPrefix", SelectColorItem.class).get();
-		displayName = mainColor.toString() + (mainFormatting == ChatColor.RESET ? "" : mainFormatting.toString()) + displayName;
+		displayName = (mainFormatting == ChatColor.RESET ? "" : mainFormatting.toString()) + displayName;
 		return displayName;
+	}
+
+	private int getLabelColor() {
+		return labelFormatting != null ? labelFormatting.getMainRgb() : The5zigAPI.getAPI().getFormatting().getPrefixRgb();
 	}
 
 	/**

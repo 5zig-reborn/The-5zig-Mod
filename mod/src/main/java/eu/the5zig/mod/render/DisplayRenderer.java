@@ -152,27 +152,35 @@ public class DisplayRenderer {
 	}
 
 	public String getPrefix(String name) {
-		return getBrackets() + getBracketsLeft() + getPrefix() + name + getBrackets() + getBracketsRight() + " " + getMain();
+		return getBrackets() + getBracketsLeft() + getPrefix() + name + getBrackets() + getBracketsRight() + " " + getMainFormatting();
 	}
 
 	public String getPrefix() {
 		ChatColor formattingPrefix = The5zigMod.getConfig().get("formattingPrefix", ColorFormattingItem.class).get();
-		ChatColor colorPrefix = The5zigMod.getConfig().get("colorPrefix", SelectColorItem.class).get();
 		if (formattingPrefix != ChatColor.RESET) {
-			return colorPrefix.toString() + formattingPrefix.toString();
+			return formattingPrefix.toString();
 		} else {
-			return colorPrefix.toString();
+			return "";
 		}
 	}
 
-	public String getMain() {
+	public String getMainFormatting() {
 		ChatColor formattingMain = The5zigMod.getConfig().get("formattingMain", ColorFormattingItem.class).get();
-		ChatColor colorMain = The5zigMod.getConfig().get("colorMain", SelectColorItem.class).get();
 		if (formattingMain != ChatColor.RESET) {
-			return colorMain.toString() + formattingMain.toString();
+			return formattingMain.toString();
 		} else {
-			return colorMain.toString();
+			return "";
 		}
+	}
+
+	int getMainRgb() {
+		String rgb = The5zigMod.getConfig().getString("rgbMain");
+		return !rgb.isEmpty() ? Integer.parseInt(rgb, 16) : The5zigMod.getConfig().get("colorMain", SelectColorItem.class).get().getColor();
+	}
+
+	int getPrefixRgb() {
+		String rgb = The5zigMod.getConfig().getString("rgbPrefix");
+		return !rgb.isEmpty() ? Integer.parseInt(rgb, 16) : The5zigMod.getConfig().get("colorPrefix", SelectColorItem.class).get().getColor();
 	}
 
 	public String getBrackets() {

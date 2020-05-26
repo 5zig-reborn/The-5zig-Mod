@@ -19,7 +19,6 @@
 
 package eu.the5zig.mod.modules.items.server;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
@@ -30,9 +29,11 @@ import eu.the5zig.mod.render.DisplayRenderer;
 import eu.the5zig.mod.render.RenderLocation;
 import eu.the5zig.util.minecraft.ChatColor;
 
+import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CustomServer extends AbstractModuleItem {
 
@@ -64,12 +65,13 @@ public class CustomServer extends AbstractModuleItem {
 			base64Renderer.renderImage(xx, yy, 64, 64);
 		}
 
-		List<String> renderItems = getRenderItems(dummy);
+		Map<String, String> renderItems = getRenderItems(dummy);
 		if (!renderItems.isEmpty()) {
-			The5zigMod.getVars().drawString(The5zigMod.getRenderer().getPrefix() + ChatColor.UNDERLINE + backend.getDisplayName(), x, y);
+			The5zigMod.getVars().drawString(The5zigMod.getRenderer().getPrefix() + ChatColor.UNDERLINE + backend.getDisplayName(), x, y, getPrefixColor());
 			y += 12;
-			for (String renderItem : renderItems) {
-				The5zigMod.getVars().drawString(renderItem, x, y);
+			for (Map.Entry<String, String> renderItem : renderItems.entrySet()) {
+				renderPrefix(renderItem.getKey(), x, y);
+				The5zigMod.getVars().drawString(renderItem.getValue(), x + The5zigMod.getVars().getStringWidth(renderItem.getKey()), y, getMainColor());
 				y += 10;
 			}
 		}
@@ -83,9 +85,9 @@ public class CustomServer extends AbstractModuleItem {
 	@Override
 	public int getWidth(boolean dummy) {
 		int maxWidth = 0;
-		List<String> renderItems = getRenderItems(dummy);
-		for (String renderItem : renderItems) {
-			int width = The5zigMod.getVars().getStringWidth(renderItem);
+		Map<String, String> renderItems = getRenderItems(dummy);
+		for (Map.Entry<String, String> renderItem : renderItems.entrySet()) {
+			int width = The5zigMod.getVars().getStringWidth(renderItem.getKey() + renderItem.getValue());
 			if (width > maxWidth) {
 				maxWidth = width;
 			}
@@ -95,11 +97,11 @@ public class CustomServer extends AbstractModuleItem {
 
 	@Override
 	public int getHeight(boolean dummy) {
-		List<String> renderItems = getRenderItems(dummy);
+		Map<String, String> renderItems = getRenderItems(dummy);
 		return renderItems.isEmpty() ? 0 : 12 + renderItems.size() * 10;
 	}
 
-	private List<String> getRenderItems(boolean dummy) {
+	private Map<String, String> getRenderItems(boolean dummy) {
 		Map<String, String> stats = dummy ? Maps.<String, String>newHashMap() : The5zigMod.getServerAPIBackend().getStats();
 		if (dummy) {
 			stats.put("Kills", "8");
@@ -107,15 +109,12 @@ public class CustomServer extends AbstractModuleItem {
 		}
 		String lobby = The5zigMod.getServerAPIBackend().getLobby();
 		if (stats.isEmpty() && lobby == null) {
-			return Collections.emptyList();
+			return Collections.emptyMap();
 		}
-		List<String> result = Lists.newArrayListWithCapacity(stats.size() + (lobby == null ? 0 : 1));
 		if (lobby != null) {
-			result.add(getPrefix(I18n.translate("ingame.lobby")) + lobby);
+			stats.put(getPrefix(I18n.translate("ingame.lobby")), lobby);
 		}
-		for (Map.Entry<String, String> entry : stats.entrySet()) {
-			result.add(getPrefix(entry.getKey()) + entry.getValue());
-		}
-		return result;
+		return stats.entrySet().stream().map(e -> new AbstractMap.SimpleEntry<>(getPrefix(e.getKey()), e.getValue()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 }

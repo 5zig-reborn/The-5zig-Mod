@@ -94,6 +94,19 @@ public class GuiModuleItemColor extends Gui {
 		buttons.add(new ButtonRow(button3, button4));
 		colorButtons.add(button3);
 		colorButtons.add(button4);
+		String prefix = item.getHandle().getProperties().getFormatting() == null
+				? I18n.translate("spotify.token.not_set")
+				: "#" + Integer.toString(item.getHandle().getProperties().getFormatting().getPrefixRgb(), 16);
+		String main = item.getHandle().getProperties().getFormatting() == null
+				? I18n.translate("spotify.token.not_set")
+				: "#" + Integer.toString(item.getHandle().getProperties().getFormatting().getMainRgb(), 16);
+		IButton prefixRgb = The5zigMod.getVars().createButton(14, getWidth() / 2 - 155, 0, 150, 20,
+				I18n.translate("config.formatting.rgb_prefix") + ": " + prefix);
+		IButton mainRgb = The5zigMod.getVars().createButton(15, getWidth() / 2 + 5, 0, 150, 20,
+				I18n.translate("config.formatting.rgb_main") + ": " + main);
+		buttons.add(new ButtonRow(prefixRgb, mainRgb));
+		colorButtons.add(prefixRgb);
+		colorButtons.add(mainRgb);
 	}
 
 	@Override
@@ -135,6 +148,34 @@ public class GuiModuleItemColor extends Gui {
 			button.setLabel(I18n.translate("modules.settings.item.main_formatting") + ": " +
 					(item.getHandle().getProperties().getFormatting() == null || item.getHandle().getProperties().getFormatting().getMainFormatting() == null
 							? I18n.translate("modules.settings.default") : item.getHandle().getProperties().getFormatting().getMainFormatting().name()));
+		}
+		if (button.getId() == 14) {
+			The5zigMod.getVars().displayScreen(new GuiCenteredTextfield(this, new CenteredTextfieldCallback() {
+				@Override
+				public void onDone(String text) {
+					((ModuleItemFormattingImpl) item.getHandle().getProperties().getFormatting()).setPrefixRgb(Integer.parseInt(text.replace("#", ""), 16));
+					The5zigMod.getModuleMaster().save();
+				}
+
+				@Override
+				public String title() {
+					return null;
+				}
+			}));
+		}
+		if (button.getId() == 15) {
+			The5zigMod.getVars().displayScreen(new GuiCenteredTextfield(this, new CenteredTextfieldCallback() {
+				@Override
+				public void onDone(String text) {
+					((ModuleItemFormattingImpl) item.getHandle().getProperties().getFormatting()).setMainRgb(Integer.parseInt(text.replace("#", ""), 16));
+					The5zigMod.getModuleMaster().save();
+				}
+
+				@Override
+				public String title() {
+					return null;
+				}
+			}));
 		}
 	}
 

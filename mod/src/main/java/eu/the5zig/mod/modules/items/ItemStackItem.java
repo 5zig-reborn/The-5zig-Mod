@@ -37,12 +37,12 @@ public abstract class ItemStackItem extends AbstractModuleItem {
 		String string = getString(itemStack);
 		if (renderLocation == RenderLocation.LEFT || renderLocation == RenderLocation.CENTERED) {
 			if (durabilityStyle() != DurabilityStyle.DISABLED) {
-				The5zigMod.getVars().drawString(string, x + 18, y + 5);
+				The5zigMod.getVars().drawString(string, x + 18, y + 5, getMainColor());
 			}
 			itemStack.render(x, y, renderWithGenericAttributes());
 		} else {
 			if (durabilityStyle() != DurabilityStyle.DISABLED) {
-				The5zigMod.getVars().drawString(string, x, y + 5);
+				The5zigMod.getVars().drawString(string, x, y + 5, getMainColor());
 				int x2 = x + The5zigMod.getVars().getStringWidth(string) + 2;
 				itemStack.render(x2, y, renderWithGenericAttributes());
 			} else {
@@ -71,7 +71,7 @@ public abstract class ItemStackItem extends AbstractModuleItem {
 
 	private String getColorByDurability(float value) {
 		if (!The5zigMod.getConfig().getBool("coloredEquipmentDurability")) {
-			return The5zigMod.getRenderer().getMain();
+			return The5zigMod.getRenderer().getMainFormatting();
 		}
 		if (value >= 0.95f) {
 			return ChatColor.DARK_GREEN.toString();

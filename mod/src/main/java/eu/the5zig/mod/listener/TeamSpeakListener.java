@@ -111,7 +111,7 @@ public class TeamSpeakListener implements DisconnectListener {
 
 	private String getTSPrefix() {
 		DisplayRenderer renderer = The5zigMod.getRenderer();
-		return renderer.getBrackets() + renderer.getBracketsLeft() + renderer.getPrefix() + "TS" + renderer.getBrackets() + renderer.getBracketsRight() + " " + renderer.getMain();
+		return renderer.getBrackets() + renderer.getBracketsLeft() + renderer.getPrefix() + "TS" + renderer.getBrackets() + renderer.getBracketsRight() + " " + renderer.getMainFormatting();
 	}
 
 	@Override

@@ -74,6 +74,10 @@ public class ScrollingText {
 	}
 
 	public void render(int x, int y) {
+		render(x, y, textColor);
+	}
+
+	public void render(int x, int y, int color) {
 		if (stringWidth > width) {
 			double delta = (The5zigMod.getVars().getSystemTime() - lastTime) / 50.0;
 			lastTime = The5zigMod.getVars().getSystemTime();
@@ -119,7 +123,7 @@ public class ScrollingText {
 		glEnable(GL_SCISSOR_TEST);
 		glScissor((int) Math.ceil(x * scaleFactor), (int) Math.ceil(The5zigMod.getVars().getHeight() - (y + height) * scaleFactor), (int) Math.floor(width * scaleFactor),
 				(int) Math.floor(height * scaleFactor));
-		drawScaledString(text, x - offset, y, textColor, height / 10f);
+		drawScaledString(text, x - offset, y, color, height / 10f);
 		glDisable(GL_SCISSOR_TEST);
 
 		if (offset > 0) {
