@@ -16,11 +16,7 @@
  * along with The 5zig Mod.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.mojang.authlib.GameProfile;
-import eu.the5zig.mod.MinecraftFactory;
-import eu.the5zig.mod.The5zigMod;
-import eu.the5zig.mod.Version;
-import eu.the5zig.mod.gui.elements.IButton;
+package eu.the5zig.mod;import com.mojang.authlib.GameProfile;
 import eu.the5zig.mod.gui.ingame.ItemStack;
 import eu.the5zig.mod.manager.DeathLocation;
 import eu.the5zig.mod.manager.WorldType;
@@ -50,20 +46,15 @@ public class BytecodeHook {
 
 	@BytecodeAccess
 	public static void appendCrashCategory(Object crashReport) {
-		try {
-			ClassProxy.appendCategoryToCrashReport(crashReport);
-		} catch (Throwable ignored) {
-		}
 	}
 
 	@BytecodeAccess
 	public static void onDisplayCrashReport(Throwable cause, File crashFile) {
-		ClassProxy.publishCrashReport(cause, crashFile);
 	}
 
 	@BytecodeAccess
 	public static void onAbstractClientPlayerInit(GameProfile gameProfile) {
-		ClassProxy.setupPlayerTextures(gameProfile);
+
 	}
 
 	@BytecodeAccess
@@ -211,18 +202,8 @@ public class BytecodeHook {
 	}
 
 	@BytecodeAccess
-	public static IButton get5zigOptionButton(Object instance) {
-		return ClassProxy.getThe5zigModButton(instance);
-	}
-
-	@BytecodeAccess
 	public static void onCustomPayload(String channel, ByteBuf byteBuf) {
 		The5zigMod.getListener().handlePluginMessage(channel, byteBuf);
-	}
-
-	@BytecodeAccess
-	public static ByteBuf packetBufferToByteBuf(Object packetBuffer) {
-		return ClassProxy.packetBufferToByteBuf(packetBuffer);
 	}
 
 	@BytecodeAccess
@@ -252,7 +233,7 @@ public class BytecodeHook {
 
 	@BytecodeAccess
 	public static void onGuiConnecting(Object serverData) {
-		ClassProxy.setServerData(serverData);
+
 	}
 
 	@BytecodeAccess
@@ -267,12 +248,10 @@ public class BytecodeHook {
 
 	@BytecodeAccess
 	public static void onGuiResourcePacksInit(Object instance, List list, List list2) {
-		ClassProxy.handleGuiResourcePackInit(instance, list, list2);
 	}
 
 	@BytecodeAccess
 	public static void onGuiResourcePacksInit(Object instance, Object list, Object list2) {
-		ClassProxy.handleGuiResourcePackInit(instance, list, list2);
 	}
 
 	@BytecodeAccess
@@ -375,20 +354,6 @@ public class BytecodeHook {
 		The5zigMod.getListener().onTick();
 	}
 
-	@BytecodeAccess
-	public static boolean onRenderItemPerson(Object instance, Object itemStack, Object entityPlayer, Object cameraTransformType, boolean leftHand) {
-		return ClassProxy.onRenderItemPerson(instance, itemStack, entityPlayer, cameraTransformType, leftHand);
-	}
-
-	@BytecodeAccess
-	public static boolean onRenderItemPerson(Object instance, Object itemStack, Object entityPlayer, Object cameraTransformType) {
-		return ClassProxy.onRenderItemPerson(instance, itemStack, entityPlayer, cameraTransformType, false);
-	}
-
-	@BytecodeAccess
-	public static boolean onRenderItemInventory(Object instance, Object itemStack, int x, int y) {
-		return ClassProxy.onRenderItemInventory(instance, itemStack, x, y);
-	}
 
 	@BytecodeAccess
 	public static void onSendChatMessage(String message) {
