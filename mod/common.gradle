@@ -28,10 +28,6 @@ repositories {
         name = "5zig"
         url = "https://dl.bintray.com/5zig-reborn/maven"
     }
-    maven {
-        name = "JBoss 3rd-party"
-        url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/"
-    }
 }
 
 sourceSets.main {
@@ -76,7 +72,7 @@ dependencies {
 
     embed group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
     embed 'com.github.5zig-reborn:DiscordIPC:master-SNAPSHOT'
-    embed group: 'com.jacob', name: 'jacob', version: '1.10'
+    embed group: 'com.hynnet', name: 'jacob', version: '1.18'
 }
 
 tasks.withType(ProcessResources).each { task ->
