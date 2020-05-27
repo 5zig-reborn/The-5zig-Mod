@@ -32,6 +32,7 @@ public class Mouse {
 	}
 
 	public static boolean isButtonDown(int button) {
+		if (button == 99) return false; // LWJGL3 uses -1 for unbound keys (which gets incremented by 100 to 99)
 		return handler.isButtonDown(button);
 	}
 
