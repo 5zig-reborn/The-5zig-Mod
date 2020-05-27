@@ -22,6 +22,7 @@ package eu.the5zig.mod.modules;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import eu.the5zig.mod.modules.items.Dummy;
+import eu.the5zig.mod.modules.items.SimpleText;
 import eu.the5zig.mod.modules.items.player.*;
 import eu.the5zig.mod.modules.items.server.*;
 import eu.the5zig.mod.modules.items.server.bergwerk.DuelRespawn;
@@ -57,6 +58,7 @@ public class ModuleItemRegistry {
 	private final List<String> ITEM_CATEGORIES = Lists.newArrayList();
 
 	public ModuleItemRegistry() {
+		registerItem("TEXT", SimpleText.class, Category.GENERAL);
 		registerItem("FPS", FPS.class, Category.GENERAL);
 		registerItem("CPS", CPS.class, Category.GENERAL);
 		registerItem("AFK_TIME", AFKTime.class, Category.GENERAL);

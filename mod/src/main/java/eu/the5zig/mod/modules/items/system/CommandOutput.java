@@ -98,6 +98,11 @@ public class CommandOutput extends StringItem {
     }
 
     @Override
+    public String getTranslation() {
+        return "ingame.command_output";
+    }
+
+    @Override
     public int getHeight(boolean dummy) {
         return 10;
     }

@@ -132,6 +132,10 @@ public abstract class ConfigItem<T> implements IConfigItem<T> {
 		return I18n.translate(translationPrefix + "." + category + "." + Utils.upperToDash(key) + ".desc");
 	}
 
+	public boolean isDescriptionLocalized() {
+		return I18n.has(translationPrefix + "." + category + "." + Utils.upperToDash(key) + ".desc");
+	}
+
 	public final String translateDefaultValue() {
 		T current = get();
 		if (defaultValue == null) {

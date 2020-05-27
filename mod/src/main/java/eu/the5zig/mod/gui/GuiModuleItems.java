@@ -147,7 +147,7 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 
 					@Override
 					public String title() {
-						return null;
+						return item.isDescriptionLocalized() ? item.translateDescription() : null;
 					}
 				}));
 				return;
