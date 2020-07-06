@@ -217,6 +217,10 @@ public class EventListener {
 		return event.isCancelled();
 	}
 
+	public void handleServerDifficulty() {
+		fireEvent(new ServerConnectEvent());
+	}
+
 	public void handlePluginMessage(String channel, ByteBuf packetData) {
 		if ("MC|Brand".equals(channel) || "minecraft:brand".equals(channel)) {
 			if (The5zigMod.getDataManager().getServer() == null) {
@@ -235,8 +239,6 @@ public class EventListener {
 					}
 					onServerConnect(host, port);
 				}
-			} else {
-				fireEvent(new ServerConnectEvent());
 			}
 		}
 		fireEvent(new PayloadEvent(channel, packetData));
