@@ -621,6 +621,7 @@ public class ConfigNew {
 				The5zigMod.getDataManager().getSpotifyManager().setTokens(pair);
 			}
 		});
+		add(new StringItem("spotify_auth_token", null, ""));
 
 		add(new StringItem("hypixel_api_key", "server_hypixel", "") {
 			@Override

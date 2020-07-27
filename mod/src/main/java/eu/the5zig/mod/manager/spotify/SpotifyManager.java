@@ -58,7 +58,7 @@ public class SpotifyManager {
 	private static final String characters = "abcdefghijklmnopqrstuvwxyz";
 	private static final Map<String, String> originHeader = Collections.singletonMap("Origin", "https://open.spotify.com");
 
-	private String authToken;
+	private String authToken, refreshToken;
 
 	private volatile boolean connected = false;
 	private boolean connecting = false;
@@ -85,6 +85,12 @@ public class SpotifyManager {
 
 	private void initTokens() {
 		String refresh = The5zigMod.getConfig().getString("refresh_token");
+		String auth = The5zigMod.getConfig().getString("spotify_auth_token");
+		if(auth != null && !auth.isEmpty()) {
+			authToken = auth;
+			refreshToken = refresh;
+			return;
+		}
 		if(refresh != null && !refresh.isEmpty())
 			refreshToken(refresh);
 	}
@@ -92,7 +98,9 @@ public class SpotifyManager {
 	public void setTokens(String tokens) {
 		String[] data = tokens.split("/");
 		authToken = data[0];
-		The5zigMod.getConfig().get("refresh_token").set(data[1]);
+		refreshToken = data[1];
+		The5zigMod.getConfig().get("spotify_auth_token").set(authToken);
+		The5zigMod.getConfig().get("refresh_token").set(refreshToken);
 		The5zigMod.getConfig().save();
 	}
 
@@ -105,6 +113,7 @@ public class SpotifyManager {
 				HttpResponse response = client.execute(request);
 				if(response.getStatusLine().getStatusCode() == 200) {
 					authToken = IOUtils.toString(response.getEntity().getContent());
+					The5zigMod.getConfig().get("spotify_auth_token").set(authToken);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -210,7 +219,10 @@ public class SpotifyManager {
 		makeRequest(currentlyPlayingUrl, new HashMap<>(), authParams, new HttpResponseCallback() {
 			@Override
 			public void call(String response, int responseCode, Throwable throwable) {
-				if (responseCode != 200 || throwable != null) {
+				if(responseCode == 401) {
+					refreshToken(refreshToken);
+					loadStatus();
+				} else if (responseCode != 200 || throwable != null) {
 					The5zigMod.logger.warn("Error while polling Spotify status!", throwable);
 					setStatus(null);
 				} else if (response != null) {
