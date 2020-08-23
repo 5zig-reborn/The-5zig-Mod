@@ -668,7 +668,7 @@ public class ConfigNew {
 				super.set(value.replace("#", ""));
 			}
 		});
-
+		add(new BoolItem("rewardTags", "profile_settings", true));
 		// [REBORN] New config end
 	}
 

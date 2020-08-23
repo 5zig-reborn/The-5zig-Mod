@@ -20,6 +20,7 @@ package eu.the5zig.mod.api.rewards;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import eu.the5zig.mod.The5zigMod;
 
 public class RewardsCache {
     private static Cache<String, Reward> cachedRewards;
@@ -35,6 +36,7 @@ public class RewardsCache {
     }
 
     public static String getRewardString(String uuid) {
+        if(!The5zigMod.getConfig().getBool("rewardTags")) return null;
         Reward reward = cachedRewards.getIfPresent(uuid);
         return reward == null ? null : reward.getDisplayString();
     }
