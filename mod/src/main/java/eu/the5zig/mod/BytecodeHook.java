@@ -213,7 +213,7 @@ public class BytecodeHook {
 
 	@BytecodeAccess
 	public static boolean onChat(String message, Object chatComponent) {
-		return The5zigMod.getListener().onServerChat(message, chatComponent);
+		return The5zigMod.getListener().onServerChat(message, chatComponent, chatComponent);
 	}
 
 	@BytecodeAccess

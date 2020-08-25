@@ -197,11 +197,11 @@ public class EventListener {
 	 * @param chatComponent The original Chat component.
 	 * @return True, if the message should be ignored.
 	 */
-	public boolean onServerChat(String message, Object chatComponent) {
+	public boolean onServerChat(String message, Object chatComponent, Object mcComponent) {
 		if (message == null)
 			return false;
 
-		ChatEvent event = fireEvent(new ChatEvent(message, chatComponent));
+		ChatEvent event = fireEvent(new ChatEvent(message, chatComponent, mcComponent));
 		if (event.getAlteredMessage() != null && !event.isCancelled()) {
 			The5zigMod.getVars().messagePlayer(event.getAlteredMessage());
 			return true;

@@ -80,7 +80,7 @@ public class ChatFilterManager {
 	@EventHandler
 	public void onServerChat(ChatEvent event) {
 		String message = event.getMessage();
-		Object chatComponent = event.getChatComponent();
+		Object chatComponent = event.getMinecraftComponent();
 		message = ChatColor.stripColor(message);
 		Server currentServer = The5zigMod.getDataManager().getServer();
 

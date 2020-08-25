@@ -212,7 +212,7 @@ public class ClassProxyCallbackImpl implements ClassProxyCallback {
 
 	@Override
 	public boolean shouldCancelChatMessage(String message, Object chatComponent) {
-		return The5zigMod.getListener().onServerChat(message, chatComponent);
+		return The5zigMod.getListener().onServerChat(message, chatComponent, chatComponent);
 	}
 
 	@Override
