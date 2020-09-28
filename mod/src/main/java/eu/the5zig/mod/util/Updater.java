@@ -25,7 +25,6 @@ import eu.the5zig.mod.Version;
 import eu.the5zig.mod.asm.Transformer;
 import eu.the5zig.mod.installer.ProcessCallback;
 import eu.the5zig.mod.installer.UpdateInstaller;
-import eu.the5zig.util.Utils;
 import eu.the5zig.util.io.FileUtils;
 import eu.the5zig.util.minecraft.ChatColor;
 import org.apache.commons.io.IOUtils;
@@ -51,14 +50,14 @@ public class Updater implements Runnable {
     @Override
     public void run() {
         try {
-            URL url = new URL("https://secure.5zigreborn.eu/version?mc=" + (Version.BETA == null ? Version.MCVERSION : Version.BETA));
+            URL url = new URL((The5zigMod.DEBUG ? "http://localhost:8080" : "https://secure.5zigreborn.eu") + "/version?mc=" + Version.MCVERSION + "&new=1");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
             Download download = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), Download.class);
             connection.disconnect();
-            if (!"DEV".equals(Version.VERSION) && !Version.VERSION.contains("_b") && Utils.versionCompare(Version.VERSION, download.name) < 0 && Utils.versionCompare(Version.MCVERSION, download.mc) <= 0) {
+            if (!"DEV".equals(Version.VERSION) && !Version.VERSION.contains("_b") && !Version.VERSION.equals(download.latest)) {
                 Version.UPDATE = "stable";
-                The5zigMod.logger.info("Found new update of The 5zig Mod (v" + download.name + ")!");
+                The5zigMod.logger.info("Found new update of The 5zig Mod (v" + download.latest + ")!");
                 The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.1"));
                 The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.2"));
             } else {
@@ -121,9 +120,7 @@ public class Updater implements Runnable {
     }
 
     private static class Download {
-        public String name;
-        public String mc;
-        public String url;
+        public String latest;
     }
 
     private static class BetaUpdate {
