@@ -26,6 +26,7 @@ import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.gui.elements.Row;
 import eu.the5zig.util.Utils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -48,7 +49,7 @@ public class ChatFilter {
 	public class ChatFilterMessage implements Row {
 
 		private transient Pattern pattern;
-		private transient String[] exceptArray;
+		private transient Pattern[] exceptArray;
 		private transient List<Pattern> serverPatterns;
 
 		private String name;
@@ -82,7 +83,7 @@ public class ChatFilter {
 			return pattern;
 		}
 
-		public String[] getExceptArray() {
+		public Pattern[] getExceptArray() {
 			return exceptArray;
 		}
 
@@ -122,10 +123,15 @@ public class ChatFilter {
 
 		public void setExcept(String except) {
 			this.except = except;
-			if (except == null || except.isEmpty()) {
-				exceptArray = null;
-			} else {
-				exceptArray = except.replace(", ", ",").split(",");
+			try {
+				if (except == null || except.isEmpty()) {
+					exceptArray = null;
+				} else {
+					exceptArray = Arrays.stream(except.replace(", ", ",").split(","))
+							.map(s -> useRegex ? Pattern.compile(s, Pattern.CASE_INSENSITIVE) : Utils.compileMatchPattern(s)).toArray(Pattern[]::new);
+				}
+			} catch (Exception e) {
+				The5zigMod.logger.error("Could not compile pattern: " + message + "!", e);
 			}
 		}
 
@@ -136,7 +142,7 @@ public class ChatFilter {
 		public void addServer(String server) {
 			servers.add(server);
 			try {
-				serverPatterns.add(Utils.compileMatchPattern(server));
+				serverPatterns.add(useRegex ? Pattern.compile(server, Pattern.CASE_INSENSITIVE) : Utils.compileMatchPattern(server));
 			} catch (Exception e) {
 				The5zigMod.logger.error("Could not compile pattern: " + server + "!", e);
 			}

@@ -130,8 +130,8 @@ public class ChatFilterManager {
 			return false;
 		}
 		if (chatMessage.getExceptArray() != null) {
-			for (String s : chatMessage.getExceptArray()) {
-				if (message.contains(s)) {
+			for (Pattern s : chatMessage.getExceptArray()) {
+				if (s.matcher(message).matches()) {
 					return false;
 				}
 			}
