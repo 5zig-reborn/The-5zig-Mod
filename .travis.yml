@@ -2,7 +2,8 @@ language: java
 install: true
 jdk:
   - openjdk8
-
+git:
+  depth: false
 script:
   - sh .travis/build.sh
 after_success:

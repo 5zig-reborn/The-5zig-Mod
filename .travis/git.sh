@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-GIT_REV = $(git rev-list --count master)
+GIT_REV=$(git rev-list --count master)
 git clone --depth 1 https://github.com/5zig-reborn/deployments
 cd deployments
 
