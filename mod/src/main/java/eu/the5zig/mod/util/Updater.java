@@ -41,114 +41,100 @@ import java.util.zip.ZipFile;
 
 public class Updater implements Runnable {
 
-	private Updater() {
-	}
+    private Updater() {
+    }
 
-	public static void check() {
-		new Thread(new Updater(), "Update Thread").start();
-	}
+    public static void check() {
+        new Thread(new Updater(), "Update Thread").start();
+    }
 
-	@Override
-	public void run() {
-		try {
-			URL url = new URL("https://secure.5zigreborn.eu/version?mc=" + (Version.BETA == null ? Version.MCVERSION : Version.BETA));
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
-			if(Version.BETA != null) {
-				BetaUpdate update = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), BetaUpdate.class);
-				connection.disconnect();
-				if(update.update) {
-					Version.UPDATE = "beta";
-					The5zigMod.logger.info("Found new beta update of The 5zig Mod!");
-					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.beta.1"));
-					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.beta.2"));
-				} else {
-					The5zigMod.logger.info("The 5zig Mod is up to date!");
-				}
-			}
-			else {
-				Download download = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), Download.class);
-				connection.disconnect();
-				if (!"DEV".equals(Version.VERSION) && !Version.VERSION.contains("_b") && Utils.versionCompare(Version.VERSION, download.name) < 0 && Utils.versionCompare(Version.MCVERSION, download.mc) <= 0) {
-					Version.UPDATE = "stable";
-					The5zigMod.logger.info("Found new update of The 5zig Mod (v" + download.name + ")!");
-					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.1"));
-					The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.2"));
-				} else {
-					The5zigMod.logger.info("The 5zig Mod is up to date!");
-				}
-			}
-		} catch (Exception e) {
-			The5zigMod.logger.error("Could not check for latest 5zig Mod Version!", e);
-		}
-	}
+    @Override
+    public void run() {
+        try {
+            URL url = new URL("https://secure.5zigreborn.eu/version?mc=" + (Version.BETA == null ? Version.MCVERSION : Version.BETA));
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.addRequestProperty("User-Agent", "5zig/" + Version.VERSION);
+            Download download = The5zigMod.gson.fromJson(IOUtils.toString(connection.getInputStream()), Download.class);
+            connection.disconnect();
+            if (!"DEV".equals(Version.VERSION) && !Version.VERSION.contains("_b") && Utils.versionCompare(Version.VERSION, download.name) < 0 && Utils.versionCompare(Version.MCVERSION, download.mc) <= 0) {
+                Version.UPDATE = "stable";
+                The5zigMod.logger.info("Found new update of The 5zig Mod (v" + download.name + ")!");
+                The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.1"));
+                The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.YELLOW + I18n.translate("update.2"));
+            } else {
+                The5zigMod.logger.info("The 5zig Mod is up to date!");
+            }
+        } catch (Exception e) {
+            The5zigMod.logger.error("Could not check for latest 5zig Mod Version!", e);
+        }
+    }
 
-	private void downloadLatest(String url, String md5, String version, String mcVersion, boolean sameMinecraftVersion) throws Exception {
-		File minecraftDir = The5zigMod.getVars().getMinecraftDataDirectory();
+    private void downloadLatest(String url, String md5, String version, String mcVersion, boolean sameMinecraftVersion) throws Exception {
+        File minecraftDir = The5zigMod.getVars().getMinecraftDataDirectory();
 
-		if (Transformer.FORGE && sameMinecraftVersion) {
-			ZipFile zipFile = EnvironmentUtils.getModFile();
-			File modsFile = zipFile != null ? new File(zipFile.getName()) : new File(new File(minecraftDir, "mods"), "The5zigMod-" + mcVersion + "_" + version + ".jar");
-			URL website = new URL(url);
-			ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-			FileOutputStream fos = new FileOutputStream(modsFile);
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        if (Transformer.FORGE && sameMinecraftVersion) {
+            ZipFile zipFile = EnvironmentUtils.getModFile();
+            File modsFile = zipFile != null ? new File(zipFile.getName()) : new File(new File(minecraftDir, "mods"), "The5zigMod-" + mcVersion + "_" + version + ".jar");
+            URL website = new URL(url);
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+            FileOutputStream fos = new FileOutputStream(modsFile);
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 
-			String downloadedMD5 = FileUtils.md5(modsFile);
-			if (!downloadedMD5.equals(md5)) {
-				org.apache.commons.io.FileUtils.deleteQuietly(modsFile);
-				throw new RuntimeException("Invalid Downloaded File MD5!");
-			}
-		} else {
-			File libraryDir = new File(minecraftDir, "libraries" + File.separator + "eu" + File.separator + "the5zig" + File.separator + "The5zigMod" + File.separator + mcVersion + "_" +
-					version);
-			if (!libraryDir.exists() && !libraryDir.mkdirs())
-				throw new IOException("Could not create directory at " + libraryDir);
+            String downloadedMD5 = FileUtils.md5(modsFile);
+            if (!downloadedMD5.equals(md5)) {
+                org.apache.commons.io.FileUtils.deleteQuietly(modsFile);
+                throw new RuntimeException("Invalid Downloaded File MD5!");
+            }
+        } else {
+            File libraryDir = new File(minecraftDir, "libraries" + File.separator + "eu" + File.separator + "the5zig" + File.separator + "The5zigMod" + File.separator + mcVersion + "_" +
+                    version);
+            if (!libraryDir.exists() && !libraryDir.mkdirs())
+                throw new IOException("Could not create directory at " + libraryDir);
 
-			File libraryFile = new File(libraryDir, "The5zigMod-" + mcVersion + "_" + version + ".jar");
-			URL website = new URL(url);
-			ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-			FileOutputStream fos = new FileOutputStream(libraryFile);
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-			String downloadedMD5 = FileUtils.md5(libraryFile);
-			if (!downloadedMD5.equals(md5)) {
-				org.apache.commons.io.FileUtils.deleteQuietly(libraryDir);
-				throw new RuntimeException("Invalid Downloaded File MD5!");
-			}
+            File libraryFile = new File(libraryDir, "The5zigMod-" + mcVersion + "_" + version + ".jar");
+            URL website = new URL(url);
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+            FileOutputStream fos = new FileOutputStream(libraryFile);
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            String downloadedMD5 = FileUtils.md5(libraryFile);
+            if (!downloadedMD5.equals(md5)) {
+                org.apache.commons.io.FileUtils.deleteQuietly(libraryDir);
+                throw new RuntimeException("Invalid Downloaded File MD5!");
+            }
 
-			UpdateInstaller installer = new UpdateInstaller(version, mcVersion, sameMinecraftVersion ? Version.VERSION : null, libraryFile);
-			installer.install(new ProcessCallback() {
-				@Override
-				public void progress(float percentage) {
-				}
+            UpdateInstaller installer = new UpdateInstaller(version, mcVersion, sameMinecraftVersion ? Version.VERSION : null, libraryFile);
+            installer.install(new ProcessCallback() {
+                @Override
+                public void progress(float percentage) {
+                }
 
-				@Override
-				public void message(String message) {
-					The5zigMod.logger.debug(message);
-				}
-			});
-		}
+                @Override
+                public void message(String message) {
+                    The5zigMod.logger.debug(message);
+                }
+            });
+        }
 
-		The5zigMod.logger.info("Downloaded and installed the latest version of The 5zig Mod!");
-		The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.GREEN + I18n.translate("new_update.1"));
-		The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.GREEN + I18n.translate("new_update.2"));
-	}
+        The5zigMod.logger.info("Downloaded and installed the latest version of The 5zig Mod!");
+        The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.GREEN + I18n.translate("new_update.1"));
+        The5zigMod.getOverlayMessage().displayMessageAndSplit(ChatColor.GREEN + I18n.translate("new_update.2"));
+    }
 
-	private static class Download {
-		public String name;
-		public String mc;
-		public String url;
-	}
+    private static class Download {
+        public String name;
+        public String mc;
+        public String url;
+    }
 
-	private static class BetaUpdate {
-		public boolean update;
-		public boolean beta;
-	}
+    private static class BetaUpdate {
+        public boolean update;
+        public boolean beta;
+    }
 
-	public enum UpdateType {
+    public enum UpdateType {
 
-		ALWAYS, SAME_VERSION, NEVER
+        ALWAYS, SAME_VERSION, NEVER
 
-	}
+    }
 
 }

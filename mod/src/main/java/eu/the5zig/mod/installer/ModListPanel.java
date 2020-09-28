@@ -60,7 +60,7 @@ public class ModListPanel extends JPanel implements ActionListener {
 		setSize(500, 350);
 		setLayout(null);
 
-		JLabel title = new JLabel("The 5zig Mod v" + Frame.modVersion, SwingConstants.CENTER);
+		JLabel title = new JLabel("The 5zig Mod b" + Frame.modVersion, SwingConstants.CENTER);
 		title.setBounds(0, 10, 500, 35);
 		title.setFont(new Font("Verdana", Font.BOLD, 26));
 		add(title);
@@ -190,7 +190,7 @@ public class ModListPanel extends JPanel implements ActionListener {
 			if (!Frame.minecraftVersion.equals(optifineVersion) && !(Frame.minecraftVersion + ".0").equals(optifineVersion)) {
 				int confirmationResult = JOptionPane.showConfirmDialog(null, "Warning, mod version mismatch!\n"
 						+ "It seems like you are trying to add a version of\nOptiFine (" + file.getName() + ") that uses a\ndifferent version than the 5zig mod (" + optifineVersion + " vs " + Frame.minecraftVersion + ")!\n"
-						+ "The installation may not be successful if you continue.\nAre you sure you want to add this file?", "The 5zig Mod v" + Frame.modVersion, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						+ "The installation may not be successful if you continue.\nAre you sure you want to add this file?", "The 5zig Mod b" + Frame.modVersion, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				return confirmationResult == JOptionPane.YES_OPTION;
 			}
 		}
@@ -205,7 +205,7 @@ public class ModListPanel extends JPanel implements ActionListener {
 						+ "It seems like you are trying to add a forge mod to your installation!\n"
 						+ "This installer does *not* use forge and the installation may not be successful if you continue.\n"
 						+ "If you want to install the 5zig mod using forge, copy all mods (including this installer) into the forge mods folder.\n"
-						+ "Are you sure you want to add this file and continue the installation *without* forge?", "The 5zig Mod v" + Frame.modVersion, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						+ "Are you sure you want to add this file and continue the installation *without* forge?", "The 5zig Mod b" + Frame.modVersion, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				return confirmationResult == JOptionPane.YES_OPTION;
 			} else {
 				return true;

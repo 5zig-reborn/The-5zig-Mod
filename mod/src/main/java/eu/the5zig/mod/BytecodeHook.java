@@ -198,7 +198,7 @@ public class BytecodeHook {
 
 	@BytecodeAccess
 	public static void onMainDraw() {
-		The5zigMod.getVars().drawString(ChatColor.GOLD + "The 5zig Mod v" + Version.VERSION, 2, 2);
+		The5zigMod.getVars().drawString(ChatColor.GOLD + "The 5zig Mod b" + Version.VERSION, 2, 2);
 	}
 
 	@BytecodeAccess

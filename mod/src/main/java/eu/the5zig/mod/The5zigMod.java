@@ -257,7 +257,7 @@ public class The5zigMod {
 
 		accountManager = new AccountManager();
 
-		logger.info("Loaded The 5zig Mod v" + Version.VERSION + "! (took {} ms)", System.currentTimeMillis() - start);
+		logger.info("Loaded The 5zig Mod b" + Version.VERSION + "! (took {} ms)", System.currentTimeMillis() - start);
 	}
 
 	/**

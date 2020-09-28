@@ -44,7 +44,7 @@ public class InstallPanel extends JPanel {
 		setSize(500, 350);
 		setLayout(null);
 
-		JLabel title = new JLabel("The 5zig Mod v" + Frame.modVersion, SwingConstants.CENTER);
+		JLabel title = new JLabel("The 5zig Mod b" + Frame.modVersion, SwingConstants.CENTER);
 		title.setBounds(0, 10, 500, 35);
 		title.setFont(new Font("Verdana", Font.BOLD, 26));
 		add(title);
@@ -106,7 +106,7 @@ public class InstallPanel extends JPanel {
 					} catch (MinecraftNotFoundException e) {
 						JOptionPane.showMessageDialog(null,
 								"Minecraft version not found: " + Frame.minecraftVersion + ".\nPlease start Minecraft " + Frame.minecraftVersion + " manually via the Minecraft Launcher!",
-								"The 5zig Mod v" + Frame.modVersion, JOptionPane.ERROR_MESSAGE, Images.iconImage);
+								"The 5zig Mod b" + Frame.modVersion, JOptionPane.ERROR_MESSAGE, Images.iconImage);
 						System.exit(1);
 					} catch (Exception e) {
 						InstallerUtils.exitWithException(e, Frame.modVersion, Frame.minecraftVersion, installer.otherMods);
@@ -116,7 +116,7 @@ public class InstallPanel extends JPanel {
 					log("===========================================");
 					log("Finished Installation after " + (System.currentTimeMillis() - start) + "ms.");
 					log("===========================================");
-					JOptionPane.showMessageDialog(null, "The 5zig Mod has been successfully installed.", "The 5zig Mod v" + Frame.modVersion, JOptionPane.INFORMATION_MESSAGE,
+					JOptionPane.showMessageDialog(null, "The 5zig Mod has been successfully installed.", "The 5zig Mod b" + Frame.modVersion, JOptionPane.INFORMATION_MESSAGE,
 							Images.iconImage);
 					frame.dispose();
 				}

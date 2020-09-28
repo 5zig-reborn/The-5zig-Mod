@@ -353,7 +353,7 @@ public class GuiSettings extends Gui {
 	public String getTitleName() {
 		if("main".equals(category)) {
 			String suffix = Version.UPDATE == null ? "" : " - §6" + I18n.translate("update.available." + Version.UPDATE);
-			return "The 5zig Mod v" + ("3.14.0".equals(Version.VERSION) ? "π (3.14.0)" : Version.VERSION) + suffix;
+			return "The 5zig Mod b" + Version.VERSION + suffix;
 		}
 		return null;
 	}

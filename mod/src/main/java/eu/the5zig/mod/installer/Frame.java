@@ -67,7 +67,7 @@ public class Frame extends JFrame {
 	}
 
 	private void init() {
-		setTitle("The 5zig Mod v" + modVersion);
+		setTitle("The 5zig Mod b" + modVersion);
 		setSize(500, 350);
 		setLocationRelativeTo(null);
 		setResizable(false);

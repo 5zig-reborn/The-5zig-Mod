@@ -82,6 +82,14 @@ tasks.withType(ProcessResources).each { task ->
     }
 }
 
+task buildInfo {
+    def cmd = "git rev-list --count master"
+    def proc = cmd.execute()
+    project.ext.set("buildNumber", proc.text.trim())
+}
+
+jar.dependsOn(buildInfo)
+
 jar {
     manifest.attributes (
             'Main-Class': 'eu.the5zig.mod.installer.Frame',
@@ -89,9 +97,11 @@ jar {
             'TweakClass': 'eu.the5zig.mod.asm.ClassTweaker',
             'MixinConnector': 'eu.the5zig.mod.MixinConnector5zig',
             'TweakOrder': '-900',
-            '5zig-Version': project.version,
+            '5zig-Version': project.ext.get("buildNumber"),
             'Minecraft-Version': project.ext.get("customVer") != null ? project.ext.get("customVer") : project.name
     )
+
+    version = "b" + project.ext.get("buildNumber")
 
     if (System.getenv("TRAVIS_COMMIT") != null && (System.getenv("TRAVIS_TAG") == null || System.getenv("TRAVIS_TAG").isEmpty())) {
         manifest.attributes.put("5zig-Build", System.getenv("TRAVIS_COMMIT"))

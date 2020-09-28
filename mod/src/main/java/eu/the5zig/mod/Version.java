@@ -36,8 +36,7 @@ public class Version {
     public static String UPDATE;
 
     public static String getVersionDisplay() {
-        if("3.14.0".equals(VERSION)) return "§6The §aπ§6zig Mod";
-        return ChatColor.GOLD + "The 5zig Mod v" + Version.VERSION;
+        return ChatColor.GOLD + "The 5zig Mod b" + Version.VERSION;
     }
 
     static {

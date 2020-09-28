@@ -33,7 +33,7 @@ public class GuiWelcome extends Gui {
 	private int index = 0;
 	private int time = 0;
 	private int underlined = 0;
-	private String string = "Welcome to The 5zig Mod v" + Version.VERSION;
+	private String string = "Welcome to The 5zig Mod b" + Version.VERSION;
 	private boolean underlinePlus = true;
 	private int pulse = 0;
 

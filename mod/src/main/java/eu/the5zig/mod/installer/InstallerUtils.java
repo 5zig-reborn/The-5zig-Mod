@@ -97,7 +97,7 @@ public class InstallerUtils {
 		PrintStream ps = new PrintStream(baos);
 		throwable.printStackTrace(ps);
 		String content = baos.toString();
-		JTextArea textArea = new JTextArea("The 5zig Mod v" + modVersion, 20, 100);
+		JTextArea textArea = new JTextArea("The 5zig Mod b" + modVersion, 20, 100);
 		textArea.setText("An error occurred while installing The 5zig Mod!" + Utils.lineSeparator() + "Please contact the5zig@gmail.com and paste the contents of this window!" +
 				Utils.lineSeparator(3) + content + seperator() + "User Info:" + Utils.lineSeparator() + "Version:\t" + minecraftVersion + "_" + modVersion + Utils.lineSeparator() +
 				"Selected mods:\t" + Arrays.toString(selectedMods) + Utils.lineSeparator() + "OS Name:\t" + Utils.getOSName() + Utils.lineSeparator() + "Java Version:\t" + Utils.getJava() + Utils.lineSeparator() + "User Home:\t" + System.getProperty("user.home") +
