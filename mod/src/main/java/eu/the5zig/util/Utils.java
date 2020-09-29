@@ -527,7 +527,7 @@ public class Utils {
 		match = match.replaceAll("(?<!\\\\)[?]", "(.?)");
 		// replace unescaped [*] by [.*]
 		match = match.replaceAll("(?<!\\\\)[*]", "(.*)");
-		return Pattern.compile(match, Pattern.CASE_INSENSITIVE);
+		return Pattern.compile(match, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	}
 
 	public static String escapeStringForRegex(String string) {

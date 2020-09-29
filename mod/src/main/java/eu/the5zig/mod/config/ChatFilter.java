@@ -108,7 +108,7 @@ public class ChatFilter {
 
 			try {
 				if (useRegex()) {
-					pattern = Pattern.compile(message, Pattern.CASE_INSENSITIVE);
+					pattern = Pattern.compile(message, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 				} else {
 					pattern = Utils.compileMatchPattern(message);
 				}
