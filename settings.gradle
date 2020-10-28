@@ -28,13 +28,13 @@ pluginManagement {
 }
 
 rootProject.name = "the-5zig-mod"
+// ZIG116
+//include '1.12.2'
+//include '1.8.9'
+//include '1.15.1'
+include '1.16.1'
 
-include '1.12.2'
-include '1.8.9'
-include '1.15.1'
-include '1.14.4'
-
-project(':1.12.2').projectDir = file('version-specific/1.12.2')
-project(':1.8.9').projectDir = file('version-specific/1.8.9')
-project(':1.15.1').projectDir = file('version-specific/1.15.1')
-project(':1.14.4').projectDir = file('version-specific/1.14.4')
+//project(':1.12.2').projectDir = file('version-specific/1.12.2')
+//project(':1.8.9').projectDir = file('version-specific/1.8.9')
+//project(':1.15.1').projectDir = file('version-specific/1.15.1')
+project(':1.16.1').projectDir = file('version-specific/1.16.1')

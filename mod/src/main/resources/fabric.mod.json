@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "the5zigmod",
+  "version": "3.15.0",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["eu.the5zig.mod.Fabric5zig"]
+  }
+}
