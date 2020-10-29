@@ -17,3 +17,4 @@ out/
 .gradle
 .idea
 **/*.iml
+run/

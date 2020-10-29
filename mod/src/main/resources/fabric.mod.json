@@ -5,5 +5,8 @@
   "environment": "client",
   "entrypoints": {
     "client": ["eu.the5zig.mod.Fabric5zig"]
-  }
+  },
+  "mixins": [
+    "the5zigmod.mixins.json"
+  ]
 }

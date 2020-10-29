@@ -21,9 +21,8 @@ package eu.the5zig.mod.manager;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import eu.the5zig.util.Callback;
 import eu.the5zig.mod.gui.elements.ITextfield;
-import org.lwjgl.input.Keyboard;
+import eu.the5zig.util.Callback;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -125,7 +124,7 @@ public abstract class SearchEntry<T> {
 
 	public boolean keyTyped(int key, int scanCode, int modifiers) {
 		synchronized (entries) {
-			if (key == Keyboard.KEY_RETURN && enterCallback != null && !entries.isEmpty() && !textfield.callGetText().isEmpty()) {
+			if (key == 28 && enterCallback != null && !entries.isEmpty() && !textfield.callGetText().isEmpty()) {
 				enterCallback.call(entries.get(0));
 			}
 		}
@@ -138,7 +137,7 @@ public abstract class SearchEntry<T> {
 
 	public boolean keyTyped(char character, int code) {
 		synchronized (entries) {
-			if (code == Keyboard.KEY_RETURN && enterCallback != null && !entries.isEmpty() && !textfield.callGetText().isEmpty()) {
+			if (code == 28 && enterCallback != null && !entries.isEmpty() && !textfield.callGetText().isEmpty()) {
 				enterCallback.call(entries.get(0));
 			}
 		}
