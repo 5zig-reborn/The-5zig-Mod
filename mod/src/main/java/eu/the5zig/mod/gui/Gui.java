@@ -279,7 +279,7 @@ public abstract class Gui {
 
 	public void keyPressed0(int key, int scanCode, int modifiers) {
 		for (ITextfield textfield : textfields) {
-			textfield.keyPressed(key, scanCode, modifiers);
+			textfield.onKeyPressed(key, scanCode, modifiers);
 		}
 		keyPressed(key, scanCode, modifiers);
 	}

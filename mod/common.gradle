@@ -75,17 +75,17 @@ dependencies {
     embed group: 'com.hynnet', name: 'jacob', version: '1.18'
 }
 
+task buildInfo {
+    def cmd = "git rev-list --count master"
+    def proc = cmd.execute()
+    project.ext.set("buildNumber", proc.text.trim())
+}
+
 tasks.withType(ProcessResources).each { task ->
     task.from(task.getSource()) {
         include '**/*.properties'
         filter(EscapeUnicode) // native2ascii for i18n files
     }
-}
-
-task buildInfo {
-    def cmd = "git rev-list --count master"
-    def proc = cmd.execute()
-    project.ext.set("buildNumber", proc.text.trim())
 }
 
 jar.dependsOn(buildInfo)
@@ -101,7 +101,7 @@ jar {
             'Minecraft-Version': project.ext.get("customVer") != null ? project.ext.get("customVer") : project.name
     )
 
-    version = "b" + project.ext.get("buildNumber")
+    project.version = "b" + project.ext.get("buildNumber")
 
     if (System.getenv("TRAVIS_COMMIT") != null && (System.getenv("TRAVIS_TAG") == null || System.getenv("TRAVIS_TAG").isEmpty())) {
         manifest.attributes.put("5zig-Build", System.getenv("TRAVIS_COMMIT"))

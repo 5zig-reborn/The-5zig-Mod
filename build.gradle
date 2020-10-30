@@ -24,7 +24,7 @@ allprojects {
     project.ext.set("customVer", null);
     apply plugin: 'java'
 
-    jar.baseName = "5zig-Reborn-" + project.name
+    archivesBaseName = "5zig-Reborn-" + project.name
 
     repositories {
         jcenter()

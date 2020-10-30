@@ -150,7 +150,7 @@ public interface ITextfield {
 	 */
 	boolean callKeyTyped(char character, int key);
 
-	boolean keyPressed(int key, int scanCode, int modifiers);
+	boolean onKeyPressed(int key, int scanCode, int modifiers);
 
 	/**
 	 * Used for blinking caret. Called from Gui when iterating through all textfields.

@@ -8,5 +8,9 @@
   },
   "mixins": [
     "the5zigmod.mixins.json"
-  ]
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": "1.16.3"
+  }
 }

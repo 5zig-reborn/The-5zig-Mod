@@ -128,7 +128,7 @@ public abstract class SearchEntry<T> {
 				enterCallback.call(entries.get(0));
 			}
 		}
-		boolean result = getTextfield().keyPressed(key, scanCode, modifiers);
+		boolean result = getTextfield().onKeyPressed(key, scanCode, modifiers);
 
 		update();
 
