@@ -125,7 +125,7 @@ public class GuiUploadDefaultCape extends Gui {
 	@Override
 	protected void mouseReleased(int x, int y, int state) {
 		if(required != null)
-			closeRequirement.callMouseReleased(x, y);
+			closeRequirement.callMouseReleased(x, y, state);
 	}
 
 	@Override

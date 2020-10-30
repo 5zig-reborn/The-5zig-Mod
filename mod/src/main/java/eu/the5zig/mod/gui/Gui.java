@@ -326,7 +326,7 @@ public abstract class Gui {
 
 	public void mouseReleased0(int x, int y, int state) {
 		for (IButton button : buttons) {
-			button.callMouseReleased(x, y);
+			button.callMouseReleased(x, y, state);
 		}
 		for (IGuiList guiList : guiLists) {
 			guiList.mouseReleased(x, y, state);

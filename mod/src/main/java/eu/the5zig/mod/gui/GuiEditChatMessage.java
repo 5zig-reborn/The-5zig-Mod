@@ -194,7 +194,7 @@ public class GuiEditChatMessage extends Gui {
 	@Override
 	protected void mouseReleased(int x, int y, int state) {
 		if (displayHelp) {
-			closeHelpButton.callMouseReleased(x, y);
+			closeHelpButton.callMouseReleased(x, y, state);
 		}
 	}
 

@@ -78,7 +78,7 @@ public class AlertOverlay {
         return state;
     }
 
-    public void mouseReleased(int x, int y) {
-        if(state) this.closeButton.callMouseReleased(x, y);
+    public void mouseReleased(int x, int y, int mouseState) {
+        if(state) this.closeButton.callMouseReleased(x, y, mouseState);
     }
 }

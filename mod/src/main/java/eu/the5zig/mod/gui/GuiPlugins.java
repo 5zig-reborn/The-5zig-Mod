@@ -214,7 +214,7 @@ public class GuiPlugins extends Gui {
 
 	@Override
 	protected void mouseReleased(int x, int y, int state) {
-		alertAddDisabled.mouseReleased(x, y);
+		alertAddDisabled.mouseReleased(x, y, state);
 		super.mouseReleased(x, y, state);
 	}
 

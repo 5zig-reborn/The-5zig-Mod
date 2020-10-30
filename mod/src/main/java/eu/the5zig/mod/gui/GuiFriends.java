@@ -262,7 +262,7 @@ public class GuiFriends extends Gui {
 
 	@Override
 	protected void mouseReleased(int x, int y, int state) {
-		alertDisconnected.mouseReleased(x, y);
+		alertDisconnected.mouseReleased(x, y, state);
 		super.mouseReleased(x, y, state);
 	}
 

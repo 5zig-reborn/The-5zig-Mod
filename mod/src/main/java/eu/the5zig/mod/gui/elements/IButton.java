@@ -61,7 +61,7 @@ public interface IButton {
 
 	boolean mouseClicked(int mouseX, int mouseY);
 
-	void callMouseReleased(int mouseX, int mouseY);
+	void callMouseReleased(int mouseX, int mouseY, int state);
 
 	void playClickSound();
 
