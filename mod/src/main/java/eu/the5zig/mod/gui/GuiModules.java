@@ -67,6 +67,7 @@ public class GuiModules extends Gui implements Clickable<Module> {
 		modulePreviewList.setLeftbound(true);
 		modulePreviewList.setDrawSelection(false);
 		modulePreviewList.setScrollX(getWidth() / 2 + 175);
+		modulePreviewList.setRowWidth(160);
 		addGuiList(modulePreviewList);
 
 

@@ -61,6 +61,16 @@ public class GuiArrayList<E extends Row> extends ArrayList<E> {
     }
 
     @Override
+    public E set(int index, E element) {
+        E result = super.set(index, element);
+        if(parentList != null) {
+            if(result != null) parentList.removeEntry(result);
+            parentList.addEntry(index, element);
+        }
+        return result;
+    }
+
+    @Override
     public E remove(int index) {
         E removed = super.remove(index);
         if(parentList != null) parentList.removeEntry(removed);
