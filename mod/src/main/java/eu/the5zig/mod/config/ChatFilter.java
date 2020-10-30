@@ -24,6 +24,7 @@ import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.Utils;
 
 import java.util.Arrays;
@@ -37,12 +38,12 @@ import java.util.regex.Pattern;
  */
 public class ChatFilter {
 
-	private List<ChatFilterMessage> chatMessages = Lists.newArrayList();
+	private GuiArrayList<ChatFilterMessage> chatMessages = new GuiArrayList<>();
 
 	public ChatFilter() {
 	}
 
-	public List<ChatFilterMessage> getChatMessages() {
+	public GuiArrayList<ChatFilterMessage> getChatMessages() {
 		return chatMessages;
 	}
 

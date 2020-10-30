@@ -26,6 +26,7 @@ import com.google.gson.stream.JsonReader;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.config.ModuleData;
 import eu.the5zig.mod.config.items.ConfigItem;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.minecraft.ChatColor;
 import org.apache.commons.io.FileUtils;
 
@@ -37,7 +38,7 @@ public class ModuleMaster {
 	private File file;
 	private File parent;
 
-	private final List<Module> modules = Lists.newArrayList();
+	private final GuiArrayList<Module> modules = new GuiArrayList<>();
 	private List<String> defaultModules = Lists.newArrayList();
 
 	private final List<String> newAvailableItems = Lists.newArrayList();
@@ -586,7 +587,7 @@ public class ModuleMaster {
 		});
 	}
 
-	public List<Module> getModules() {
+	public GuiArrayList<Module> getModules() {
 		return modules;
 	}
 

@@ -68,5 +68,4 @@ public interface IButton {
 	void setTicksDisabled(int ticks);
 
 	void guiClosed();
-
 }

@@ -19,26 +19,25 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.ButtonRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.StaticModulePreviewRow;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.modules.Module;
 import eu.the5zig.mod.util.SliderCallback;
 import eu.the5zig.util.minecraft.ChatColor;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
 public class GuiModuleSettings extends Gui {
 
 	private final Module module;
 
-	private List<ButtonRow> settings = Lists.newArrayList();
+	private GuiArrayList<ButtonRow> settings = new GuiArrayList<>();
 
 	public GuiModuleSettings(Gui lastScreen, Module module) {
 		super(lastScreen);
@@ -184,7 +183,7 @@ public class GuiModuleSettings extends Gui {
 		}), null));
 
 		IGuiList modulePreviewList = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 32, getHeight() - 48, getWidth() / 2 + 10, getWidth() / 2 + 180,
-				Collections.singletonList(new StaticModulePreviewRow(module, getWidth() / 2 + 10, 33, 170, getHeight() - 48 - 34)));
+				new GuiArrayList<>(Collections.singletonList(new StaticModulePreviewRow(module, getWidth() / 2 + 10, 33, 170, getHeight() - 48 - 34))));
 		modulePreviewList.setLeftbound(true);
 		modulePreviewList.setDrawSelection(false);
 		modulePreviewList.setScrollX(getWidth() / 2 + 175);

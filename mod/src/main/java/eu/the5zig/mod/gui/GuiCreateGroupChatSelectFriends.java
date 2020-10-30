@@ -29,6 +29,7 @@ import eu.the5zig.mod.chat.network.packets.PacketCreateGroupChat;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.ITextfield;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.manager.SearchEntry;
 import eu.the5zig.util.Callback;
 import eu.the5zig.util.minecraft.ChatColor;
@@ -48,8 +49,8 @@ public class GuiCreateGroupChatSelectFriends extends Gui {
 
 	private IGuiList<FriendRow> guiListAllFriends;
 	private IGuiList<FriendRow> guiListInvitedFriends;
-	private List<FriendRow> allFriends = Lists.newArrayList();
-	private List<FriendRow> invitedFriends = Lists.newArrayList();
+	private GuiArrayList<FriendRow> allFriends = new GuiArrayList<>();
+	private GuiArrayList<FriendRow> invitedFriends = new GuiArrayList<>();
 
 	public GuiCreateGroupChatSelectFriends(Gui lastScreen, String name) {
 		super(lastScreen);

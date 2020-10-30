@@ -27,6 +27,7 @@ import eu.the5zig.mod.chat.entity.User;
 import eu.the5zig.mod.chat.network.packets.PacketFriendRequestResponse;
 import eu.the5zig.mod.chat.sql.FriendSuggestionEntity;
 import eu.the5zig.mod.gui.GuiFriends;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.db.Database;
 
 import java.util.Collections;
@@ -40,11 +41,10 @@ import java.util.UUID;
  */
 public class FriendManager {
 
-	private List<Friend> friends = Lists.newArrayList();
-	private List<User> friendRequests = Lists.newArrayList();
-	private List<User> blockedUsers = Lists.newArrayList();
-
-	private List<FriendSuggestion> suggestions = Lists.newArrayList();
+	private GuiArrayList<Friend> friends = new GuiArrayList<>();
+	private GuiArrayList<User> friendRequests = new GuiArrayList<>();
+	private GuiArrayList<User> blockedUsers = new GuiArrayList<>();
+	private GuiArrayList<FriendSuggestion> suggestions = new GuiArrayList<>();
 
 	public FriendManager() {
 	}
@@ -71,7 +71,7 @@ public class FriendManager {
 		sortFriends();
 	}
 
-	public List<User> getFriendRequests() {
+	public GuiArrayList<User> getFriendRequests() {
 		return friendRequests;
 	}
 
@@ -80,7 +80,7 @@ public class FriendManager {
 		this.friendRequests.addAll(friendRequests);
 	}
 
-	public List<User> getBlockedUsers() {
+	public GuiArrayList<User> getBlockedUsers() {
 		return blockedUsers;
 	}
 

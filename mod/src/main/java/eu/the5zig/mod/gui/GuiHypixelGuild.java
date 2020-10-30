@@ -28,6 +28,7 @@ import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.BasicRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.server.hypixel.api.*;
 import eu.the5zig.mod.util.JsonUtil;
 import eu.the5zig.mod.util.MojangAPIManager;
@@ -41,7 +42,7 @@ import java.util.*;
 public class GuiHypixelGuild extends Gui {
 
 	private IGuiList guiList;
-	private List<BasicRow> stats = Lists.newArrayList();
+	private GuiArrayList<BasicRow> stats = new GuiArrayList<>();
 	private String text = "";
 
 	private String status;

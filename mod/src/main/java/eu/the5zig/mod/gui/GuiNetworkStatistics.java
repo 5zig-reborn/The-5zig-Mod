@@ -28,6 +28,7 @@ import eu.the5zig.mod.gui.elements.BasicRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.minecraft.ChatColor;
 
 import java.util.List;
@@ -39,7 +40,7 @@ import java.util.List;
 public class GuiNetworkStatistics extends Gui {
 
 	private IGuiList statistics;
-	private List<Row> rows = Lists.newArrayList();
+	private GuiArrayList<Row> rows = new GuiArrayList<>();
 	private int ticks = 20 * 15;
 
 	public GuiNetworkStatistics(Gui lastScreen) {

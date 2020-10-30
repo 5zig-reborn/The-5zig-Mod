@@ -19,17 +19,15 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.entity.Rank;
 import eu.the5zig.mod.gui.elements.*;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.util.Utils;
 import eu.the5zig.util.minecraft.ChatColor;
-
-import java.util.List;
 
 /**
  * Created by 5zig.
@@ -39,7 +37,7 @@ public class GuiProfile extends GuiOptions implements CenteredTextfieldCallback 
 
 	private static final Base64Renderer base64Renderer = new Base64Renderer();
 
-	private List<Row> rows = Lists.newArrayList();
+	private GuiArrayList<Row> rows = new GuiArrayList<>();
 
 	public GuiProfile(Gui lastScreen) {
 		super(lastScreen);

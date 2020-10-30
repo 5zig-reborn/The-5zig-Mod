@@ -19,7 +19,6 @@
 
 package eu.the5zig.mod.modules;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigAPI;
 import eu.the5zig.mod.The5zigMod;
@@ -28,6 +27,7 @@ import eu.the5zig.mod.asm.Transformer;
 import eu.the5zig.mod.config.items.ColorFormattingItem;
 import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.DisplayRenderer;
 import eu.the5zig.mod.render.RenderLocation;
 import eu.the5zig.mod.server.GameMode;
@@ -38,8 +38,6 @@ import eu.the5zig.mod.server.timolia.ServerTimolia;
 import eu.the5zig.mod.util.GLUtil;
 import eu.the5zig.util.minecraft.ChatColor;
 import org.apache.commons.lang3.Validate;
-
-import java.util.List;
 
 public class Module implements Row {
 
@@ -56,7 +54,7 @@ public class Module implements Row {
 	private AnchorPoint anchorPoint;
 	private float locationX;
 	private float locationY;
-	private List<ActiveModuleItem> items = Lists.newArrayList();
+	private GuiArrayList<ActiveModuleItem> items = new GuiArrayList<>();
 	private boolean shouldRender = true;
 	private RenderType renderType;
 	private float scale = 1.0f;
@@ -491,7 +489,7 @@ public class Module implements Row {
 		items.add(new ActiveModuleItem(item));
 	}
 
-	public List<ActiveModuleItem> getItems() {
+	public GuiArrayList<ActiveModuleItem> getItems() {
 		return items;
 	}
 

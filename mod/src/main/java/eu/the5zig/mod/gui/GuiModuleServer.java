@@ -19,13 +19,13 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.BasicRow;
 import eu.the5zig.mod.gui.elements.Clickable;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.modules.Module;
 import eu.the5zig.mod.server.ServerInstance;
 import eu.the5zig.util.Callable;
@@ -38,7 +38,7 @@ public class GuiModuleServer extends Gui {
 	private final Module module;
 
 	private IGuiList<ServerRow> guiList;
-	private List<ServerRow> servers = Lists.newArrayList();
+	private GuiArrayList<ServerRow> servers = new GuiArrayList<>();
 
 	public GuiModuleServer(Gui lastScreen, Module module) {
 		super(lastScreen);

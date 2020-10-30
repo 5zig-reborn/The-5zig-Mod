@@ -20,7 +20,6 @@
 package eu.the5zig.mod.gui;
 
 import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
@@ -29,6 +28,7 @@ import eu.the5zig.mod.config.items.StringListItem;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.RowExtended;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.plugin.LoadedPlugin;
 import eu.the5zig.mod.plugin.PluginManagerImpl;
 import eu.the5zig.mod.plugin.remote.PluginSocket;
@@ -42,7 +42,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 public class GuiPlugins extends Gui {
 
@@ -50,7 +49,7 @@ public class GuiPlugins extends Gui {
 	private String infoText = I18n.translate("plugin_manager.help");
 
 	private IGuiList<PluginRow> guiList;
-	private List<PluginRow> pluginRows = Lists.newArrayList();
+	private GuiArrayList<PluginRow> pluginRows = new GuiArrayList<>();
 	private Base64Renderer base64Renderer = new Base64Renderer(
 			MinecraftFactory.getVars().createResourceLocation("the5zigmod", "textures/plugindummy.png"));
 

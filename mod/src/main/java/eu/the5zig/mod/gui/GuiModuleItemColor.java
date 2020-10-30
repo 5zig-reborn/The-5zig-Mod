@@ -25,6 +25,7 @@ import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.ButtonRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.modules.ActiveModuleItem;
 import eu.the5zig.mod.modules.ModuleItemFormattingImpl;
 import eu.the5zig.mod.util.ColorSelectorCallback;
@@ -39,7 +40,7 @@ public class GuiModuleItemColor extends Gui {
 
 	private final ActiveModuleItem item;
 
-	private List<ButtonRow> buttons = Lists.newArrayList();
+	private GuiArrayList<ButtonRow> buttons = new GuiArrayList<>();
 	private List<IButton> colorButtons = Lists.newArrayList();
 
 	public GuiModuleItemColor(Gui lastScreen, ActiveModuleItem item) {

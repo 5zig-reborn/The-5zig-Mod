@@ -25,6 +25,7 @@ import eu.the5zig.mod.gui.elements.Clickable;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.StaticModulePreviewRow;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.modules.Module;
 import eu.the5zig.mod.modules.ModuleLocation;
 import eu.the5zig.mod.util.GLUtil;
@@ -62,7 +63,7 @@ public class GuiModules extends Gui implements Clickable<Module> {
 		addGuiList(guiList);
 
 		IGuiList modulePreviewList = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 50, getHeight() - 50 - 48, getWidth() / 2 + 10, getWidth() / 2 + 180,
-				Collections.singletonList(previewRow = new StaticModulePreviewRow(guiList.getSelectedRow(), getWidth() / 2 + 10, 51, 170, getHeight() - 150)));
+				new GuiArrayList<>(Collections.singletonList(previewRow = new StaticModulePreviewRow(guiList.getSelectedRow(), getWidth() / 2 + 10, 51, 170, getHeight() - 150))));
 		modulePreviewList.setLeftbound(true);
 		modulePreviewList.setDrawSelection(false);
 		modulePreviewList.setScrollX(getWidth() / 2 + 175);

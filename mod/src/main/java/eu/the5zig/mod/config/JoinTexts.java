@@ -19,15 +19,13 @@
 
 package eu.the5zig.mod.config;
 
-import com.google.common.collect.Lists;
-
-import java.util.List;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 
 public class JoinTexts {
 
-	private List<JoinText> texts = Lists.newArrayList();
+	private GuiArrayList<JoinText> texts = new GuiArrayList<>();
 
-	public List<JoinText> getTexts() {
+	public GuiArrayList<JoinText> getTexts() {
 		return texts;
 	}
 }

@@ -24,12 +24,12 @@ import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.util.MojangAPIManager;
 import eu.the5zig.util.Utils;
 import eu.the5zig.util.minecraft.ChatColor;
 
-import java.util.List;
 import java.util.UUID;
 
 public class GuiNameHistoryResult extends Gui {
@@ -39,9 +39,9 @@ public class GuiNameHistoryResult extends Gui {
 	private final String username;
 	private final String uuidString;
 	private final UUID uuid;
-	private final List<MojangAPIManager.NameHistory> rows;
+	private final GuiArrayList<MojangAPIManager.NameHistory> rows;
 
-	public GuiNameHistoryResult(Gui lastScreen, String username, String uuidString, UUID uuid, List<MojangAPIManager.NameHistory> rows) {
+	public GuiNameHistoryResult(Gui lastScreen, String username, String uuidString, UUID uuid, GuiArrayList<MojangAPIManager.NameHistory> rows) {
 		super(lastScreen);
 		this.username = username;
 		this.uuidString = uuidString;

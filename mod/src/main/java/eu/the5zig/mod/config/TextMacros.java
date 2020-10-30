@@ -19,15 +19,13 @@
 
 package eu.the5zig.mod.config;
 
-import com.google.common.collect.Lists;
-
-import java.util.List;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 
 public class TextMacros {
 
-	private List<TextMacro> macros = Lists.newArrayList();
+	private GuiArrayList<TextMacro> macros = new GuiArrayList<>();
 
-	public List<TextMacro> getMacros() {
+	public GuiArrayList<TextMacro> getMacros() {
 		return macros;
 	}
 }

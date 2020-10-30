@@ -24,11 +24,11 @@ import eu.the5zig.mod.chat.entity.Friend;
 import eu.the5zig.mod.chat.entity.Group;
 import eu.the5zig.mod.chat.entity.Rank;
 import eu.the5zig.mod.chat.entity.User;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import io.netty.buffer.ByteBuf;
 import org.apache.commons.codec.Charsets;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -159,7 +159,7 @@ public class PacketBuffer {
 		String name = readString(byteBuf);
 		User owner = null;
 		int size = readVarIntFromBuffer(byteBuf);
-		List<GroupMember> members = new ArrayList<GroupMember>(size);
+		GuiArrayList<GroupMember> members = new GuiArrayList<>(size);
 		for (int i = 0; i < size; i++) {
 			User member = readUser(byteBuf);
 			int type = readVarIntFromBuffer(byteBuf);

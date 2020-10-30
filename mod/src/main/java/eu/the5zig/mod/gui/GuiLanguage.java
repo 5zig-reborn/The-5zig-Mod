@@ -19,20 +19,19 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.minecraft.ChatColor;
 
-import java.util.List;
 import java.util.Locale;
 
 public class GuiLanguage extends GuiOptions {
 
-	private List<LanguageRow> languages = Lists.newArrayList();
+	private GuiArrayList<LanguageRow> languages = new GuiArrayList<>();
 	private IGuiList languageSlot;
 
 	public GuiLanguage(Gui lastScreen) {

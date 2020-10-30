@@ -19,12 +19,12 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import eu.the5zig.mod.The5zigMod;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.server.mcpvp.MCPVPServer;
 
 import java.io.BufferedReader;
@@ -42,7 +42,7 @@ import java.util.zip.InflaterInputStream;
 
 public abstract class GuiMCPVPServers extends Gui implements Runnable {
 
-	protected List<MCPVPServer> servers = Lists.newArrayList();
+	protected GuiArrayList<MCPVPServer> servers = new GuiArrayList<>();
 	protected boolean isLoadingServers;
 
 	public GuiMCPVPServers(Gui lastScreen) {

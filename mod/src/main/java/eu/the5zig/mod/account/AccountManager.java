@@ -30,10 +30,10 @@ import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.event.AccountSwitchEvent;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 
 import java.io.File;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -55,7 +55,7 @@ public class AccountManager {
 
     private boolean isNewManager;
 
-    private ArrayList<Account> accounts;
+    private GuiArrayList<Account> accounts;
 
     private UserAuthentication userAuth;
 
@@ -85,7 +85,7 @@ public class AccountManager {
         return isNewManager;
     }
 
-    public ArrayList<Account> getAccounts() {
+    public GuiArrayList<Account> getAccounts() {
         return accounts;
     }
 
@@ -208,7 +208,7 @@ public class AccountManager {
     }
 
     private void create() throws Exception {
-        accounts = new ArrayList<>();
+        accounts = new GuiArrayList<>();
         new File(The5zigMod.getModDirectory(), "accounts.enc").createNewFile();
         save();
     }

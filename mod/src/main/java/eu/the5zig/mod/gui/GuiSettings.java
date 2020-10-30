@@ -29,6 +29,7 @@ import eu.the5zig.mod.config.items.*;
 import eu.the5zig.mod.gui.elements.ButtonRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.util.ColorSelectorCallback;
 import eu.the5zig.mod.util.GLUtil;
@@ -45,7 +46,7 @@ public class GuiSettings extends Gui {
 	private final String category;
 
 	private IGuiList buttonList;
-	private List<ButtonRow> buttons = Lists.newArrayList();
+	private GuiArrayList<ButtonRow> buttons = new GuiArrayList<>();
 	private HashMap<IButton, ConfigItem> configItems = Maps.newHashMap();
 
 	private long lastMouseMoved;

@@ -19,13 +19,13 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.config.items.ListItem;
 import eu.the5zig.mod.gui.elements.BasicRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.minecraft.ChatColor;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class GuiSettingsList extends Gui {
 
 	private final ListItem<?> configItem;
 	private IGuiList<SettingsRow> guiList;
-	private List<SettingsRow> rows = Lists.newArrayList();
+	private GuiArrayList<SettingsRow> rows = new GuiArrayList<>();
 
 	public GuiSettingsList(Gui lastScreen, ListItem<?> configItem) {
 		super(lastScreen);

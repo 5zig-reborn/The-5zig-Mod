@@ -19,7 +19,6 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.MinecraftFactory;
@@ -31,6 +30,7 @@ import eu.the5zig.mod.chat.network.packets.PacketDeleteFriend;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.util.Callback;
 import eu.the5zig.util.minecraft.ChatColor;
@@ -50,9 +50,10 @@ public class GuiFriendProfile extends GuiOptions {
 	@Override
 	public void initGui() {
 		super.initGui();
-
+		GuiArrayList<StaticProfileRow> list = new GuiArrayList<>();
+		list.add(new StaticProfileRow());
 		IGuiList statusMessage = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 40, 40 + 100, getWidth() / 2 - 155 + 16 + 88, getWidth() / 2 + 155,
-				ImmutableList.of(new StaticProfileRow()));
+				list);
 		statusMessage.setBottomPadding(4);
 		statusMessage.setRowWidth(400);
 		statusMessage.setLeftbound(true);

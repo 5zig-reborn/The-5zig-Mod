@@ -25,11 +25,10 @@ import eu.the5zig.mod.chat.entity.User;
 import eu.the5zig.mod.chat.network.util.PacketUtil;
 import eu.the5zig.mod.chat.party.Party;
 import eu.the5zig.mod.gui.GuiParty;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import io.netty.buffer.ByteBuf;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class PacketPartyInviteResponse implements Packet {
@@ -53,7 +52,7 @@ public class PacketPartyInviteResponse implements Packet {
 		String server = PacketBuffer.readString(buffer);
 		User owner = null;
 		int size = PacketBuffer.readVarIntFromBuffer(buffer);
-		List<GroupMember> members = new ArrayList<GroupMember>(size);
+		GuiArrayList<GroupMember> members = new GuiArrayList<>(size);
 		for (int i = 0; i < size; i++) {
 			User member = PacketBuffer.readUser(buffer);
 			int type = PacketBuffer.readVarIntFromBuffer(buffer);

@@ -136,4 +136,9 @@ public interface IGuiList<E extends Row> {
 
 	E getHoverItem(int mouseX, int mouseY);
 
+	void addEntry(int slot, E entry);
+
+	void removeEntry(E entry);
+
+	void doClearEntries();
 }

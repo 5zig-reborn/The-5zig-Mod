@@ -20,7 +20,6 @@
 package eu.the5zig.mod.gui;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.MinecraftFactory;
 import eu.the5zig.mod.The5zigMod;
@@ -29,10 +28,10 @@ import eu.the5zig.mod.chat.entity.User;
 import eu.the5zig.mod.chat.network.packets.PacketFriendRequest;
 import eu.the5zig.mod.chat.network.packets.PacketUserSearch;
 import eu.the5zig.mod.gui.elements.*;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.Base64Renderer;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class GuiAddFriend extends Gui implements Clickable<GuiAddFriend.ProfileRow> {
@@ -42,7 +41,7 @@ public class GuiAddFriend extends Gui implements Clickable<GuiAddFriend.ProfileR
 	private final ImmutableList<User> suggestions = ImmutableList.copyOf(The5zigMod.getFriendManager().getShownSuggestions());
 
 	private IGuiList<ProfileRow> guiList;
-	public List<ProfileRow> rows = Lists.newArrayList();
+	public GuiArrayList<ProfileRow> rows = new GuiArrayList<>();
 	private String keyword;
 	private int lastSelected;
 	private long lastTyped;

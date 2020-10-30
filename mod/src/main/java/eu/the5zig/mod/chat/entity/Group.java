@@ -19,11 +19,10 @@
 
 package eu.the5zig.mod.chat.entity;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.chat.GroupMember;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -36,9 +35,9 @@ public class Group {
 	private final int id;
 	private User owner;
 	private String name;
-	private List<GroupMember> members = Lists.newArrayList();
+	private GuiArrayList<GroupMember> members;
 
-	public Group(int id, String name, User owner, List<GroupMember> members) {
+	public Group(int id, String name, User owner, GuiArrayList<GroupMember> members) {
 		this.id = id;
 		this.name = name;
 		this.owner = owner;
@@ -70,7 +69,7 @@ public class Group {
 		this.owner = owner;
 	}
 
-	public List<GroupMember> getMembers() {
+	public GuiArrayList<GroupMember> getMembers() {
 		return members;
 	}
 

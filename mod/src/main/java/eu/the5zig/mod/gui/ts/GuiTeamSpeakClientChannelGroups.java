@@ -19,20 +19,18 @@
 
 package eu.the5zig.mod.gui.ts;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.gui.elements.Clickable;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.gui.ts.rows.GroupRow;
 import eu.the5zig.teamspeak.TeamSpeak;
 import eu.the5zig.teamspeak.api.Channel;
 import eu.the5zig.teamspeak.api.Client;
 import eu.the5zig.teamspeak.api.Group;
 import eu.the5zig.teamspeak.api.ServerTab;
-
-import java.util.List;
 
 public class GuiTeamSpeakClientChannelGroups extends Gui implements Clickable<GroupRow> {
 
@@ -49,7 +47,7 @@ public class GuiTeamSpeakClientChannelGroups extends Gui implements Clickable<Gr
 
 	@Override
 	public void initGui() {
-		List<GroupRow> rows = Lists.newArrayList();
+		GuiArrayList<GroupRow> rows = new GuiArrayList<>();
 		ServerTab selectedTab = TeamSpeak.getClient().getSelectedTab();
 		if (selectedTab == null) {
 			The5zigMod.getVars().displayScreen(lastScreen);

@@ -20,7 +20,6 @@
 package eu.the5zig.mod.chat.party;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.entity.Conversation;
@@ -32,6 +31,7 @@ import eu.the5zig.mod.event.EventHandler;
 import eu.the5zig.mod.event.ServerJoinEvent;
 import eu.the5zig.mod.event.ServerQuitEvent;
 import eu.the5zig.mod.gui.GuiParty;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.Utils;
 import eu.the5zig.util.minecraft.ChatColor;
 
@@ -42,7 +42,7 @@ import java.util.UUID;
 public class PartyManager {
 
 	private Party party;
-	private final List<PartyOwner> partyInvitations = Lists.newArrayList();
+	private final GuiArrayList<PartyOwner> partyInvitations = new GuiArrayList<>();
 
 	private final List<PartyServerHandler> serverHandlers = ImmutableList.of(new BadLionHandler(), new BergwerglabsHandler(), new CytooxienHandler(), new DustMCHandler(),
 			new GommeHDHandler(), new HiveMCHandler(), new HypixelHandler(), new MineplexHandler(), new PlayMinityHandler(), new RewinsideHandler(), new TimoliaHandler());
@@ -74,7 +74,7 @@ public class PartyManager {
 		}
 	}
 
-	public List<PartyOwner> getPartyInvitations() {
+	public GuiArrayList<PartyOwner> getPartyInvitations() {
 		return partyInvitations;
 	}
 

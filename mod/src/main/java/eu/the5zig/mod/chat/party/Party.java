@@ -24,19 +24,18 @@ import eu.the5zig.mod.chat.entity.Conversation;
 import eu.the5zig.mod.chat.entity.ConversationGroupChat;
 import eu.the5zig.mod.chat.entity.Message;
 import eu.the5zig.mod.chat.entity.User;
-
-import java.util.List;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 
 public class Party {
 
 	private User owner;
 	private long created;
 	private String server;
-	private List<GroupMember> members;
+	private GuiArrayList<GroupMember> members;
 
 	private final Conversation partyConversation;
 
-	public Party(User owner, long created, String server, List<GroupMember> members) {
+	public Party(User owner, long created, String server, GuiArrayList<GroupMember> members) {
 		this.owner = owner;
 		this.created = created;
 		this.server = server;
@@ -68,11 +67,11 @@ public class Party {
 		this.server = server;
 	}
 
-	public List<GroupMember> getMembers() {
+	public GuiArrayList<GroupMember> getMembers() {
 		return members;
 	}
 
-	public void setMembers(List<GroupMember> members) {
+	public void setMembers(GuiArrayList<GroupMember> members) {
 		this.members = members;
 	}
 

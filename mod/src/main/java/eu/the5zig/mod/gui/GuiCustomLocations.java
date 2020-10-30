@@ -30,6 +30,7 @@ import eu.the5zig.mod.gui.elements.ButtonRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.util.ColorSelectorCallback;
 import eu.the5zig.mod.util.GLUtil;
 import eu.the5zig.util.minecraft.ChatColor;
@@ -68,7 +69,7 @@ public class GuiCustomLocations extends Gui {
 		visibleTitleTicks = 0;
 
 		state = OpeningState.CLOSED;
-		List<Row> rows = Lists.newArrayList();
+		GuiArrayList<Row> rows = new GuiArrayList<>();
 		guiList = The5zigMod.getVars().createGuiList(null, getWidth(), getHeight(), 0, getHeight(), getWidth(), getWidth(), rows);
 		guiList.setScrollX(getWidth());
 

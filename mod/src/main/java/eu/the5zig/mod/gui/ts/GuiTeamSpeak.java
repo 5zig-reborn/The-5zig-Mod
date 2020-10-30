@@ -29,6 +29,7 @@ import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.gui.GuiSettings;
 import eu.the5zig.mod.gui.GuiTeamSpeakAuth;
 import eu.the5zig.mod.gui.elements.*;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.gui.ts.entries.*;
 import eu.the5zig.mod.gui.ts.menu.*;
 import eu.the5zig.mod.gui.ts.rows.TeamSpeakBannerRow;
@@ -306,7 +307,7 @@ public class GuiTeamSpeak extends Gui {
 		};
 
 		descriptionList = The5zigMod.getVars().createGuiList(null, descriptionBox.getWidth(), getHeight(), descriptionBox.getY(), descriptionBox.getY() + descriptionBox.getHeight(),
-				descriptionBox.getX(), descriptionBox.getX() + descriptionBox.getWidth(), Lists.<Row>newArrayList());
+				descriptionBox.getX(), descriptionBox.getX() + descriptionBox.getWidth(), new GuiArrayList<>());
 		descriptionList.setDrawSelection(false);
 		descriptionList.setScrollX(descriptionBox.getX() + descriptionBox.getWidth() - 5);
 		descriptionList.setLeftbound(true);

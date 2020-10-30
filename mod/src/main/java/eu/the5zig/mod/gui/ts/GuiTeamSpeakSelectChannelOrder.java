@@ -19,13 +19,13 @@
 
 package eu.the5zig.mod.gui.ts;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.Gui;
 import eu.the5zig.mod.gui.elements.BasicRow;
 import eu.the5zig.mod.gui.elements.Clickable;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.teamspeak.TeamSpeak;
 import eu.the5zig.teamspeak.api.Channel;
 import eu.the5zig.teamspeak.api.ServerTab;
@@ -54,7 +54,7 @@ public abstract class GuiTeamSpeakSelectChannelOrder extends Gui {
 					actionPerformed0(getButtonById(200));
 				}
 			}
-		}, getWidth(), getHeight(), 48, getHeight() - 48, 0, getWidth(), Lists.<ChannelRow>newArrayList());
+		}, getWidth(), getHeight(), 48, getHeight() - 48, 0, getWidth(), new GuiArrayList<>());
 		guiList.setRowWidth(200);
 		addGuiList(guiList);
 	}

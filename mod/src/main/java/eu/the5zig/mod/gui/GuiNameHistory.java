@@ -19,7 +19,6 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.entity.Friend;
@@ -27,6 +26,7 @@ import eu.the5zig.mod.gui.elements.Clickable;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.util.MojangAPIManager;
 import eu.the5zig.mod.util.NetworkPlayerInfo;
 import eu.the5zig.util.ExceptionCallback;
@@ -36,7 +36,7 @@ import java.util.*;
 
 public class GuiNameHistory extends Gui implements Clickable<GuiNameHistory.NameRow> {
 
-	private List<NameRow> rows = Lists.newArrayList();
+	private GuiArrayList<NameRow> rows = new GuiArrayList<>();
 
 	private String username;
 	private boolean notFound;
@@ -92,7 +92,7 @@ public class GuiNameHistory extends Gui implements Clickable<GuiNameHistory.Name
 					The5zigMod.getMojangAPIManager().resolveNameHistory(callback, new ExceptionCallback<List<MojangAPIManager.NameHistory>>() {
 						@Override
 						public void call(List<MojangAPIManager.NameHistory> callback, Throwable throwable) {
-							final List<MojangAPIManager.NameHistory> rows = Lists.newArrayList();
+							final GuiArrayList<MojangAPIManager.NameHistory> rows = new GuiArrayList<>();
 							if (callback != null) {
 								rows.addAll(callback);
 							} else {

@@ -29,6 +29,7 @@ import eu.the5zig.mod.gui.ingame.ItemStack;
 import eu.the5zig.mod.gui.ingame.PotionEffect;
 import eu.the5zig.mod.gui.ingame.Scoreboard;
 import eu.the5zig.mod.gui.ingame.resource.IResourceManager;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.util.component.MessageComponent;
 import eu.the5zig.util.Callback;
 import io.netty.buffer.ByteBuf;
@@ -311,7 +312,7 @@ public interface IVariables {
 	 * @param <E>       a class that extends {@link Row} and which is responsible of drawing all rows of the specified list.
 	 * @return an instance of a GUI-list.
 	 */
-	<E extends Row> IGuiList<E> createGuiList(Clickable<E> clickable, int width, int height, int top, int bottom, int left, int right, List<E> rows);
+	<E extends Row> IGuiList<E> createGuiList(Clickable<E> clickable, int width, int height, int top, int bottom, int left, int right, GuiArrayList<E> rows);
 
 	/**
 	 * Creates an instance of a GUI-list. This instance can be used to draw all entries of a list onto the screen by adding a scrolling functionality and allows the exact specification of

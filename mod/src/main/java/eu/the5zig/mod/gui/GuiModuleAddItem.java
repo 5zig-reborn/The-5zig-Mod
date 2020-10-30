@@ -24,6 +24,7 @@ import com.google.common.collect.Maps;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.*;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.modules.Module;
 import eu.the5zig.mod.modules.RegisteredItem;
 import eu.the5zig.util.Callable;
@@ -37,9 +38,9 @@ public class GuiModuleAddItem extends Gui implements Clickable<GuiModuleAddItem.
 	private final HashMap<String, List<String>> CATEGORIES = Maps.newHashMap();
 
 	private final Module module;
-	private final List<CategoryRow> categoryList = Lists.newArrayList();
+	private final GuiArrayList<CategoryRow> categoryList = new GuiArrayList<>();
 	private IGuiList<ItemRow> guiListItems;
-	private final List<ItemRow> itemList = Lists.newArrayList();
+	private final GuiArrayList<ItemRow> itemList = new GuiArrayList<>();
 
 	private static int categoryIndex, itemIndex;
 

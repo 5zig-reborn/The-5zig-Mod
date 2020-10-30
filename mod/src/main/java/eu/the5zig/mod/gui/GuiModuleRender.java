@@ -19,17 +19,16 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.BasicRow;
 import eu.the5zig.mod.gui.elements.Clickable;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.modules.Module;
 import eu.the5zig.util.Callable;
 
-import java.util.List;
 import java.util.Locale;
 
 public class GuiModuleRender extends Gui {
@@ -37,7 +36,7 @@ public class GuiModuleRender extends Gui {
 	private final Module module;
 
 	private IGuiList<RenderRow> guiList;
-	private List<RenderRow> renderTypes = Lists.newArrayList();
+	private GuiArrayList<RenderRow> renderTypes = new GuiArrayList<>();
 
 	public GuiModuleRender(Gui lastScreen, Module module) {
 		super(lastScreen);

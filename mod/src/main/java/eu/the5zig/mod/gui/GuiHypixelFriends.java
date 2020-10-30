@@ -29,6 +29,7 @@ import eu.the5zig.mod.chat.entity.User;
 import eu.the5zig.mod.chat.network.packets.PacketFriendRequest;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.server.hypixel.api.*;
 import eu.the5zig.util.Utils;
 
@@ -38,7 +39,7 @@ import java.util.List;
 public class GuiHypixelFriends extends Gui {
 
 	private IGuiList guiList;
-	private List<User> friends = Lists.newArrayList();
+	private GuiArrayList<User> friends = new GuiArrayList<>();
 
 	private String status;
 	private List<String> statusSplit;

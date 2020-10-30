@@ -19,7 +19,6 @@
 
 package eu.the5zig.mod.gui;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -29,6 +28,7 @@ import eu.the5zig.mod.gui.elements.BasicRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.Row;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.util.LinkedProperties;
 import eu.the5zig.util.Utils;
 
@@ -57,7 +57,7 @@ public class GuiCredits extends Gui {
 		}
 	}
 
-	private List<Row> rows = Lists.newArrayList();
+	private GuiArrayList<Row> rows = new GuiArrayList<>();
 
 	public GuiCredits(Gui lastScreen) {
 		super(lastScreen);

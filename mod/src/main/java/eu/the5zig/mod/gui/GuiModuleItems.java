@@ -28,6 +28,7 @@ import eu.the5zig.mod.gui.elements.ButtonRow;
 import eu.the5zig.mod.gui.elements.Clickable;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.modules.ActiveModuleItem;
 import eu.the5zig.mod.modules.Module;
 import eu.the5zig.mod.modules.ModuleItemPropertiesImpl;
@@ -50,7 +51,7 @@ public class GuiModuleItems extends Gui implements Clickable<ActiveModuleItem> {
 
 	private IGuiList<ActiveModuleItem> guiListItems;
 	private int itemIndex;
-	private List<ButtonRow> buttons = Lists.newArrayList();
+	private GuiArrayList<ButtonRow> buttons = new GuiArrayList<>();
 	private HashMap<IButton, ConfigItem> buttonMap = Maps.newHashMap();
 
 	private long lastMouseMoved;

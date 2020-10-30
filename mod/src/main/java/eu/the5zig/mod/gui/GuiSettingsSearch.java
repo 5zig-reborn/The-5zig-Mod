@@ -31,6 +31,7 @@ import eu.the5zig.mod.config.items.StringItem;
 import eu.the5zig.mod.gui.elements.ButtonRow;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.util.Keyboard;
 import eu.the5zig.util.minecraft.ChatColor;
 
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class GuiSettingsSearch extends Gui {
 
-	private final List<ButtonRow> searchRows = Lists.newArrayList();
+	private final GuiArrayList<ButtonRow> searchRows = new GuiArrayList<>();
 	private IGuiList<ButtonRow> resultList;
 	private String keyword = "";
 	private Map<IButton, ConfigItem> configItemMap = Maps.newHashMap();

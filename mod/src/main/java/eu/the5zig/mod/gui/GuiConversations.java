@@ -20,7 +20,6 @@
 package eu.the5zig.mod.gui;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.chat.GroupMember;
@@ -29,6 +28,7 @@ import eu.the5zig.mod.chat.gui.AudioChatLine;
 import eu.the5zig.mod.chat.gui.ChatLine;
 import eu.the5zig.mod.chat.gui.ViewMoreRow;
 import eu.the5zig.mod.gui.elements.*;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.util.AudioCallback;
 import eu.the5zig.mod.util.FileSelectorCallback;
@@ -47,7 +47,7 @@ public class GuiConversations extends Gui implements Clickable<Conversation> {
 	private static int lastSelected = 0;
 	private static float currentScroll = -1;
 	private static final Base64Renderer base64Renderer = new Base64Renderer();
-	public final List<Conversation> conversations = Lists.newArrayList();
+	public final GuiArrayList<Conversation> conversations = new GuiArrayList<>();
 	private String searchText;
 	/**
 	 * List with all chatLines

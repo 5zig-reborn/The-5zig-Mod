@@ -23,7 +23,6 @@ import com.google.common.base.Strings;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
@@ -33,6 +32,7 @@ import eu.the5zig.mod.config.items.EnumItem;
 import eu.the5zig.mod.gui.elements.IButton;
 import eu.the5zig.mod.gui.elements.IGuiList;
 import eu.the5zig.mod.gui.elements.IPlaceholderTextfield;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.util.GLUtil;
 import eu.the5zig.mod.util.IServerData;
@@ -51,7 +51,7 @@ public class GuiFriends extends Gui {
 	private static final Cache<String, ServerIcon> iconCache = CacheBuilder.newBuilder().maximumSize(100).expireAfterWrite(30, TimeUnit.MINUTES).build();
 	private static final Base64Renderer base64Renderer = new Base64Renderer();
 
-	private final List<Friend> friendList = Lists.newArrayList();
+	private final GuiArrayList<Friend> friendList = new GuiArrayList<>();
 	private String searchText;
 
 	private final IServerPinger serverPinger = The5zigMod.getVars().getServerPinger();

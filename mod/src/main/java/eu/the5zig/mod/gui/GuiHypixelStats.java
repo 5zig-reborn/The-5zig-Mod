@@ -20,13 +20,13 @@
 package eu.the5zig.mod.gui;
 
 import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.gui.elements.*;
+import eu.the5zig.mod.gui.list.GuiArrayList;
 import eu.the5zig.mod.server.hypixel.HypixelGameType;
 import eu.the5zig.mod.server.hypixel.api.*;
 import eu.the5zig.mod.util.Keyboard;
@@ -42,7 +42,7 @@ public class GuiHypixelStats extends Gui {
 	private IGuiList<BasicRow> guiListGameTypes;
 
 	private IGuiList guiListStat;
-	private List<BasicRow> stats = Lists.newArrayList();
+	private GuiArrayList<BasicRow> stats = new GuiArrayList<>();
 	private int selected;
 	private HypixelAPIResponse hypixelStats;
 
@@ -86,7 +86,7 @@ public class GuiHypixelStats extends Gui {
 		addButton(The5zigMod.getVars().createButton(100, getWidth() / 2 + 80, getHeight() / 6 - 6, 70, 20, I18n.translate("server.hypixel.stats.search")));
 		getTextfieldById(1).callSetText(player);
 
-		List<BasicRow> rows = Lists.newArrayList();
+		GuiArrayList<BasicRow> rows = new GuiArrayList<>();
 		for (HypixelGameType gameType : HypixelGameType.values()) {
 			rows.add(new BasicRow(gameType.getName(), 100) {
 				@Override
