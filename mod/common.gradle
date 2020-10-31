@@ -76,7 +76,7 @@ dependencies {
 }
 
 task buildInfo {
-    def cmd = "git rev-list --count master"
+    def cmd = "git rev-list --count origin/master"
     def proc = cmd.execute()
     project.ext.set("buildNumber", proc.text.trim())
 }

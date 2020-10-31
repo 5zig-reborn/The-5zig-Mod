@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-GIT_REV=$(git rev-list --count master)
+GIT_REV=$(git rev-list --count origin/master)
 git clone --depth 1 https://github.com/5zig-reborn/deployments
 cd deployments
-git checkout -b $TRAVIS_BRANCH
+git checkout $TRAVIS_BRANCH
 
 git config --local user.name "Travis CI"
 git config --local user.email "travis@5zigreborn.eu"
