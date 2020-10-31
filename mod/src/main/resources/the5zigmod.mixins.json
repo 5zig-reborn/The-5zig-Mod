@@ -15,6 +15,9 @@
     "MixinEntityPlayerSP",
     "MixinGuiChat",
     "MixinGuiChatNew",
-    "MixinNetHandlerPlayClient"
+    "MixinNetHandlerPlayClient",
+    "MixinGuiConnecting",
+    "MixinGuiDisconnected",
+    "MixinGuiGameOver"
   ]
 }
