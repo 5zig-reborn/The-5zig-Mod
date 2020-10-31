@@ -18,6 +18,7 @@
     "MixinNetHandlerPlayClient",
     "MixinGuiConnecting",
     "MixinGuiDisconnected",
-    "MixinGuiGameOver"
+    "MixinGuiGameOver",
+    "MixinGuiMainMenu"
   ]
 }

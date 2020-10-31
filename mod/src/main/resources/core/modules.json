@@ -2,7 +2,7 @@
   "modules": [
     {
       "id": "stats",
-      "name": "The 5zig Mod v%version%",
+      "name": "The 5zig Mod b%version%",
       "translation": "",
       "showLabel": true,
       "location": "TOP_LEFT",
