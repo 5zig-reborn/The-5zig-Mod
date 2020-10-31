@@ -34,10 +34,10 @@ import eu.the5zig.mod.plugin.PluginManagerImpl;
 import eu.the5zig.mod.plugin.remote.PluginSocket;
 import eu.the5zig.mod.render.Base64Renderer;
 import eu.the5zig.mod.render.PNGUtils;
+import eu.the5zig.util.BrowseUrl;
 import eu.the5zig.util.minecraft.ChatColor;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -139,7 +139,7 @@ public class GuiPlugins extends Gui {
 			Collections.sort(pluginRows);
 		} else if (button.getId() == 3) {
 			try {
-				Desktop.getDesktop().open(pluginManager.getModuleDirectory());
+				BrowseUrl.get().openURL(pluginManager.getModuleDirectory().toURI().toURL());
 			} catch (IOException e) {
 				The5zigMod.logger.error("Failed to open plugin directory!", e);
 			}
