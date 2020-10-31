@@ -140,5 +140,7 @@ public interface IGuiList<E extends Row> {
 
 	void removeEntry(E entry);
 
+	void setEntry(int slot, E entry);
+
 	void doClearEntries();
 }
