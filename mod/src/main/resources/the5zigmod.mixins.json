@@ -9,6 +9,12 @@
     "MixinAbstractClientPlayer",
     "MixinMinecraft",
     "MixinRenderPlayer",
-    "MixinRenderLivingEntity"
+    "MixinRenderLivingEntity",
+    "MixinGuiScreen",
+    "MixinGuiIngame",
+    "MixinEntityPlayerSP",
+    "MixinGuiChat",
+    "MixinGuiChatNew",
+    "MixinNetHandlerPlayClient"
   ]
 }

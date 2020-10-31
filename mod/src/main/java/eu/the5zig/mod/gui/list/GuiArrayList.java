@@ -78,6 +78,13 @@ public class GuiArrayList<E extends Row> extends ArrayList<E> {
     }
 
     @Override
+    public boolean remove(Object o) {
+        boolean result = super.remove(o);
+        if(parentList != null) parentList.removeEntry((E) o);
+        return result;
+    }
+
+    @Override
     public void clear() {
         super.clear();
         if(parentList != null) parentList.doClearEntries();
