@@ -59,6 +59,11 @@ public class Frame extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		if(Utils.versionCompare(Version.MCVERSION, "1.16.0") >= 0) {
+			JOptionPane.showMessageDialog(null, "You can't run this directly. Put it in the Fabric mods folder instead.",
+					"Fabric Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		try {
 			new Frame();
 		} catch (Throwable throwable) {
