@@ -19,6 +19,7 @@
     "MixinGuiConnecting",
     "MixinGuiDisconnected",
     "MixinGuiGameOver",
-    "MixinGuiMainMenu"
+    "MixinGuiMainMenu",
+    "MixinGuiPlayerTabOverlay"
   ]
 }
