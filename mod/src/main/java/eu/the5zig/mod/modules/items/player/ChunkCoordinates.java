@@ -19,10 +19,11 @@
 
 package eu.the5zig.mod.modules.items.player;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 
+import java.util.List;
 import java.util.Map;
 
 public class ChunkCoordinates extends Coordinates {
@@ -34,7 +35,7 @@ public class ChunkCoordinates extends Coordinates {
 	}
 
 	@Override
-	protected Map<String, String> getCoordinates(boolean dummy) {
+	protected List<Map.Entry<String, String>> getCoordinates(boolean dummy) {
 		CoordStyle coordStyle = (CoordStyle) getProperties().getSetting("coordStyle").get();
 		ChunkStyle chunkStyle = (ChunkStyle) getProperties().getSetting("chunkStyle").get();
 		int xPos = dummy ? 100 : The5zigMod.getVars().getPlayerChunkX();
@@ -48,22 +49,22 @@ public class ChunkCoordinates extends Coordinates {
 			String yPre = getPrefix(I18n.translate("ingame.chunk") + " Y");
 			String zPre = getPrefix(I18n.translate("ingame.chunk") + " Z");
 			if (chunkStyle == ChunkStyle.CHUNK) {
-				return ImmutableMap.of(xPre, Integer.toString(xPos, 10), yPre, Integer.toString(yPos, 10), zPre, Integer.toString(zPos, 10));
+				return ImmutableList.of(pair(xPre, Integer.toString(xPos, 10)), pair(yPre, Integer.toString(yPos, 10)), pair(zPre, Integer.toString(zPos, 10)));
 			} else if (chunkStyle == ChunkStyle.RELATIVE) {
-				return ImmutableMap.of(xPre, Integer.toString(xPosRel, 10), yPre, Integer.toString(yPosRel, 10),
-						zPre, Integer.toString(zPosRel, 10));
+				return ImmutableList.of(pair(xPre, Integer.toString(xPosRel, 10)), pair(yPre, Integer.toString(yPosRel, 10)),
+						pair(zPre, Integer.toString(zPosRel, 10)));
 			} else {
-				return ImmutableMap.of(xPre, xPos + " (" + xPosRel + ")", yPre, yPos + " (" + yPosRel + ")",
-						zPre, zPos + " (" + zPosRel + ")");
+				return ImmutableList.of(pair(xPre, xPos + " (" + xPosRel + ")"), pair(yPre, yPos + " (" + yPosRel + ")"),
+						pair(zPre, zPos + " (" + zPosRel + ")"));
 			}
 		} else {
 			String pre = getPrefix(I18n.translate("ingame.chunk") + " X/Y/Z");
 			if (chunkStyle == ChunkStyle.CHUNK) {
-				return ImmutableMap.of(pre, xPos + "/" + yPos + "/" + zPos);
+				return ImmutableList.of(pair(pre, xPos + "/" + yPos + "/" + zPos));
 			} else if (chunkStyle == ChunkStyle.RELATIVE) {
-				return ImmutableMap.of(pre, xPosRel + "/" + yPosRel + "/" + zPosRel);
+				return ImmutableList.of(pair(pre, xPosRel + "/" + yPosRel + "/" + zPosRel));
 			} else {
-				return ImmutableMap.of(pre, xPos + " (" + xPosRel + ")" + "/" + yPos + " (" + yPosRel + ")" + "/" + zPos + " (" + zPosRel + ")");
+				return ImmutableList.of(pair(pre, xPos + " (" + xPosRel + ")" + "/" + yPos + " (" + yPosRel + ")" + "/" + zPos + " (" + zPosRel + ")"));
 			}
 		}
 	}

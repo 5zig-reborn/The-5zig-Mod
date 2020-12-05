@@ -19,11 +19,13 @@
 
 package eu.the5zig.mod.modules.items.player;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import eu.the5zig.mod.The5zigMod;
 import eu.the5zig.mod.modules.AbstractModuleItem;
 import eu.the5zig.mod.render.RenderLocation;
 
+import java.util.AbstractMap;
+import java.util.List;
 import java.util.Map;
 
 public class Coordinates extends AbstractModuleItem {
@@ -35,24 +37,28 @@ public class Coordinates extends AbstractModuleItem {
 
 	@Override
 	public void render(int x, int y, RenderLocation renderLocation, boolean dummy) {
-		Map<String, String> coordinates = getCoordinates(dummy);
+		List<Map.Entry<String, String>> coordinates = getCoordinates(dummy);
 		int i = 0;
-		for (Map.Entry<String, String> entry : coordinates.entrySet()) {
+		for (Map.Entry<String, String> entry : coordinates) {
 			draw(entry, x, y + 10 * i, renderLocation == RenderLocation.CENTERED);
 			i++;
 		}
 	}
 
-	protected Map<String, String> getCoordinates(boolean dummy) {
+	protected List<Map.Entry<String, String>> getCoordinates(boolean dummy) {
 		CoordStyle coordStyle = (CoordStyle) getProperties().getSetting("coordStyle").get();
 		String xPos = shorten(dummy ? 0 : The5zigMod.getVars().getPlayerPosX());
 		String yPos = shorten(dummy ? 64 : The5zigMod.getVars().getPlayerPosY());
 		String zPos = shorten(dummy ? 0 : The5zigMod.getVars().getPlayerPosZ());
 		if (coordStyle == CoordStyle.BELOW_OTHER) {
-			return ImmutableMap.of(getPrefix("X"), xPos, getPrefix("Y"), yPos, getPrefix("Z"), zPos);
+			return ImmutableList.of(pair(getPrefix("X"), xPos), pair(getPrefix("Y"), yPos), pair(getPrefix("Z"), zPos));
 		} else {
-			return ImmutableMap.of(getPrefix("X/Y/Z"), xPos + "/" + yPos + "/" + zPos);
+			return ImmutableList.of(pair(getPrefix("X/Y/Z"), xPos + "/" + yPos + "/" + zPos));
 		}
+	}
+
+	public static Map.Entry<String, String> pair(String key, String value) {
+		return new AbstractMap.SimpleImmutableEntry<>(key, value);
 	}
 
 	private void draw(Map.Entry<String, String> pair, int x, int y, boolean centered) {
@@ -68,9 +74,9 @@ public class Coordinates extends AbstractModuleItem {
 
 	@Override
 	public int getWidth(boolean dummy) {
-		Map<String, String> coordinates = getCoordinates(dummy);
+		List<Map.Entry<String, String>> coordinates = getCoordinates(dummy);
 		int maxWidth = 0;
-		for (Map.Entry<String, String> pair : coordinates.entrySet()) {
+		for (Map.Entry<String, String> pair : coordinates) {
 			int width = The5zigMod.getVars().getStringWidth(pair.getKey() + pair.getValue());
 			if (width > maxWidth) {
 				maxWidth = width;

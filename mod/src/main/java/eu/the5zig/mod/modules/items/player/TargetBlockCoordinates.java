@@ -19,10 +19,11 @@
 
 package eu.the5zig.mod.modules.items.player;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import eu.the5zig.mod.I18n;
 import eu.the5zig.mod.The5zigMod;
 
+import java.util.List;
 import java.util.Map;
 
 public class TargetBlockCoordinates extends Coordinates {
@@ -32,7 +33,7 @@ public class TargetBlockCoordinates extends Coordinates {
 	}
 
 	@Override
-	protected Map<String, String> getCoordinates(boolean dummy) {
+	protected List<Map.Entry<String, String>> getCoordinates(boolean dummy) {
 		CoordStyle coordStyle = (CoordStyle) getProperties().getSetting("coordStyle").get();
 		int xPos = dummy ? 0 : The5zigMod.getVars().getTargetBlockX();
 		int yPos = dummy ? 64 : The5zigMod.getVars().getTargetBlockY();
@@ -41,10 +42,11 @@ public class TargetBlockCoordinates extends Coordinates {
 			String xPre = getPrefix(I18n.translate("ingame.target") + " X");
 			String yPre = getPrefix(I18n.translate("ingame.target") + " Y") ;
 			String zPre = getPrefix(I18n.translate("ingame.target") + " Z");
-			return ImmutableMap.of(xPre, Integer.toString(xPos, 10), yPre, Integer.toString(yPos, 10), zPre, Integer.toString(zPos, 10));
+			return ImmutableList.of(pair(xPre, Integer.toString(xPos, 10)), pair(yPre, Integer.toString(yPos, 10)),
+					pair(zPre, Integer.toString(zPos, 10)));
 		} else {
 			String pre = getPrefix(I18n.translate("ingame.target") + " X/Y/Z");
-			return ImmutableMap.of(pre, xPos + "/" + yPos + "/" + zPos);
+			return ImmutableList.of(pair(pre, xPos + "/" + yPos + "/" + zPos));
 		}
 	}
 }
