@@ -11,6 +11,6 @@
   ],
   "depends": {
     "fabric": "*",
-    "minecraft": "1.16.4"
+    "minecraft": ["1.16.4", "1.16.5"]
   }
 }
