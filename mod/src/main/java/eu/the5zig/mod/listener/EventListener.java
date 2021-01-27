@@ -280,6 +280,10 @@ public class EventListener {
 		}
 	}
 
+	public void onWorldSwitch() {
+		fireEvent(new PlayerWorldSwitchEvent());
+	}
+
 	public String[] onSignEdited(String[] lines) {
 		SignEditEvent event = fireEvent(new SignEditEvent(lines));
 		return event.getLines();

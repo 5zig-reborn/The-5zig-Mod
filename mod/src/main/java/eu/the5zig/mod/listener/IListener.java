@@ -64,4 +64,6 @@ public interface IListener {
 
 	void onTitle(String title, String subTitle);
 
+	void onWorldSwitch(String worldName);
+
 }

@@ -27,6 +27,7 @@
     "MixinGuiConnecting",
     "MixinGuiDisconnected",
     "MixinServerListEntry",
-    "MixinGuiGameOver"
+    "MixinGuiGameOver",
+    "MixinClientWorld"
   ]
 }

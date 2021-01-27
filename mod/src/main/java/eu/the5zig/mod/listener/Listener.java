@@ -79,4 +79,8 @@ public class Listener implements IListener {
 	@Override
 	public void onTitle(String title, String subTitle) {
 	}
+
+	@Override
+	public void onWorldSwitch(String worldName) {
+	}
 }
