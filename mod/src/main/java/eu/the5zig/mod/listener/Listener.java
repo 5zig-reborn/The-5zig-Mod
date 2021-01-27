@@ -81,6 +81,6 @@ public class Listener implements IListener {
 	}
 
 	@Override
-	public void onWorldSwitch(String worldName) {
+	public void onWorldSwitch() {
 	}
 }
