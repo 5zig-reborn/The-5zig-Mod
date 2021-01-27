@@ -16,7 +16,9 @@
  * along with The 5zig Mod.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.the5zig.mod;import com.mojang.authlib.GameProfile;
+package eu.the5zig.mod;
+
+import com.mojang.authlib.GameProfile;
 import eu.the5zig.mod.gui.ingame.ItemStack;
 import eu.the5zig.mod.manager.DeathLocation;
 import eu.the5zig.mod.manager.WorldType;
@@ -224,6 +226,11 @@ public class BytecodeHook {
 	@BytecodeAccess
 	public static void onSetSlot(int slot, ItemStack itemStack) {
 		The5zigMod.getListener().onInventorySetSlot(slot, itemStack);
+	}
+
+	@BytecodeAccess
+	public static void onWorldSwitch() {
+		The5zigMod.getListener().onWorldSwitch();
 	}
 
 	@BytecodeAccess
