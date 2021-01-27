@@ -385,6 +385,19 @@ public class RegisteredServerInstance implements GameListenerRegistry {
 		});
 	}
 
+	@EventHandler
+	public void onWorldSwitch(final PlayerWorldSwitchEvent event) {
+		if (!isCurrentServerInstance())
+			return;
+		executeAll(new Callback<AbstractGameListener>() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public void call(AbstractGameListener callback) {
+				callback.onWorldSwitch(getCurrentGameMode());
+			}
+		});
+	}
+
 	private boolean tryMatch(final String message) {
 		final List<List<String>> matchedKeys = match(ChatColor.stripColor(message));
 		if (matchedKeys.isEmpty())

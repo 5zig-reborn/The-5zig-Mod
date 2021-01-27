@@ -227,6 +227,11 @@ public class BytecodeHook {
 	}
 
 	@BytecodeAccess
+	public static void onWorldSwitch() {
+		The5zigMod.getListener().onWorldSwitch();
+	}
+
+	@BytecodeAccess
 	public static void onGuiDisconnectedInit(Object parentScreen) {
 		The5zigMod.getDataManager().getAutoReconnectManager().startCountdown(parentScreen);
 	}
