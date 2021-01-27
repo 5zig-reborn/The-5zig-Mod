@@ -90,4 +90,9 @@ public class HypixelListener extends AbstractGameListener<GameMode> {
 		The5zigMod.getHypixelAPIManager().checkFriendSuggestions();
 	}
 
+	@Override
+	public void onWorldSwitch(GameMode gameMode) {
+		getGameListener().sendAndIgnore("/whereami", "lobby");
+	}
+
 }
