@@ -173,7 +173,6 @@ public class The5zigMod {
 		if (initialized) {
 			throw new IllegalStateException("The 5zig Mod has been already initialized!");
 		}
-		initialized = true;
 
 		long start = System.currentTimeMillis();
 		startDate = LocalDateTime.now();
@@ -258,6 +257,8 @@ public class The5zigMod {
 		accountManager = new AccountManager();
 
 		logger.info("Loaded The 5zig Mod b" + Version.VERSION + "! (took {} ms)", System.currentTimeMillis() - start);
+
+		initialized = true;
 	}
 
 	/**
