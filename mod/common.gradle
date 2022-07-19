@@ -22,7 +22,7 @@ apply plugin: 'java'
 repositories {
     maven {
         name = "forge"
-        url = "http://files.minecraftforge.net/maven"
+        url = "https://maven.minecraftforge.net"
     }
     maven {
         name = "roccodev-snapshots"
