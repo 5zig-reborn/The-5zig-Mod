@@ -24,6 +24,10 @@ repositories {
         name = "forge"
         url = "http://files.minecraftforge.net/maven"
     }
+    maven {
+        name = "roccodev-snapshots"
+        url = "https://repo.rocco.dev/snapshots" // For Mixin
+    }
 }
 
 sourceSets.main {
