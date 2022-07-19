@@ -24,10 +24,6 @@ repositories {
         name = "forge"
         url = "http://files.minecraftforge.net/maven"
     }
-    maven {
-        name = "5zig"
-        url = "https://dl.bintray.com/5zig-reborn/maven"
-    }
 }
 
 sourceSets.main {
